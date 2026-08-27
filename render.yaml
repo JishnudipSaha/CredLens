@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: credlens-backend
+    runtime: python
+    rootDir: backend
+    plan: starter            # change to "standard" or higher for no-sleep
+    buildCommand: "pip install -r requirements.txt && python -m app.ml.train_synthetic"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: CREDLENS_DATABASE_URL
+        fromDatabase:
+          name: credlens-db
+          property: connectionString
+      - key: CREDLENS_SECRET_KEY
+        generateValue: true
+      - key: CREDLENS_CORS_ORIGINS
+        value: "https://credlens.vercel.app"   # replace with your Vercel URL
+      - key: PYTHON_VERSION
+        value: "3.13.0"
+    autoDeploy: true          # redeploy on every push to main
+
+databases:
+  - name: credlens-db
+    plan: starter             # free Postgres for 90 days, then $7/mo
+    databaseName: credlens
+    user: credlens

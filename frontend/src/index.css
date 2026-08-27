@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ====================================================================
+   THEME TOKENS
+   - Light is the default; toggling .dark on <html> switches to dark.
+   - All tokens are declared as space-separated RGB so Tailwind's
+     `rgb(var(--token) / <alpha-value>)` syntax works.
+   ==================================================================== */
+:root {
+  --c-bg-from:        238 244 255;   /* light: brand-50 */
+  --c-bg-via:         255 255 255;
+  --c-bg-to:          248 250 252;   /* slate-50 */
+  --c-surface:        255 255 255;
+  --c-surface-muted:  248 250 252;
+  --c-surface-subtle: 241 245 249;
+  --c-border:         226 232 240;   /* slate-200 */
+  --c-ink:            15  23  42;    /* slate-900 */
+  --c-ink-muted:      71  85 105;    /* slate-600 */
+  --c-ink-subtle:     148 163 184;   /* slate-400 */
+  --c-brand-glow:     53  99 255;    /* brand-500 */
+  --c-grid-line:      226 232 240;
+  color-scheme: light;
+}
+
+.dark {
+  --c-bg-from:        8   12  28;
+  --c-bg-via:         15  23  42;
+  --c-bg-to:          5   8  20;
+  --c-surface:        22  28  45;
+  --c-surface-muted:  17  24  39;
+  --c-surface-subtle: 12  18  32;
+  --c-border:         51  65  85;    /* slate-700 */
+  --c-ink:            241 245 249;
+  --c-ink-muted:      203 213 225;
+  --c-ink-subtle:     148 163 184;
+  --c-brand-glow:     90  139 255;
+  --c-grid-line:      30  41  59;
+  color-scheme: dark;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: rgb(var(--c-bg-via));
+  color: rgb(var(--c-ink));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* ====================================================================
+   GRADIENT MESH + ANIMATED BLOBS
+   - Sits behind every page; pointer-events: none so it never blocks.
+   - Three blurred radial blobs slowly drift to give the background life.
+   ==================================================================== */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(at 20% 0%, rgb(var(--c-bg-from) / 1) 0px, transparent 50%),
+    radial-gradient(at 80% 100%, rgb(var(--c-bg-to) / 1) 0px, transparent 50%),
+    rgb(var(--c-bg-via));
+  transition: background 0.4s ease;
+}
+.app-bg::before,
+.app-bg::after {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  filter: blur(96px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.app-bg::before {
+  background: rgb(var(--c-brand-glow) / 0.45);
+  top: -120px;
+  left: -120px;
+  animation: blob 18s ease-in-out infinite;
+}
+.app-bg::after {
+  background: rgb(168 85 247 / 0.35);
+  bottom: -160px;
+  right: -160px;
+  animation: blob 22s ease-in-out infinite reverse;
+}
+.dark .app-bg::before { opacity: 0.28; }
+.dark .app-bg::after  { opacity: 0.22; background: rgb(56 189 248 / 0.35); }
+
+/* ====================================================================
+   GLASS UTILITIES
+   - Frosted look: semi-transparent surface + backdrop blur + soft border.
+   - .glass-card   - cards & panels
+   - .glass-strong - prominent surfaces (login card, modals)
+   ==================================================================== */
+@layer components {
+  .glass {
+    background: rgb(var(--c-surface) / 0.65);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgb(var(--c-border) / 0.6);
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.4) inset, 0 8px 32px -8px rgb(15 23 42 / 0.12);
+  }
+  .dark .glass {
+    background: rgb(var(--c-surface) / 0.55);
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 8px 32px -8px rgb(0 0 0 / 0.4);
+  }
+  .glass-strong {
+    background: rgb(var(--c-surface) / 0.78);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgb(var(--c-border) / 0.7);
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.5) inset, 0 20px 50px -12px rgb(15 23 42 / 0.18);
+  }
+  .dark .glass-strong {
+    background: rgb(var(--c-surface) / 0.7);
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 20px 50px -12px rgb(0 0 0 / 0.5);
+  }
+  .glass-card {
+    @apply glass rounded-2xl;
+  }
+  .glass-input {
+    @apply w-full px-3 py-2 rounded-lg border outline-none transition;
+    background: rgb(var(--c-surface) / 0.7);
+    border-color: rgb(var(--c-border) / 0.8);
+    color: rgb(var(--c-ink));
+  }
+  .glass-input:focus {
+    border-color: rgb(var(--c-brand-glow) / 0.7);
+    box-shadow: 0 0 0 3px rgb(var(--c-brand-glow) / 0.18);
+  }
+  .btn-primary {
+    @apply font-semibold rounded-lg transition;
+    background: linear-gradient(135deg, rgb(53 99 255) 0%, rgb(90 139 255) 100%);
+    color: white;
+    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.2) inset, 0 8px 24px -8px rgb(53 99 255 / 0.4);
+  }
+  .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .btn-ghost {
+    @apply rounded-md transition;
+    color: rgb(var(--c-ink-muted));
+  }
+  .btn-ghost:hover {
+    background: rgb(var(--c-surface-muted) / 0.6);
+    color: rgb(var(--c-ink));
+  }
+  .chip {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ring-1 ring-inset;
+  }
+}
+
+/* ====================================================================
+   SCROLL REVEAL (CSS-only, animation-driven)
+   - Elements with [data-reveal] play a single fade-up animation on
+     mount. Pure CSS - no JS observer required, so content is always
+     visible even if the hook never runs.
+   - .reveal-stagger on the parent adds incremental delays so cards
+     or table rows cascade in one after another.
+   ==================================================================== */
+[data-reveal] {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.reveal-stagger > [data-reveal]:nth-child(1)  { animation-delay: 0.00s; }
+.reveal-stagger > [data-reveal]:nth-child(2)  { animation-delay: 0.04s; }
+.reveal-stagger > [data-reveal]:nth-child(3)  { animation-delay: 0.08s; }
+.reveal-stagger > [data-reveal]:nth-child(4)  { animation-delay: 0.12s; }
+.reveal-stagger > [data-reveal]:nth-child(5)  { animation-delay: 0.16s; }
+.reveal-stagger > [data-reveal]:nth-child(6)  { animation-delay: 0.20s; }
+.reveal-stagger > [data-reveal]:nth-child(7)  { animation-delay: 0.24s; }
+.reveal-stagger > [data-reveal]:nth-child(8)  { animation-delay: 0.28s; }
+.reveal-stagger > [data-reveal]:nth-child(n+9){ animation-delay: 0.32s; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { animation: none; }
+  .app-bg::before, .app-bg::after { animation: none; }
+}
+
+/* Recharts tooltip: make it readable on dark surfaces */
+.recharts-default-tooltip {
+  background: rgb(var(--c-surface) / 0.95) !important;
+  border: 1px solid rgb(var(--c-border)) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.25) !important;
+  color: rgb(var(--c-ink)) !important;
+}
+.recharts-tooltip-label { color: rgb(var(--c-ink-muted)) !important; }
+
+/* Subtle scrollbar that adapts to theme */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-border));
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-ink-subtle) / 0.6); background-clip: padding-box; }

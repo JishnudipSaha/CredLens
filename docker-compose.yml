@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: credlens
+      POSTGRES_PASSWORD: credlens
+      POSTGRES_DB: credlens
+    volumes:
+      - credlens_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U credlens"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      CREDLENS_DATABASE_URL: postgresql+psycopg2://credlens:credlens@db:5432/credlens
+      CREDLENS_SECRET_KEY: ${CREDLENS_SECRET_KEY:-change-me-in-prod}
+      CREDLENS_CORS_ORIGINS: "http://localhost:5173,http://localhost"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    environment:
+      # nginx proxies /api/* to the backend container
+      BACKEND_URL: http://backend:8000
+
+volumes:
+  credlens_pgdata:

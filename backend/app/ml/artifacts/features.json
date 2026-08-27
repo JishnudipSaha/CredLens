@@ -1,0 +1,25 @@
+{
+  "feature_names": [
+    "avg_monthly_revenue_inr",
+    "revenue_trend_pct",
+    "ebitda_margin_pct",
+    "gst_compliance_ratio",
+    "avg_bank_balance_inr",
+    "bounced_cheques_12m",
+    "existing_loan_obligations_inr",
+    "utility_payment_consistency",
+    "telecom_footprint_score",
+    "digital_footprint_score",
+    "top_customer_concentration_pct",
+    "vintage_years",
+    "log_revenue",
+    "debt_to_revenue_ratio",
+    "liquidity_ratio",
+    "sector_manufacturing",
+    "sector_retail",
+    "sector_services",
+    "sector_it",
+    "sector_other"
+  ],
+  "test_auc": 0.998916
+}
