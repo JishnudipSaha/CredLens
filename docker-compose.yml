@@ -25,7 +25,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      CREDLENS_DATABASE_URL: postgresql+psycopg2://credlens:credlens@db:5432/credlens
+      CREDLENS_DATABASE_URL: postgresql+psycopg://credlens:credlens@db:5432/credlens
       CREDLENS_SECRET_KEY: ${CREDLENS_SECRET_KEY:-change-me-in-prod}
       CREDLENS_CORS_ORIGINS: "http://localhost:5173,http://localhost"
     ports:

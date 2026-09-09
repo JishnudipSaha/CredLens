@@ -17,7 +17,12 @@ ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_prefix="CREDLENS_", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_prefix="CREDLENS_",
+        extra="ignore",
+        protected_namespaces=("settings_",),
+    )
 
     app_name: str = "CredLens - AI Powered MSME Credit Intelligence"
     version: str = "0.1.0"
