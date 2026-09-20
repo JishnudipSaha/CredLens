@@ -30,10 +30,10 @@ export default function ScoreHistory() {
   const chartData = [...runs].reverse().map((r) => ({ date: new Date(r.created_at).toLocaleDateString(), score: r.credit_score }))
 
   return (
-    <div ref={containerRef} className="space-y-5">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Score History</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Track how your credit score has changed over time.</p>
+        <h1 className="text-headline-lg text-primary font-bold tracking-tight">Score History</h1>
+        <p className="text-body-md text-on-surface-variant mt-1">Track how your credit score has changed over time.</p>
       </div>
 
       {runs.length === 0 ? <EmptyState title="No score runs yet" /> : (
@@ -44,10 +44,10 @@ export default function ScoreHistory() {
                 <ResponsiveContainer>
                   <LineChart data={chartData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgb(148 163 184 / 0.25)" />
-                    <XAxis dataKey="date" stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
-                    <YAxis domain={[300, 900]} stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
+                    <XAxis dataKey="date" stroke="currentColor" className="text-on-surface-variant" />
+                    <YAxis domain={[300, 900]} stroke="currentColor" className="text-on-surface-variant" />
                     <Tooltip />
-                    <Line type="monotone" dataKey="score" stroke="#3563ff" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="score" stroke="#0051d5" strokeWidth={2} dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -58,10 +58,10 @@ export default function ScoreHistory() {
             <Card title="All runs">
               <div className="space-y-3">
                 {runs.map((r) => (
-                  <div key={r.id} className="flex items-center justify-between border-b border-slate-200/40 dark:border-slate-700/40 last:border-0 py-3">
+                  <div key={r.id} className="flex items-center justify-between border-b border-outline-variant/40 last:border-0 py-3">
                     <div>
-                      <div className="font-semibold text-slate-800 dark:text-slate-200">{new Date(r.created_at).toLocaleString()}</div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400">Model {r.model_version}</div>
+                      <div className="font-semibold text-on-surface">{new Date(r.created_at).toLocaleString()}</div>
+                      <div className="text-mono-caption text-on-surface-variant">Model {r.model_version}</div>
                     </div>
                     <ScoreGauge score={r.credit_score} grade={r.risk_grade} />
                   </div>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>CredLens Enterprise Lender Platform</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"tertiary-container":"#004a32","on-primary":"#ffffff","surface-container-lowest":"#ffffff","surface-container-high":"#dce9ff","surface":"#f8f9ff","error-container":"#ffdad6","surface-container":"#e5eeff","on-background":"#0b1c30","inverse-on-surface":"#eaf1ff","surface-tint":"#4059aa","on-tertiary-fixed-variant":"#005137","background":"#f8f9ff","on-primary-fixed":"#00164e","surface-variant":"#d3e4fe","on-tertiary-fixed":"#002114","outline-variant":"#c5c5d3","on-secondary-fixed-variant":"#003ea8","primary-container":"#1e3a8a","surface-dim":"#cbdbf5","primary-fixed-dim":"#b6c4ff","on-error-container":"#93000a","secondary-fixed":"#dbe1ff","secondary-fixed-dim":"#b4c5ff","on-secondary-fixed":"#00174b","secondary-container":"#316bf3","surface-container-highest":"#d3e4fe","outline":"#757682","error":"#ba1a1a","inverse-primary":"#b6c4ff","on-error":"#ffffff","surface-container-low":"#eff4ff","on-surface":"#0b1c30","inverse-surface":"#213145","on-tertiary-container":"#4ac08f","tertiary-fixed-dim":"#68dba9","primary-fixed":"#dce1ff","on-surface-variant":"#444651","on-primary-container":"#90a8ff","on-tertiary":"#ffffff","on-secondary-container":"#fefcff","primary":"#00236f","on-primary-fixed-variant":"#264191","tertiary":"#003120","secondary":"#0051d5","on-secondary":"#ffffff","tertiary-fixed":"#85f8c4","surface-bright":"#f8f9ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-sm":"0.5rem","space-lg":"1.5rem","space-md":"1rem","space-xl":"2rem","space-xs":"0.25rem","gutter":"1.25rem","margin-mobile":"1rem","margin":"1.5rem","gutter-sm":"0.75rem"},"fontFamily":{"headline-md":["Inter"],"headline-sm":["Inter"],"data-metric":["Inter"],"mono-label":["JetBrains Mono"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-xl":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"headline-xl-mobile":["Inter"],"mono-caption":["JetBrains Mono"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"data-metric":["28px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}],"mono-label":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"mono-caption":["11px",{"lineHeight":"14px","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="CredLens Wordmark Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Whebw0DHiUyNqr9-X9uPbKBvJ7I6lIdj1dqli0wx2qcoWeBGrkewVoD6upMXyTLwPa_0jozHngT5P-bsiSeu902W5x9YtxdG_Ha9Q5xWcmH2Um12G0nLofvqNTKwsZa4meUV5FXwaX1DYLCT4eL3cwDMxcr-px5J-iOVMKC0Fl1mtiOaDTuHQNQEHLEvX3W5f-528e__Iw5ecbg0bS6yy9KPc-lH0vk8llWy4HXEA9ooUARmOwOhhRNQ"/><span class="hidden xl:inline-block font-headline-sm text-headline-sm text-primary tracking-tight">CredLens</span></div><div class="h-5 w-px bg-surface-variant hidden md:block"></div><nav class="hidden md:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="msme-search" href="#">MSME Search</a><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="underwriting-and-reports" href="#">Underwriting & Reports</a><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="decisions" href="#">Decisions</a><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="portfolio-analytics" href="#">Portfolio Analytics</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container rounded-full"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span class="font-mono-caption text-mono-caption text-on-surface-variant">AI Engine: v2.4 Online</span></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low rounded-lg"><span class="material-symbols-outlined text-secondary text-[18px]">corporate_fare</span><span class="font-mono-label text-mono-label text-on-surface">HDFC Commercial Banking / NBFC Unit</span></div><button aria-label="Notifications" class="relative p-space-xs text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="hidden sm:flex flex-col text-right"><span class="font-headline-sm text-headline-sm text-on-surface">Rajesh Kumar</span><span class="font-mono-caption text-mono-caption text-on-surface-variant">Senior Credit Officer</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Subtle Ambient Glow Canvas Decor -->
+<div class="relative w-full px-margin py-space-lg flex flex-col gap-space-lg max-w-[1640px] mx-auto">
+<!-- Top Summary & Entity Hero Bar -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs min-w-0">
+<!-- Breadcrumb / Status Overline -->
+<div class="flex flex-wrap items-center gap-space-xs font-mono-caption text-mono-caption text-on-surface-variant">
+<span class="inline-flex items-center gap-1 text-primary font-medium">
+<span class="material-symbols-outlined text-[15px] text-tertiary">verified</span> Verified Entity
+          </span>
+<span>•</span>
+<span class="bg-surface-container px-2 py-0.5 rounded text-on-surface font-mono-label text-mono-label">CIN: U72900PN2015PTC154210</span>
+<span>•</span>
+<span class="bg-surface-container px-2 py-0.5 rounded text-on-surface font-mono-label text-mono-label">UDYAM-MH-12-0049281</span>
+<span>•</span>
+<span class="text-tertiary-container font-mono-label text-mono-label flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span> Ingested 14m ago · ML Engine v2.4 (Production)
+          </span>
+</div>
+<!-- Entity Title & Geo Tags -->
+<div class="flex flex-wrap items-baseline gap-space-sm pt-1">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+            Anand, Mistry and Chawla IT Solutions Pvt Ltd
+          </h1>
+<span class="bg-surface-container-high text-primary px-space-sm py-0.5 rounded-full font-mono-label text-mono-label font-semibold">
+            B2B SaaS / Managed Cloud
+          </span>
+</div>
+<div class="flex flex-wrap items-center gap-space-md text-on-surface-variant font-body-sm text-body-sm pt-0.5">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[17px] text-outline">location_on</span>
+            Hinjawadi Tech Park, Phase 1, Pune, Maharashtra 411057
+          </span>
+<span class="hidden sm:inline text-outline-variant">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[17px] text-outline">calendar_today</span>
+            Inc: June 2015 (9.8 Years Vintage)
+          </span>
+<span class="hidden sm:inline text-outline-variant">•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[17px] text-outline">account_balance</span>
+            Primary Consortium: Axis Commercial + ICICI Node
+          </span>
+</div>
+</div>
+<!-- Dossier Actions CTAs -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-sm self-start xl:self-center shrink-0">
+<button class="px-space-md py-2 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-2 shadow-sm transition-all duration-150" id="re-run-btn" onclick="triggerRecalculation()">
+<span class="material-symbols-outlined text-[18px]" id="re-run-icon">sync</span>
+<span id="re-run-text">Re-run Model</span>
+</button>
+<button class="px-space-md py-2 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-lg font-headline-sm text-headline-sm flex items-center gap-2 shadow-sm transition-all duration-150" onclick="copyDossierLink()">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share Dossier</span>
+</button>
+<button class="px-space-lg py-2 bg-primary hover:bg-primary-container text-on-primary rounded-lg font-headline-sm text-headline-sm flex items-center gap-2 shadow-md transition-all duration-150">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Download Audit Pack (PDF)</span>
+</button>
+</div>
+</div>
+<!-- Notification / Fast Alert Banner -->
+<div class="bg-surface-container-low rounded-xl px-space-md py-space-sm flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">policy</span>
+<span class="font-body-md text-body-md text-on-surface">
+<strong>Mandate Check Passed:</strong> All RBI Master Directions for MSME Priority Sector Lending & MCA legal clearance criteria satisfied.
+        </span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant bg-surface-container-lowest px-2 py-1 rounded">
+        Audit Hash: 0x9f7a...3d20
+      </span>
+</div>
+<!-- Primary Credit Intelligence KPIs (4 High Impact Bento Panels) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Card 1: Score & Grade -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant">Composite Credit Score</span>
+<span class="font-mono-caption text-mono-caption text-tertiary">Bayesian Calibration Active</span>
+</div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-mono-label text-mono-label font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+            GRADE A
+          </span>
+</div>
+<div class="flex items-baseline gap-space-sm my-space-md">
+<span class="font-data-metric text-data-metric text-on-surface tracking-tighter" id="score-counter">824</span>
+<span class="font-headline-sm text-headline-sm text-outline">/ 900</span>
+<div class="ml-auto flex items-center gap-1 text-tertiary font-mono-label text-mono-label font-semibold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+            +18 pts QoQ
+          </div>
+</div>
+<!-- Gauge Bar -->
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden mb-space-sm">
+<div class="bg-tertiary h-2 rounded-full transition-all duration-1000" style="width: 91.5%"></div>
+</div>
+<div class="flex justify-between items-center font-mono-caption text-mono-caption text-on-surface-variant">
+<span>Top 4.2% in IT Services</span>
+<span class="font-medium text-on-surface">PD: 1.42% (Very Low)</span>
+</div>
+</div>
+<!-- Card 2: Decision Engine -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant">Underwriting Verdict</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Automated Policy Run</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-mono-label text-mono-label font-bold bg-tertiary-fixed text-on-tertiary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+            APPROVED
+          </span>
+</div>
+<div class="my-space-md">
+<div class="font-headline-lg text-headline-lg text-primary tracking-tight">Instant Disbursal</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Qualified under Green-Channel Auto Approval</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between font-mono-label text-mono-label">
+<span class="text-on-surface-variant">Hard Rule Check:</span>
+<span class="font-semibold text-tertiary">18 / 18 Compliant (0 Violations)</span>
+</div>
+</div>
+<!-- Card 3: Recommended Exposure Limit & Pricing -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant">Sanction Exposure Cap</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Risk-Adjusted LTV</span>
+</div>
+<span class="font-mono-label text-mono-label bg-surface-container px-2 py-0.5 rounded text-on-surface">
+            Max ₹ 3.00 Cr
+          </span>
+</div>
+<div class="my-space-md">
+<div class="flex items-baseline gap-1">
+<span class="font-data-metric text-data-metric text-on-surface">₹ 2.45 Cr</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">sanctioned</span>
+</div>
+<div class="font-mono-caption text-mono-caption text-on-surface-variant mt-0.5">INR 2,45,00,000 Working Capital Limit</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs font-mono-label text-mono-label pt-1">
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase">Tenor</span>
+<span class="font-semibold text-on-surface">24 Months</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase">Pricing Rate</span>
+<span class="font-semibold text-secondary">9.45% p.a. (MCLR+1.2%)</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Multi-Layer Ingestion Coverage -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant">Ingestion Confidence</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Triangulated Telemetry</span>
+</div>
+<span class="font-mono-label text-mono-label text-secondary font-bold">
+            98.4% INDEX
+          </span>
+</div>
+<div class="grid grid-cols-2 gap-2 my-space-sm font-mono-caption text-mono-caption">
+<div class="bg-surface-container-low p-2 rounded flex flex-col justify-between">
+<span class="text-on-surface-variant">Tax & Financials</span>
+<div class="flex items-center justify-between mt-1">
+<span class="font-semibold text-on-surface">GSTN/ITR</span>
+<span class="text-tertiary font-bold">100%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded flex flex-col justify-between">
+<span class="text-on-surface-variant">Supply Invoicing</span>
+<div class="flex items-center justify-between mt-1">
+<span class="font-semibold text-on-surface">e-Way / IRN</span>
+<span class="text-tertiary font-bold">95.2%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded flex flex-col justify-between">
+<span class="text-on-surface-variant">Alternative Signals</span>
+<div class="flex items-center justify-between mt-1">
+<span class="font-semibold text-on-surface">Telco/Utility</span>
+<span class="text-tertiary font-bold">100%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded flex flex-col justify-between">
+<span class="text-on-surface-variant">Statutory Ledger</span>
+<div class="flex items-center justify-between mt-1">
+<span class="font-semibold text-on-surface">MCA21/CIBIL</span>
+<span class="text-tertiary font-bold">98.1%</span>
+</div>
+</div>
+</div>
+<div class="font-mono-caption text-mono-caption text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check_circle</span>
+          Zero synthetic anomaly signatures detected
+        </div>
+</div>
+</div>
+<!-- Middle Split: ML Explainability Engine & Anomaly Inspector -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left 7 Cols: SHAP / Feature Attribution Waterfall -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+              Explainability & GradientBoosting Attribution
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Decomposition of score drivers calibrated against MSME Tech Services Benchmark (N=14,280)
+            </p>
+</div>
+<span class="font-mono-label text-mono-label bg-surface-container px-2 py-1 rounded text-on-surface-variant">
+            SHAP Value Convergence: 0.003
+          </span>
+</div>
+<!-- Feature List -->
+<div class="flex flex-col gap-space-md pt-space-xs">
+<!-- Factor 1 -->
+<div class="bg-surface rounded-lg p-space-sm flex flex-col gap-1.5 transition-all hover:bg-surface-container-low">
+<div class="flex items-center justify-between font-mono-label text-mono-label">
+<div class="flex items-center gap-2 font-medium text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-tertiary">account_tree</span>
+<span>GST 3B vs GSTR-1 Ledger Turnover Match</span>
+</div>
+<span class="font-bold text-tertiary">+142 pts</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-tertiary h-2 rounded-full" style="width: 88%"></div>
+</div>
+<div class="flex justify-between font-mono-caption text-mono-caption text-on-surface-variant">
+<span>99.8% match across 24 rolling months</span>
+<span>Input weight: 26.4%</span>
+</div>
+</div>
+<!-- Factor 2 -->
+<div class="bg-surface rounded-lg p-space-sm flex flex-col gap-1.5 transition-all hover:bg-surface-container-low">
+<div class="flex items-center justify-between font-mono-label text-mono-label">
+<div class="flex items-center gap-2 font-medium text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-tertiary">payments</span>
+<span>Operating Cash Flow to Debt Service (DSCR)</span>
+</div>
+<span class="font-bold text-tertiary">+118 pts</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-tertiary h-2 rounded-full" style="width: 74%"></div>
+</div>
+<div class="flex justify-between font-mono-caption text-mono-caption text-on-surface-variant">
+<span>Current DSCR 2.84x (Floor threshold: 1.35x)</span>
+<span>Input weight: 21.0%</span>
+</div>
+</div>
+<!-- Factor 3 -->
+<div class="bg-surface rounded-lg p-space-sm flex flex-col gap-1.5 transition-all hover:bg-surface-container-low">
+<div class="flex items-center justify-between font-mono-label text-mono-label">
+<div class="flex items-center gap-2 font-medium text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+<span>Receivables Collection Velocity (DSO)</span>
+</div>
+<span class="font-bold text-secondary">+95 pts</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-secondary h-2 rounded-full" style="width: 61%"></div>
+</div>
+<div class="flex justify-between font-mono-caption text-mono-caption text-on-surface-variant">
+<span>24.2 Days average vs 45-day MSME peer baseline</span>
+<span>Input weight: 16.5%</span>
+</div>
+</div>
+<!-- Factor 4 -->
+<div class="bg-surface rounded-lg p-space-sm flex flex-col gap-1.5 transition-all hover:bg-surface-container-low">
+<div class="flex items-center justify-between font-mono-label text-mono-label">
+<div class="flex items-center gap-2 font-medium text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">gavel</span>
+<span>Director Governance & MCA Clean Ledger</span>
+</div>
+<span class="font-bold text-primary">+88 pts</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary h-2 rounded-full" style="width: 55%"></div>
+</div>
+<div class="flex justify-between font-mono-caption text-mono-caption text-on-surface-variant">
+<span>14 years cumulative clean executive record; 0 defaults</span>
+<span>Input weight: 14.8%</span>
+</div>
+</div>
+<!-- Factor 5 (Negative Adjustment) -->
+<div class="bg-surface rounded-lg p-space-sm flex flex-col gap-1.5 transition-all hover:bg-surface-container-low">
+<div class="flex items-center justify-between font-mono-label text-mono-label">
+<div class="flex items-center gap-2 font-medium text-error">
+<span class="material-symbols-outlined text-[16px]">warning_amber</span>
+<span>Single Client Concentration Dampener</span>
+</div>
+<span class="font-bold text-error">-19 pts</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-error h-2 rounded-full" style="width: 14%"></div>
+</div>
+<div class="flex justify-between font-mono-caption text-mono-caption text-on-surface-variant">
+<span>Anchor client contributes 38.4% of total billing (Cognizant Subcontract)</span>
+<span>Input penalty: 4.2%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right 5 Cols: Red Flag Inspection & Anomaly Ledger -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Red Flags Counter Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-on-surface">Early Warning Signals</span>
+<span class="bg-surface-container px-2.5 py-0.5 rounded-full font-mono-label text-mono-label font-bold text-on-surface">
+              1 Flag · 0 Hard Violations
+            </span>
+</div>
+<!-- Warning Box -->
+<div class="bg-surface-container-low rounded-lg p-space-md mt-space-xs flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary-container text-[24px] shrink-0">info</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface">Concentration Alert (Q3 Invoices)</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Top enterprise client represents ₹7.37 Cr of trailing ₹19.2 Cr revenue. Mitigated by AAA-rating of the debtor (Infosys BPO Contract) and 18-month executed MSA.
+              </p>
+<div class="flex items-center gap-space-md pt-2 font-mono-caption text-mono-caption">
+<span class="text-tertiary font-medium">Risk Status: Managed / Offset</span>
+<span class="text-on-surface-variant">Covenant Clause: 4.1 Required</span>
+</div>
+</div>
+</div>
+<!-- Hard Rule Pass Highlights -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs font-mono-caption text-mono-caption">
+<div class="bg-surface rounded-lg p-space-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span class="text-on-surface">0 Circular Invoices Detected</span>
+</div>
+<div class="bg-surface rounded-lg p-space-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span class="text-on-surface">0 Cheque Returns (L12M)</span>
+</div>
+<div class="bg-surface rounded-lg p-space-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span class="text-on-surface">NCLT / IBC Filings: None</span>
+</div>
+<div class="bg-surface rounded-lg p-space-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span class="text-on-surface">EPFO / Salary Timely: 100%</span>
+</div>
+</div>
+</div>
+<!-- Macro / Industrial Benchmark Context -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between flex-1">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Sectoral Peer Comparison</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Pune Tech Cluster</span>
+</div>
+<!-- Mini Inline Bar Chart Comparison -->
+<div class="flex flex-col gap-space-sm my-space-sm">
+<div>
+<div class="flex justify-between font-mono-caption text-mono-caption mb-1">
+<span class="text-on-surface font-medium">Revenue Growth YoY</span>
+<span class="text-tertiary font-bold">+29.7% vs +14.1% Avg</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-tertiary h-2 rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-mono-caption text-mono-caption mb-1">
+<span class="text-on-surface font-medium">EBITDA Margin</span>
+<span class="text-primary font-bold">21.2% vs 16.5% Avg</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary h-2 rounded-full" style="width: 76%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-mono-caption text-mono-caption mb-1">
+<span class="text-on-surface font-medium">Average Current Ratio</span>
+<span class="text-secondary font-bold">1.92 vs 1.45 Avg</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden flex">
+<div class="bg-secondary h-2 rounded-full" style="width: 68%"></div>
+</div>
+</div>
+</div>
+<div class="pt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+            Underwriter Note: Solvency and working capital cycle show exceptional health compared to tier-2 IT subcontractors in Maharashtra.
+          </div>
+</div>
+</div>
+</div>
+<!-- Audited Financials & Ledger Verification Matrix -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">
+            Financial Health Matrix & Cross-Reconciliation
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Audited balance sheets triangulated against GST 3B, e-Invoices, and 24-month bank statements
+          </p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="bg-surface-container-low px-2.5 py-1 rounded font-mono-caption text-mono-caption text-on-surface">
+            Base Currency: INR Lakhs / Crores
+          </span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2.5 py-1 rounded font-mono-caption text-mono-caption font-bold">
+            GSTN Reconciled
+          </span>
+</div>
+</div>
+<!-- Financial Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md text-body-md">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-mono-label text-mono-label uppercase">
+<th class="py-space-sm px-space-md">Key Operational Metric</th>
+<th class="py-space-sm px-space-md text-right">FY 2022-23 (Audited)</th>
+<th class="py-space-sm px-space-md text-right">FY 2023-24 (Audited)</th>
+<th class="py-space-sm px-space-md text-right">Variance / Delta</th>
+<th class="py-space-sm px-space-md text-center">Verification Protocol</th>
+<th class="py-space-sm px-space-md text-center">Risk Stance</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<!-- Row 1 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-space-sm px-space-md font-medium text-on-surface">
+                Annual Gross Turnover (Revenue)
+              </td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label">₹ 14.80 Cr</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label font-bold text-on-surface">₹ 19.20 Cr</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label text-tertiary font-semibold">+29.7% YoY</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-on-surface bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] text-tertiary">check</span> GSTR-1 & Form 26AS
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-mono-caption text-mono-caption font-bold">OPTIMAL</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-space-sm px-space-md font-medium text-on-surface">
+                Operating EBITDA & Margin
+              </td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label">₹ 2.72 Cr (18.4%)</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label font-bold text-on-surface">₹ 4.07 Cr (21.2%)</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label text-tertiary font-semibold">+280 bps</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-on-surface bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] text-tertiary">check</span> ITR-6 Corporate Schedule
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-mono-caption text-mono-caption font-bold">OPTIMAL</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-space-sm px-space-md font-medium text-on-surface">
+                GST Timeliness & Compliance Index
+              </td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label">98.8 / 100</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label font-bold text-on-surface">99.4 / 100</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label text-on-surface-variant font-semibold">0 Delays (24M)</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-on-surface bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] text-tertiary">check</span> GSTN API Gateway
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-mono-caption text-mono-caption font-bold">OPTIMAL</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-space-sm px-space-md font-medium text-on-surface">
+                Average Monthly Balance (AMB)
+              </td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label">₹ 61.5 Lakhs</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label font-bold text-on-surface">₹ 84.2 Lakhs</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label text-tertiary font-semibold">+36.9% YoY</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-on-surface bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] text-tertiary">check</span> Account Aggregator (AA)
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-mono-caption text-mono-caption font-bold">OPTIMAL</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-space-sm px-space-md font-medium text-on-surface">
+                Interest Coverage Ratio (ICR)
+              </td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label">4.12x</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label font-bold text-on-surface">5.82x</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label text-tertiary font-semibold">+1.70x</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-on-surface bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] text-tertiary">check</span> Bank Debits & Interest
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-mono-caption text-mono-caption font-bold">OPTIMAL</span>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface transition-colors">
+<td class="py-space-sm px-space-md font-medium text-on-surface">
+                Inward Cheque / Mandate Returns
+              </td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label">0 (0.0%)</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label font-bold text-on-surface">0 (0.0%)</td>
+<td class="py-space-sm px-space-md text-right font-mono-label text-mono-label text-on-surface font-semibold">Pristine Track</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-on-surface bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] text-tertiary">check</span> NACH & Bank Logs
+                </span>
+</td>
+<td class="py-space-sm px-space-md text-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-mono-caption text-mono-caption font-bold">OPTIMAL</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Closed-Loop Lender Outcome Feedback Module -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-md flex flex-col gap-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">model_training</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">
+                Closed-Loop Loan Performance Feedback
+              </h2>
+<span class="bg-secondary-fixed text-on-secondary-fixed font-mono-caption text-mono-caption px-2 py-0.5 rounded font-bold">
+                RLHF Calibration
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Feed actual ground-truth repayment outcomes back to CredLens Synthetic Bayesian Engine for institutional model weighting.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-2 font-mono-caption text-mono-caption text-on-surface-variant bg-surface-container-low px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-tertiary">history</span>
+<span>Last Log: Disbursed by Rajesh Kumar on Nov 12, 2024</span>
+</div>
+</div>
+<!-- Action Feedback Selectors with Simulated State -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm pt-space-xs">
+<!-- Action 1: Good Standing (Default Selected) -->
+<button class="outcome-pill p-space-md rounded-xl bg-tertiary text-on-tertiary text-left flex flex-col justify-between gap-space-sm shadow-md transition-all hover:opacity-95" id="btn-ontime" onclick="recordOutcome('on-time')">
+<div class="flex items-center justify-between w-full">
+<span class="font-headline-sm text-headline-sm font-semibold">Paid On Time</span>
+<span class="material-symbols-outlined text-[20px]" id="check-ontime">check_circle</span>
+</div>
+<p class="font-mono-caption text-mono-caption opacity-90">
+            Account in 100% current standing with zero 1-day slippages. Strengthens credit limit expandability (+5%).
+          </p>
+</button>
+<!-- Action 2: Delinquent 30+ -->
+<button class="outcome-pill p-space-md rounded-xl bg-surface-container text-on-surface text-left flex flex-col justify-between gap-space-sm shadow-sm transition-all hover:bg-surface-container-high" id="btn-delinquent" onclick="recordOutcome('delinquent')">
+<div class="flex items-center justify-between w-full">
+<span class="font-headline-sm text-headline-sm font-semibold">30+ DPD Delinquency</span>
+<span class="material-symbols-outlined text-[20px] opacity-20" id="check-delinquent">circle</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">
+            SMA-1 or SMA-2 classification flagged. Triggers underwriting model dampening for cluster.
+          </p>
+</button>
+<!-- Action 3: Restructured -->
+<button class="outcome-pill p-space-md rounded-xl bg-surface-container text-on-surface text-left flex flex-col justify-between gap-space-sm shadow-sm transition-all hover:bg-surface-container-high" id="btn-restructured" onclick="recordOutcome('restructured')">
+<div class="flex items-center justify-between w-full">
+<span class="font-headline-sm text-headline-sm font-semibold">Moratorium / Restructure</span>
+<span class="material-symbols-outlined text-[20px] opacity-20" id="check-restructured">circle</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">
+            Tenor extension or interest relief granted under stress guidelines. Re-evaluates risk cohort.
+          </p>
+</button>
+<!-- Action 4: Write-off -->
+<button class="outcome-pill p-space-md rounded-xl bg-surface-container text-on-surface text-left flex flex-col justify-between gap-space-sm shadow-sm transition-all hover:bg-surface-container-high" id="btn-writeoff" onclick="recordOutcome('writeoff')">
+<div class="flex items-center justify-between w-full">
+<span class="font-headline-sm text-headline-sm font-semibold text-error">NPA / Write-Off</span>
+<span class="material-symbols-outlined text-[20px] opacity-20" id="check-writeoff">circle</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">
+            Loss event confirmed. Direct gradient back-propagation into default predictive weights.
+          </p>
+</button>
+</div>
+<!-- Feedback Confirmation Toast -->
+<div class="hidden bg-surface-container-high p-space-sm rounded-lg flex items-center justify-between font-mono-caption text-mono-caption text-on-surface" id="outcome-toast">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">cloud_done</span>
+<span id="outcome-toast-msg">Feedback logged: Training vector updated for HDFC Lending Cluster #402.</span>
+</span>
+<span class="text-outline">Recorded just now</span>
+</div>
+</div>
+</div>
+<!-- Interactive Logic Component -->
+<script>
+    function triggerRecalculation() {
+      const icon = document.getElementById('re-run-icon');
+      const text = document.getElementById('re-run-text');
+      const score = document.getElementById('score-counter');
+
+      icon.classList.add('animate-spin');
+      text.textContent = 'Recalibrating...';
+
+      setTimeout(() => {
+        icon.classList.remove('animate-spin');
+        text.textContent = 'Re-run Model';
+        score.textContent = '829';
+        alert('Real-time ledger sync completed: Score refreshed (+5 pts) based on cleared December GST returns.');
+      }, 1200);
+    }
+
+    function copyDossierLink() {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Secure Institutional Dossier link copied to clipboard. Encrypted with 256-bit token.');
+    }
+
+    function recordOutcome(type) {
+      const buttons = ['ontime', 'delinquent', 'restructured', 'writeoff'];
+      const toast = document.getElementById('outcome-toast');
+      const msg = document.getElementById('outcome-toast-msg');
+
+      buttons.forEach(b => {
+        const btn = document.getElementById(`btn-${b}`);
+        const icon = document.getElementById(`check-${b}`);
+        btn.className = 'outcome-pill p-space-md rounded-xl bg-surface-container text-on-surface text-left flex flex-col justify-between gap-space-sm shadow-sm transition-all hover:bg-surface-container-high';
+        icon.className = 'material-symbols-outlined text-[20px] opacity-20';
+        icon.textContent = 'circle';
+      });
+
+      const activeBtn = document.getElementById(`btn-${type}`);
+      const activeIcon = document.getElementById(`check-${type}`);
+      
+      if (type === 'ontime') {
+        activeBtn.className = 'outcome-pill p-space-md rounded-xl bg-tertiary text-on-tertiary text-left flex flex-col justify-between gap-space-sm shadow-md transition-all hover:opacity-95';
+        msg.textContent = 'Success: "Paid On Time" verified. CredLens synthetic models calibrated for Anand, Mistry & Chawla IT Solutions.';
+      } else if (type === 'delinquent') {
+        activeBtn.className = 'outcome-pill p-space-md rounded-xl bg-primary text-on-primary text-left flex flex-col justify-between gap-space-sm shadow-md transition-all';
+        msg.textContent = 'Alert: 30+ DPD signal recorded. Watchlist flag appended to Director PAN records.';
+      } else if (type === 'restructured') {
+        activeBtn.className = 'outcome-pill p-space-md rounded-xl bg-secondary-container text-on-secondary-container text-left flex flex-col justify-between gap-space-sm shadow-md transition-all';
+        msg.textContent = 'Audit recorded: Moratorium adjustment registered with Credit Bureau batch queue.';
+      } else {
+        activeBtn.className = 'outcome-pill p-space-md rounded-xl bg-error text-on-error text-left flex flex-col justify-between gap-space-sm shadow-md transition-all';
+        msg.textContent = 'Loss confirmation logged: Legal dossier generated for SARFAESI / DRT filing assessment.';
+      }
+
+      activeIcon.className = 'material-symbols-outlined text-[20px]';
+      activeIcon.textContent = 'check_circle';
+      toast.classList.remove('hidden');
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="w-full px-margin py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant"><div class="flex items-center gap-space-sm"><span class="font-headline-sm text-headline-sm text-primary">CredLens</span><span class="font-body-sm text-body-sm">© 2025 CredLens Enterprise Financial Technologies. All rights reserved.</span></div><div class="flex items-center gap-space-lg font-mono-label text-mono-label"><span>SOC-2 Type II Certified</span><span>RBI Master Direction Compliant</span><a class="hover:text-primary transition-colors" data-path="audit-logs" href="#">Audit Logs</a></div></div></footer></body></html>

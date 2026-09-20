@@ -204,3 +204,57 @@ These are implemented as middleware, dependencies, and configuration rather than
 After the dealer extends credit, they report the actual outcome via `POST /api/v1/feedback`. The outcome is recorded in `audit_log` with a numeric label (PAID_ON_TIME=0, DELAYED=0.3, PARTIAL_DEFAULT=0.7, NPA=1.0). Admin can then click "Retrain model" to retrain the GradientBoosting on the augmented data; AUC and model version are surfaced on the Model Monitor.
 
 In production, the feedback dataset grows over time, the model is retrained periodically (e.g. weekly), and the new version is A/B tested against the old one before promotion.
+
+## Layer 5: Frontend UI
+
+**Goal:** present credit intelligence in a clean, data-dense interface that institutional users can trust.
+
+**Code:** `frontend/src/` (React + TypeScript + TailwindCSS)
+
+### Design System
+
+The frontend uses a **Modern Institutional Minimalism** design system with Material Design 3 color tokens. See `docs/design-system.md` for the full specification.
+
+Key principles:
+- **Fixed 260px sidebar** navigation with Material Symbols icons
+- **Solid white backgrounds** (no glassmorphism) for institutional trust
+- **Inter** for UI text, **JetBrains Mono** for data values and labels
+- **Deep navy primary** (`#00236f`) with vivid blue secondary (`#0051d5`)
+
+### Component Architecture
+
+```
+App.tsx
+  context.tsx          (auth context, role-based routing)
+  api/client.ts        (typed axios + JWT interceptor)
+  components/
+    Layout.tsx         (sidebar + header + breadcrumbs)
+    UI.tsx             (Card, Badge, Stat, EmptyState, Spinner)
+    ScoreGauge.tsx     (circular score gauge)
+    ThemeToggle.tsx    (light/dark toggle)
+  pages/
+    Login.tsx          (demo account selector)
+    lender/            (Dashboard, MsmeSearch, MsmeReport, Decisions)
+    msme/              (Dashboard, UploadData, ScoreHistory)
+    government/        (PortfolioInsights)
+    admin/             (ModelMonitor, AuditLog)
+```
+
+### Role-Based Routing
+
+Each role sees a different sidebar navigation and page set:
+
+| Role | Sidebar items | Landing page |
+|---|---|---|
+| LENDER | Portfolio, MSME Search, Decision Queue | `/lender` |
+| MSME | Credit Health, Data Upload, Score History | `/msme` |
+| GOVERNMENT | Portfolio Insights | `/government` |
+| ADMIN | Model Monitor, Audit Log | `/admin` |
+
+### Data Flow (Frontend -> Backend)
+
+1. User authenticates via `POST /api/v1/auth/login` -> JWT stored in localStorage
+2. Axios interceptor attaches `Authorization: Bearer <token>` to all requests
+3. Pages call typed API functions from `api/client.ts`
+4. Vite dev server proxies `/api/*` to backend on `:8000`
+5. In production, nginx or CDN handles the proxy

@@ -45,10 +45,10 @@ export default function MsmeDashboard() {
   if (tips.length === 0) tips.push('You look great. Keep your books clean and re-run this report after material changes.')
 
   return (
-    <div ref={containerRef} className="space-y-5">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">My Credit Health</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Welcome, {user?.name}. Here's how lenders see your business.</p>
+        <h1 className="text-headline-lg text-primary font-bold tracking-tight">My Credit Health</h1>
+        <p className="text-body-md text-on-surface-variant mt-1">Welcome, {user?.name}. Here's how lenders see your business.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 reveal-stagger">
@@ -61,27 +61,27 @@ export default function MsmeDashboard() {
           <Card title="Latest decision">
             {decision ? (
               <div className="space-y-2">
-                <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{decision.outcome}</div>
-                <div className="text-sm text-slate-500 dark:text-slate-400">Recommended exposure: {formatINR(decision.recommended_limit_inr)}</div>
-                <p className="text-sm text-slate-600 dark:text-slate-300">{decision.rationale}</p>
+                <div className="text-data-metric text-on-surface font-bold">{decision.outcome}</div>
+                <div className="text-body-sm text-on-surface-variant">Recommended exposure: {formatINR(decision.recommended_limit_inr)}</div>
+                <p className="text-body-sm text-on-surface">{decision.rationale}</p>
               </div>
-            ) : <div className="text-sm text-slate-500 dark:text-slate-400">Upload data and a lender will assess you.</div>}
+            ) : <div className="text-body-sm text-on-surface-variant">Upload data and a lender will assess you.</div>}
           </Card>
         </div>
         <div data-reveal>
           <Card title="Improvement tips" subtitle="What would move your score next time">
-            <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300">
-              {tips.map((t, i) => <li key={i} className="flex gap-2"><span className="text-brand-500 dark:text-brand-400">-</span><span>{t}</span></li>)}
+            <ul className="space-y-2 text-body-sm text-on-surface">
+              {tips.map((t, i) => <li key={i} className="flex gap-2"><span className="text-primary material-symbols-outlined text-[16px]">lightbulb</span><span>{t}</span></li>)}
             </ul>
           </Card>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 reveal-stagger">
-        <div data-reveal><Stat label="Monthly revenue" value={formatINR(fin.avg_monthly_revenue_inr)} /></div>
-        <div data-reveal><Stat label="Revenue trend" value={formatPct(fin.revenue_trend_pct)} /></div>
-        <div data-reveal><Stat label="GST compliance" value={formatPct((fin.gst_compliance_ratio || 0) * 100, 0)} /></div>
-        <div data-reveal><Stat label="Vintage" value={`${(fin.vintage_years || 0).toFixed(1)} years`} /></div>
+        <div data-reveal><Stat label="Monthly revenue" value={formatINR(fin.avg_monthly_revenue_inr)} icon="currency_rupee" /></div>
+        <div data-reveal><Stat label="Revenue trend" value={formatPct(fin.revenue_trend_pct)} icon="trending_up" /></div>
+        <div data-reveal><Stat label="GST compliance" value={formatPct((fin.gst_compliance_ratio || 0) * 100, 0)} icon="verified" /></div>
+        <div data-reveal><Stat label="Vintage" value={`${(fin.vintage_years || 0).toFixed(1)} years`} icon="schedule" /></div>
       </div>
     </div>
   )

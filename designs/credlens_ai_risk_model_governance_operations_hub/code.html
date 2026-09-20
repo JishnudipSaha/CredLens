@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"error-container":"#ffdad6","secondary":"#0051d5","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#264191","on-tertiary":"#ffffff","on-primary":"#ffffff","inverse-surface":"#213145","surface-dim":"#cbdbf5","primary-fixed-dim":"#b6c4ff","surface-bright":"#f8f9ff","on-tertiary-fixed":"#002114","outline-variant":"#c5c5d3","primary-fixed":"#dce1ff","background":"#f8f9ff","on-secondary-fixed-variant":"#003ea8","on-error-container":"#93000a","secondary-container":"#316bf3","primary":"#00236f","on-error":"#ffffff","primary-container":"#1e3a8a","error":"#ba1a1a","secondary-fixed-dim":"#b4c5ff","tertiary-fixed":"#85f8c4","surface-container-high":"#dce9ff","inverse-primary":"#b6c4ff","on-secondary":"#ffffff","on-primary-container":"#90a8ff","surface-tint":"#4059aa","surface-container":"#e5eeff","on-surface-variant":"#444651","surface-container-low":"#eff4ff","on-secondary-fixed":"#00174b","tertiary-container":"#004a32","on-secondary-container":"#fefcff","surface-container-highest":"#d3e4fe","secondary-fixed":"#dbe1ff","on-tertiary-container":"#4ac08f","surface-variant":"#d3e4fe","on-primary-fixed":"#00164e","tertiary":"#003120","tertiary-fixed-dim":"#68dba9","on-background":"#0b1c30","on-tertiary-fixed-variant":"#005137","surface":"#f8f9ff","outline":"#757682","inverse-on-surface":"#eaf1ff","on-surface":"#0b1c30"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-sm":"0.5rem","space-lg":"1.5rem","gutter":"1.25rem","gutter-sm":"0.75rem","space-md":"1rem","space-xs":"0.25rem","margin-mobile":"1rem","margin":"1.5rem","space-xl":"2rem"},"fontFamily":{"mono-caption":["JetBrains Mono"],"body-md":["Inter"],"body-lg":["Inter"],"data-metric":["Inter"],"headline-xl-mobile":["Inter"],"headline-sm":["Inter"],"headline-xl":["Inter"],"body-sm":["Inter"],"headline-lg":["Inter"],"headline-md":["Inter"],"mono-label":["JetBrains Mono"]},"fontSize":{"mono-caption":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"data-metric":["28px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"mono-label":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #1e3a8a
+- Font: inter
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Whebw0DHiUyNqr9-X9uPbKBvJ7I6lIdj1dqli0wx2qcoWeBGrkewVoD6upMXyTLwPa_0jozHngT5P-bsiSeu902W5x9YtxdG_Ha9Q5xWcmH2Um12G0nLofvqNTKwsZa4meUV5FXwaX1DYLCT4eL3cwDMxcr-px5J-iOVMKC0Fl1mtiOaDTuHQNQEHLEvX3W5f-528e__Iw5ecbg0bS6yy9KPc-lH0vk8llWy4HXEA9ooUARmOwOhhRNQ"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">CredLens</span><span class="px-space-xs py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption uppercase font-semibold border border-outline-variant">Admin Portal</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-low text-primary font-semibold border-b-2 border-primary"><a aria-current="page" class="px-space-sm py-2 transition-colors bg-surface-container-low text-primary font-semibold border-b-2 border-primary" data-path="model-monitor" href="#">Model Monitor</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="credit-policies" href="#">Credit Policies</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="audit-trail" href="#">Audit Trail</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="user-access-roles" href="#">User Access &amp; Roles</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="system-health" href="#">System Health</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low border border-surface-container-highest"><div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-mono-caption text-mono-caption text-on-surface">Model: <span class="font-medium text-primary">v2.4.1 (GBM-Active)</span></span></div><div class="h-3 w-px bg-outline-variant"></div><div class="flex items-center gap-1"><span class="font-mono-caption text-mono-caption text-on-surface-variant">Drift:</span><span class="font-mono-caption text-mono-caption text-tertiary-container font-medium">Nominal (0.018 PSI)</span></div></div><button aria-label="Notifications" class="relative p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-container-highest"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden lg:flex flex-col text-left"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Vikram Sengupta</span><span class="font-mono-caption text-mono-caption text-on-surface-variant leading-tight">Chief Risk &amp; Technology Officer</span></div></div></div></div></header><main class="w-full pt-16 bg-background"><div class="flex flex-col w-full">
+<!-- Top Operational Banner / Status Ribbon -->
+<div class="w-full bg-surface-container-low px-margin py-space-sm">
+<div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-y-2 gap-x-6 text-on-surface-variant">
+<div class="flex flex-wrap items-center gap-space-md font-mono-caption text-mono-caption">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span class="text-on-surface font-medium">Artifact:</span>
+<code class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-medium">risk_model_v2.4.1.pkl</code>
+<span class="text-outline text-[10px]">(SHA256: 9f2b...8a1c)</span>
+</div>
+<span class="hidden sm:inline text-outline-variant">•</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-secondary">cloud_done</span>
+<span>FastAPI Cluster:</span>
+<span class="font-medium text-on-surface">AWS eu-central-1</span>
+</div>
+<span class="hidden sm:inline text-outline-variant">•</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-primary">speed</span>
+<span>p95 Latency: <strong class="text-on-surface font-semibold">18.4ms</strong></span>
+<span class="text-outline-variant">|</span>
+<span>Throughput: <strong class="text-on-surface font-semibold">142 req/m</strong></span>
+<span class="text-outline-variant">|</span>
+<span>Uptime: <strong class="text-tertiary-container font-semibold">99.98%</strong></span>
+</div>
+</div>
+<div class="flex items-center gap-2 font-mono-caption text-mono-caption">
+<span class="material-symbols-outlined text-[14px] text-outline">schedule</span>
+<span>Last Calibration: <strong class="text-on-surface font-medium">Today, 08:30 AM IST</strong> (Auto Scheduler)</span>
+</div>
+</div>
+</div>
+<div class="w-full px-margin py-space-lg space-y-space-lg max-w-[1600px] mx-auto">
+<!-- Executive Header & Operational Triggers -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Platform Admin</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span>Model Governance</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary font-medium">Operations &amp; Drift Monitor</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">AI Risk Model Governance &amp; Drift Monitoring</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl">
+          Live observability across GradientBoosting v2.4 classifier (trained on 5,000 synthetic baseline + 342 real-world feedback samples). Orchestrating multi-layered MSME scoring, dynamic policy execution, and feature drift attribution.
+        </p>
+</div>
+<!-- Action Button Group -->
+<div class="flex flex-wrap items-center gap-space-sm pt-2 lg:pt-0">
+<button class="px-space-md py-2 bg-primary hover:bg-primary-container text-on-primary rounded-lg font-body-sm text-body-sm font-semibold shadow-sm transition-colors flex items-center gap-2" id="btn-retrain-pipeline">
+<span class="material-symbols-outlined text-[18px] animate-spin" id="spin-icon" style="display:none;">sync</span>
+<span class="material-symbols-outlined text-[18px]" id="default-refresh-icon">autorenew</span>
+<span>Trigger Full Retraining</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span>
+</button>
+<button class="px-space-md py-2 bg-surface-container-lowest hover:bg-surface-container text-on-surface rounded-lg font-body-sm text-body-sm font-medium shadow-sm transition-colors flex items-center gap-1.5" onclick="alert('Exporting Model Dossier v2.4.1 (PMML &amp; ISO 27001 Audit Trail)...')">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">download_for_offline</span>
+<span>Export Dossier (JSON/PMML)</span>
+</button>
+<button class="px-space-md py-2 bg-error-container/40 hover:bg-error-container text-on-error-container rounded-lg font-body-sm text-body-sm font-medium shadow-sm transition-colors flex items-center gap-1.5" onclick="confirm('Initiate critical rollback to Model Artifact v2.3.0? This will invalidate cached SHAP weights.')">
+<span class="material-symbols-outlined text-[18px] text-error">history</span>
+<span>Rollback v2.3</span>
+</button>
+</div>
+</div>
+<!-- Quad-Grid: Health & Performance Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Card 1: ROC-AUC & Gini -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-mono-caption text-mono-caption uppercase font-medium">Discrimination Power</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-mono-caption text-mono-caption font-semibold">Tier-1 Validated</span>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-data-metric text-data-metric text-on-surface tracking-tight">0.914</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-medium">ROC-AUC</span>
+</div>
+<div class="flex items-center gap-2 mt-1 font-mono-caption text-mono-caption">
+<span class="text-tertiary-container font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>+0.018
+            </span>
+<span class="text-on-surface-variant">vs v2.3 baseline</span>
+<span class="text-outline-variant">|</span>
+<span class="font-medium text-on-surface">Gini: 82.8%</span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-highest space-y-1.5">
+<div class="flex justify-between font-mono-caption text-mono-caption text-on-surface-variant">
+<span>Basel III (0.80)</span>
+<span>Target (0.90)</span>
+<span class="text-primary font-semibold">91.4%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary h-full rounded-full" style="width: 91.4%"></div>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant flex items-center gap-1 pt-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary-container">verified</span>
+            Exceeds RBI model risk directive (&gt;0.80)
+          </p>
+</div>
+</div>
+<!-- Card 2: Population Stability Index -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-mono-caption text-mono-caption uppercase font-medium">Drift Monitoring (PSI)</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed-dim/40 text-tertiary-container font-mono-caption text-mono-caption font-semibold">No Action Req.</span>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-data-metric text-data-metric text-on-surface tracking-tight">0.018</span>
+<span class="font-mono-label text-mono-label text-tertiary-container font-semibold">Nominal / Stable</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant mt-1">
+            Significance boundary: &lt;0.100 (Safe zone)
+          </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-highest space-y-1 font-mono-caption text-mono-caption">
+<div class="flex items-center justify-between py-0.5">
+<span class="text-on-surface-variant">Financials Sub-PSI</span>
+<span class="font-medium text-on-surface">0.012</span>
+</div>
+<div class="flex items-center justify-between py-0.5">
+<span class="text-on-surface-variant">Bureau Ledger Sub-PSI</span>
+<span class="font-medium text-on-surface">0.021</span>
+</div>
+<div class="flex items-center justify-between py-0.5">
+<span class="text-on-surface-variant">Alternative Data Sub-PSI</span>
+<span class="font-medium text-on-surface">0.024</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Feedback Loop Ingestion -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-mono-caption text-mono-caption uppercase font-medium">RLHF Feedback Signals</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-primary font-mono-caption text-mono-caption font-semibold">46 Uncommitted</span>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-data-metric text-data-metric text-on-surface tracking-tight">342</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Lender Outcomes</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant mt-1">
+            Real ground-truth repayment telemetry
+          </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-highest space-y-1.5">
+<div class="flex h-2 rounded-full overflow-hidden w-full gap-0.5">
+<div class="bg-tertiary-container h-full" style="width: 83.0%" title="Paid On Time (83%)"></div>
+<div class="bg-error h-full" style="width: 11.1%" title="30+ DPD Delinquency (11.1%)"></div>
+<div class="bg-secondary h-full" style="width: 3.5%" title="Restructure (3.5%)"></div>
+<div class="bg-outline h-full" style="width: 2.4%" title="Write-Offs (2.4%)"></div>
+</div>
+<div class="grid grid-cols-2 gap-1 text-[11px] font-mono-caption text-on-surface-variant pt-1">
+<span class="truncate"><span class="inline-block w-2 h-2 rounded-full bg-tertiary-container mr-1"></span>Paid: 284 (83%)</span>
+<span class="truncate"><span class="inline-block w-2 h-2 rounded-full bg-error mr-1"></span>Delinq: 38 (11%)</span>
+<span class="truncate"><span class="inline-block w-2 h-2 rounded-full bg-secondary mr-1"></span>Restr: 12 (3.5%)</span>
+<span class="truncate"><span class="inline-block w-2 h-2 rounded-full bg-outline mr-1"></span>NPA: 8 (2.3%)</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Underwriting Decision Alignment -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-mono-caption text-mono-caption uppercase font-medium">Policy Agreement</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-semibold">FPR: 2.1%</span>
+</div>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-data-metric text-data-metric text-on-surface tracking-tight">96.4%</span>
+<span class="font-mono-label text-mono-label text-tertiary-container font-semibold">Underwriter Parity</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant mt-1">
+            Target SLA compliance &gt; 94.0%
+          </p>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-container-highest space-y-1 font-mono-caption text-mono-caption">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant">Straight-Through Approvals</span>
+<span class="font-semibold text-primary">62.0%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant">Escalated to Credit Officer</span>
+<span class="font-medium text-on-surface">26.0%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant">Hard Rejections (Floor Deficit)</span>
+<span class="font-medium text-error">12.0%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dual Analytics Core: Left (Matrix & Score Buckets) | Right (Feedback Loop & Retraining Box) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Analytics (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex flex-wrap items-center justify-between gap-2 pb-space-sm border-b border-surface-container-highest">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Live Confusion Matrix &amp; Score Calibration</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Evaluated on N = 5,000 synthetic benchmark + production feedback cases</p>
+</div>
+<div class="flex items-center gap-1 font-mono-caption text-mono-caption bg-surface-container-low px-2 py-1 rounded">
+<span class="text-on-surface-variant">Precision:</span>
+<strong class="text-primary">88.2%</strong>
+<span class="text-outline-variant mx-1">|</span>
+<span class="text-on-surface-variant">Recall:</span>
+<strong class="text-primary">88.1%</strong>
+</div>
+</div>
+<!-- 2x2 Matrix & Diagnostic Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<div class="md:col-span-7 grid grid-cols-2 gap-2 font-mono-caption text-mono-caption">
+<!-- True Negative -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col justify-between h-24">
+<div class="flex justify-between items-start">
+<span class="font-semibold text-primary text-[10px] uppercase tracking-wider">True Negative (TN)</span>
+<span class="material-symbols-outlined text-tertiary-container text-[16px]">check_circle</span>
+</div>
+<div>
+<div class="font-data-metric text-data-metric text-on-surface leading-none">4,120</div>
+<div class="text-[11px] text-on-surface-variant mt-1">Correct Approved (82.4%)</div>
+</div>
+</div>
+<!-- False Positive -->
+<div class="p-space-sm rounded-lg bg-error-container/30 flex flex-col justify-between h-24">
+<div class="flex justify-between items-start">
+<span class="font-semibold text-error text-[10px] uppercase tracking-wider">False Positive (FP)</span>
+<span class="material-symbols-outlined text-error text-[16px]">warning</span>
+</div>
+<div>
+<div class="font-data-metric text-data-metric text-error leading-none">86</div>
+<div class="text-[11px] text-on-surface-variant mt-1">Approved &amp; Flagged (1.7%)</div>
+</div>
+</div>
+<!-- False Negative -->
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col justify-between h-24">
+<div class="flex justify-between items-start">
+<span class="font-semibold text-on-surface-variant text-[10px] uppercase tracking-wider">False Negative (FN)</span>
+<span class="material-symbols-outlined text-outline text-[16px]">info</span>
+</div>
+<div>
+<div class="font-data-metric text-data-metric text-on-surface leading-none">94</div>
+<div class="text-[11px] text-on-surface-variant mt-1">Rejected Worthy (1.9%)</div>
+</div>
+</div>
+<!-- True Positive -->
+<div class="p-space-sm rounded-lg bg-primary-fixed flex flex-col justify-between h-24">
+<div class="flex justify-between items-start">
+<span class="font-semibold text-primary text-[10px] uppercase tracking-wider">True Positive (TP)</span>
+<span class="material-symbols-outlined text-primary text-[16px]">shield_lock</span>
+</div>
+<div>
+<div class="font-data-metric text-data-metric text-primary leading-none">700</div>
+<div class="text-[11px] text-on-surface-variant mt-1">Risk Flagged (14.0%)</div>
+</div>
+</div>
+</div>
+<!-- Statistical Summary Badges -->
+<div class="md:col-span-5 space-y-2 font-mono-caption text-mono-caption">
+<div class="p-2.5 rounded bg-surface-container-low flex justify-between items-center">
+<span class="text-on-surface-variant">F1 Harmonized Score</span>
+<span class="font-semibold text-primary text-body-md">0.881</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex justify-between items-center">
+<span class="text-on-surface-variant">Specificity (TNR)</span>
+<span class="font-semibold text-tertiary-container text-body-md">98.0%</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex justify-between items-center">
+<span class="text-on-surface-variant">Matthews Correlation (MCC)</span>
+<span class="font-semibold text-on-surface text-body-md">+0.864</span>
+</div>
+</div>
+</div>
+<!-- Score Distribution Tiers -->
+<div class="pt-space-sm space-y-2">
+<div class="flex justify-between items-center text-on-surface-variant font-mono-caption text-mono-caption">
+<span class="font-semibold text-on-surface">Underwriting Risk Grade Distribution</span>
+<span>CredLens Normalized Scale (300 - 900)</span>
+</div>
+<!-- Grade A -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-caption">
+<span class="font-medium text-on-surface">Grade A (800 - 900) - Prime MSME</span>
+<span class="font-semibold text-tertiary-container">40.0% (2,000)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 40%"></div>
+</div>
+</div>
+<!-- Grade B -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-caption">
+<span class="font-medium text-on-surface">Grade B (700 - 799) - Moderate Leverage</span>
+<span class="font-semibold text-secondary">34.0% (1,700)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 34%"></div>
+</div>
+</div>
+<!-- Grade C -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-caption">
+<span class="font-medium text-on-surface">Grade C (550 - 699) - Structured Collateral Req.</span>
+<span class="font-semibold text-on-surface">18.0% (900)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-outline h-full rounded-full" style="width: 18%"></div>
+</div>
+</div>
+<!-- Grade D/E -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-caption">
+<span class="font-medium text-on-surface">Grade D/E (300 - 549) - Sub-Prime / Red Flag</span>
+<span class="font-semibold text-error">8.0% (400)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 8%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Analytics (5 cols): Feedback Engine & Trigger Box -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- RLHF Closed-Loop Diagnostics -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container-highest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">model_training</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Continuous Learning Engine</h2>
+</div>
+<span class="font-mono-caption text-mono-caption text-tertiary-container font-semibold px-2 py-0.5 bg-surface-container rounded">RLHF Pipeline</span>
+</div>
+<!-- Trigger Checklist -->
+<div class="space-y-2 font-body-sm text-body-sm">
+<div class="p-2.5 rounded bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-tertiary-container text-[18px] mt-0.5">check_circle</span>
+<div class="flex-1">
+<div class="font-medium text-on-surface">Sample Threshold Met</div>
+<div class="font-mono-caption text-mono-caption text-on-surface-variant">46 new lender outcomes ingested (25 threshold)</div>
+</div>
+<span class="font-mono-caption text-mono-caption text-tertiary-container font-semibold uppercase">Passed</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-tertiary-container text-[18px] mt-0.5">check_circle</span>
+<div class="flex-1">
+<div class="font-medium text-on-surface">Statistical Drift Tolerance</div>
+<div class="font-mono-caption text-mono-caption text-on-surface-variant">Composite PSI = 0.018 (Safety boundary &lt; 0.150)</div>
+</div>
+<span class="font-mono-caption text-mono-caption text-tertiary-container font-semibold uppercase">Passed</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex items-start gap-2.5">
+<span class="material-symbols-outlined text-outline text-[18px] mt-0.5">pending</span>
+<div class="flex-1">
+<div class="font-medium text-on-surface">Risk Committee Dual Authorization</div>
+<div class="font-mono-caption text-mono-caption text-on-surface-variant">Requires 2/2 sign-offs for auto-promotion to prod</div>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant font-semibold uppercase">1/2 Signed</span>
+</div>
+</div>
+<!-- Interactive Control Terminal -->
+<div class="p-space-md rounded-lg bg-surface-container-high space-y-3">
+<div class="flex items-center justify-between font-mono-caption text-mono-caption">
+<span class="text-on-surface-variant">Hyperparameter Config:</span>
+<span class="text-primary font-medium">Bayesian Gradient Boosting</span>
+</div>
+<div class="grid grid-cols-3 gap-2 font-mono-caption text-mono-caption text-center">
+<div class="bg-surface-container-lowest p-1.5 rounded">
+<div class="text-on-surface-variant text-[10px]">n_estimators</div>
+<div class="font-semibold text-primary">200 trees</div>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded">
+<div class="text-on-surface-variant text-[10px]">learning_rate</div>
+<div class="font-semibold text-primary">0.050</div>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded">
+<div class="text-on-surface-variant text-[10px]">max_depth</div>
+<div class="font-semibold text-primary">4 levels</div>
+</div>
+</div>
+<div class="pt-1">
+<button class="w-full py-2.5 bg-secondary hover:bg-primary text-on-secondary rounded-lg font-body-sm text-body-sm font-semibold transition-colors flex items-center justify-center gap-2" id="btn-deploy-rc">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+<span>Deploy Retrained Checkpoint (v2.4.2-rc)</span>
+</button>
+<div class="flex justify-between items-center mt-2 text-[11px] font-mono-caption text-on-surface-variant">
+<span>Est. Compilation: ~12.4s</span>
+<span>Canary Traffic: 10% Initial</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature Importance & SHAP Drift Attribution Table -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm border-b border-surface-container-highest">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-primary">SHAP Feature Importance &amp; Covariate Drift</h2>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">Explainability Layer (TreeSHAP)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Top features influencing commercial risk grading, Kolmogorov-Smirnov test scores, and layer attribution</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Filter Layers</span>
+</button>
+<button class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export SHAP CSV</span>
+</button>
+</div>
+</div>
+<!-- Feature Table -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container-highest font-mono-caption text-mono-caption uppercase text-on-surface-variant">
+<th class="py-2.5 px-3">Feature Name / Identifier</th>
+<th class="py-2.5 px-3">Data Source Layer</th>
+<th class="py-2.5 px-3 text-right">Global Weight</th>
+<th class="py-2.5 px-3">Relative Impact</th>
+<th class="py-2.5 px-3 text-right">Covariate Drift (PSI)</th>
+<th class="py-2.5 px-3">Stability Status</th>
+<th class="py-2.5 px-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Feature 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-mono-label text-mono-label font-medium text-primary">
+                gst_3b_vs_1_turnover_ratio
+              </td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">L1 (Financials &amp; GSTN)</span>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-semibold text-on-surface">26.4%</td>
+<td class="py-3 px-3 w-40">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 26.4%"></div>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-medium text-on-surface">0.014</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>Optimal
+                </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-secondary hover:underline font-mono-caption text-mono-caption font-medium" onclick="inspectFeature('gst_3b_vs_1_turnover_ratio', '26.4%', '0.014')">Inspect</button>
+</td>
+</tr>
+<!-- Feature 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-mono-label text-mono-label font-medium text-primary">
+                dscr_normalized_operating_cf
+              </td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">L1 (Banking AA)</span>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-semibold text-on-surface">21.0%</td>
+<td class="py-3 px-3 w-40">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 21.0%"></div>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-medium text-on-surface">0.009</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>Optimal
+                </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-secondary hover:underline font-mono-caption text-mono-caption font-medium" onclick="inspectFeature('dscr_normalized_operating_cf', '21.0%', '0.009')">Inspect</button>
+</td>
+</tr>
+<!-- Feature 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-mono-label text-mono-label font-medium text-primary">
+                debtor_turnover_velocity_dso
+              </td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">L2 (e-Invoices &amp; TReDS)</span>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-semibold text-on-surface">16.5%</td>
+<td class="py-3 px-3 w-40">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 16.5%"></div>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-medium text-on-surface">0.028</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-secondary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>Moderate Shift
+                </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-secondary hover:underline font-mono-caption text-mono-caption font-medium" onclick="inspectFeature('debtor_turnover_velocity_dso', '16.5%', '0.028')">Inspect</button>
+</td>
+</tr>
+<!-- Feature 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-mono-label text-mono-label font-medium text-primary">
+                director_mca21_clean_history
+              </td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">L3 (MCA21 &amp; Judicial)</span>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-semibold text-on-surface">14.8%</td>
+<td class="py-3 px-3 w-40">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 14.8%"></div>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-medium text-on-surface">0.004</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>Optimal
+                </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-secondary hover:underline font-mono-caption text-mono-caption font-medium" onclick="inspectFeature('director_mca21_clean_history', '14.8%', '0.004')">Inspect</button>
+</td>
+</tr>
+<!-- Feature 5 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-mono-label text-mono-label font-medium text-primary">
+                top_client_concentration_pct
+              </td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">L2 (Counterparty Risk)</span>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-semibold text-on-surface">12.1%</td>
+<td class="py-3 px-3 w-40">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 12.1%"></div>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-medium text-on-surface">0.039</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-error font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>Elevated Volatility
+                </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-secondary hover:underline font-mono-caption text-mono-caption font-medium" onclick="inspectFeature('top_client_concentration_pct', '12.1%', '0.039')">Inspect</button>
+</td>
+</tr>
+<!-- Feature 6 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-mono-label text-mono-label font-medium text-primary">
+                utility_telecom_payment_regularity
+              </td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption">L4 (Alternative Telco/Discom)</span>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-semibold text-on-surface">9.2%</td>
+<td class="py-3 px-3 w-40">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 9.2%"></div>
+</div>
+</td>
+<td class="py-3 px-3 text-right font-mono-caption text-mono-caption font-medium text-on-surface">0.016</td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>Optimal
+                </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-secondary hover:underline font-mono-caption text-mono-caption font-medium" onclick="inspectFeature('utility_telecom_payment_regularity', '9.2%', '0.016')">Inspect</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Real-Time Model Audit & System Event Log -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm space-y-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-sm border-b border-surface-container-highest">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-primary">Model Governance &amp; Execution Audit Trail</h2>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed-dim/30 text-tertiary-container font-mono-caption text-mono-caption font-semibold">Immutable Append-Only</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cryptographically signed logs for model invocations, retraining milestones, and regulatory compliance</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<input class="h-9 px-space-md pl-8 bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary/30" placeholder="Search hash, actor, or endpoint..." type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2 text-[16px] text-outline">search</span>
+</div>
+<button class="h-9 px-space-md bg-surface-container hover:bg-surface-container-high text-primary rounded-lg font-body-sm text-body-sm font-medium transition-colors flex items-center gap-1.5" onclick="alert('Downloading signed Audit Ledger CSV for regulatory compliance...')">
+<span class="material-symbols-outlined text-[16px]">file_save</span>
+<span>Download CSV</span>
+</button>
+</div>
+</div>
+<!-- Audit Table -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container-highest font-mono-caption text-mono-caption uppercase text-on-surface-variant">
+<th class="py-2.5 px-3">Timestamp (IST)</th>
+<th class="py-2.5 px-3">Event Type</th>
+<th class="py-2.5 px-3">Actor / Service Principal</th>
+<th class="py-2.5 px-3">Model Version</th>
+<th class="py-2.5 px-3">Target Endpoint</th>
+<th class="py-2.5 px-3">Execution Outcome</th>
+<th class="py-2.5 px-3 text-right">Verification Hash</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-mono-caption text-mono-caption">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 text-on-surface">Today, 11:24 AM</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-primary font-semibold">Feedback Ingested</span>
+</td>
+<td class="py-3 px-3 text-on-surface">lender@hdfc.credlens.in</td>
+<td class="py-3 px-3 text-primary font-medium">v2.4.1</td>
+<td class="py-3 px-3 text-on-surface-variant">/api/v1/feedback</td>
+<td class="py-3 px-3">
+<span class="text-tertiary-container font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span>Success (200 OK)
+                </span>
+</td>
+<td class="py-3 px-3 text-right text-outline hover:text-primary cursor-pointer font-mono">0x89e2...3f1</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 text-on-surface">Today, 11:15 AM</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-semibold">Assessment Executed</span>
+</td>
+<td class="py-3 px-3 text-on-surface">rajesh.kumar@credlens.in</td>
+<td class="py-3 px-3 text-primary font-medium">v2.4.1</td>
+<td class="py-3 px-3 text-on-surface-variant">/api/v1/score/run</td>
+<td class="py-3 px-3">
+<span class="text-tertiary-container font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span>Scored: Grade A
+                </span>
+</td>
+<td class="py-3 px-3 text-right text-outline hover:text-primary cursor-pointer font-mono">0x4a11...90c</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 text-on-surface">Today, 09:40 AM</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold">Policy Threshold Mod</span>
+</td>
+<td class="py-3 px-3 text-on-surface">admin@credlens.in</td>
+<td class="py-3 px-3 text-primary font-medium">v2.4.1</td>
+<td class="py-3 px-3 text-on-surface-variant">/api/v1/admin/policies/1</td>
+<td class="py-3 px-3">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">done_all</span>Policy Committed
+                </span>
+</td>
+<td class="py-3 px-3 text-right text-outline hover:text-primary cursor-pointer font-mono">0x1f09...b22</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 text-on-surface">Today, 08:30 AM</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed-dim/30 text-tertiary-container font-semibold">Scheduled Calibration</span>
+</td>
+<td class="py-3 px-3 text-on-surface">System Engine (Cron)</td>
+<td class="py-3 px-3 text-primary font-medium">v2.4.1</td>
+<td class="py-3 px-3 text-on-surface-variant">/api/v1/admin/model/retrain</td>
+<td class="py-3 px-3">
+<span class="text-tertiary-container font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>Weights Verified
+                </span>
+</td>
+<td class="py-3 px-3 text-right text-outline hover:text-primary cursor-pointer font-mono">0x77d1...e04</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Inspection helper
+  function inspectFeature(name, weight, psi) {
+    alert("Feature Deep Dive: " + name + "\n• Global SHAP Contribution: " + weight + "\n• Population Stability Index: " + psi + "\n• Divergence: Two-sample KS-test p=0.42 (Within tolerance)");
+  }
+
+  // Interactive retraining button trigger
+  const btnRetrain = document.getElementById('btn-retrain-pipeline');
+  const spinIcon = document.getElementById('spin-icon');
+  const defaultIcon = document.getElementById('default-refresh-icon');
+
+  if (btnRetrain) {
+    btnRetrain.addEventListener('click', function() {
+      spinIcon.style.display = 'inline-block';
+      defaultIcon.style.display = 'none';
+      btnRetrain.classList.add('opacity-75');
+
+      setTimeout(() => {
+        spinIcon.style.display = 'none';
+        defaultIcon.style.display = 'inline-block';
+        btnRetrain.classList.remove('opacity-75');
+        alert('Retraining Completed successfully in 11.8s.\nNew Checkpoint Created: risk_model_v2.4.2_candidate.pkl\nAUC: 0.916 (+0.002) | PSI: 0.016');
+      }, 1500);
+    });
+  }
+
+  const btnDeployRc = document.getElementById('btn-deploy-rc');
+  if (btnDeployRc) {
+    btnDeployRc.addEventListener('click', function() {
+      if (confirm('Deploy v2.4.2-rc candidate to production FastAPI nodes under 10% canary traffic?')) {
+        alert('Canary traffic successfully directed to v2.4.2-rc on node cluster us-east-prod-ai-01.');
+      }
+    });
+  }
+</script></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container-highest py-space-md mt-space-xl"><div class="w-full px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant"><div class="flex items-center gap-space-md"><span class="font-mono-caption text-mono-caption font-semibold text-primary">CredLens Enterprise Governance</span><span class="font-mono-caption text-mono-caption">Engine Tier-1 Compliance | Basel III &amp; Model Risk Management (SR 11-7)</span></div><div class="flex items-center gap-space-lg font-mono-caption text-mono-caption"><span>Instance ID: us-east-prod-ai-01</span><span>© 2025 CredLens Inc. All rights reserved.</span></div></div></footer></body></html>

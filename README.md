@@ -8,6 +8,24 @@ This repository contains a runnable full-stack prototype that mirrors the archit
 
 ---
 
+## Design System
+
+CredLens uses a **Modern Institutional Minimalism** design system — clean, data-dense interfaces inspired by Bloomberg Terminal and NCDEX dashboards.
+
+| Token | Value |
+|---|---|
+| Primary | `#00236f` / `#1e3a8a` (deep navy) |
+| Secondary | `#0051d5` (vivid blue) |
+| Background | `#f8f9ff` (near-white) |
+| Surface | `#ffffff` (pure white cards) |
+| Typography | Inter (UI) + JetBrains Mono (data/labels) |
+| Icons | Material Symbols Outlined |
+| Layout | Fixed 260px sidebar + top header with breadcrumbs |
+
+See [`docs/design-system.md`](docs/design-system.md) for the full specification.
+
+---
+
 ## Architecture (mirrors the block diagram)
 
 ```
@@ -35,6 +53,7 @@ Manual Upload     |    |     (Cloud)                      |  |
 
 - **Backend:** Python 3.13, FastAPI, SQLAlchemy 2.x, SQLite, scikit-learn
 - **Frontend:** React 18, Vite, TypeScript, TailwindCSS, Recharts, Axios
+- **Design:** Material Design 3 tokens, Inter + JetBrains Mono, Material Symbols
 - **Auth:** JWT (4 roles: LENDER, MSME, GOVERNMENT, ADMIN)
 - **ML:** GradientBoosting classifier trained on 5,000 synthetic samples
 - **Data:** Faker-generated 50 MSMEs seeded on first run
@@ -95,14 +114,25 @@ Click any of the four demo account buttons on the login page to pre-fill the cre
 ## Demo flow (5 minutes)
 
 1. **Login as Lender** at `http://127.0.0.1:5173`
-2. **Click "MSME Search"** in the top nav - 50 MSMEs are listed
+2. **Click "MSME Search"** in the sidebar — 50 MSMEs are listed
 3. **Click "Run Assessment"** on any unscored row (e.g. "Anand, Mistry and Chawla It Pvt Ltd")
-4. **Inspect the credit report** - score 800+ Grade A typically, 1-3 red flags, recommended limit INR 1-3 Cr
-5. **Click "Paid on time"** (or any other outcome) under "Feedback Loop" - your feedback is recorded
+4. **Inspect the credit report** — score 800+ Grade A typically, 1-3 red flags, recommended limit INR 1-3 Cr
+5. **Click "Paid on time"** (or any other outcome) under "Feedback Loop" — your feedback is recorded
 6. **Sign out** (top right) and **sign in as Platform Admin**
-7. **Visit Model Monitor** - your feedback shows up in the "Feedback outcomes" donut
+7. **Visit Model Monitor** — your feedback shows up in the "Feedback outcomes" donut
 8. **Click "Retrain model"** to retrain the synthetic model on the augmented data
-9. **Visit Audit Log** - every action is recorded with timestamp, actor, and endpoint
+9. **Visit Audit Log** — every action is recorded with timestamp, actor, and endpoint
+
+---
+
+## Pages by role
+
+| Role | Sidebar nav | Key pages |
+|---|---|---|
+| **Lender** | Portfolio, MSME Search, Decision Queue | Dashboard with portfolio stats, search/filter MSMEs, run assessments, view credit reports, record feedback |
+| **MSME** | Credit Health, Data Upload, Score History | Credit score gauge, improvement tips, upload financial/alternative data, track score trends |
+| **Government** | Portfolio Insights | Ecosystem-level analytics — sector/state/grade distributions |
+| **Admin** | Model Monitor, Audit Log | Model metrics, grade/decision/feedback distributions, retrain model, full audit trail |
 
 ---
 
@@ -150,12 +180,15 @@ Covers: grade mapping, feature engine shape, financial ingestion -> financials d
 ## Project structure
 
 ```
-Credlens/
+CredLens/
 +- run.py                          # one-command orchestrator
 +- README.md
++- DEPLOY.md                       # deployment guide (Vercel+Render, VM, Docker, AWS/GCP)
 +- docs/
 |  +- architecture.md              # text version of the block diagram
+|  +- design-system.md             # UI design system specification
 |  +- sample_credit_report.md      # example credit report walkthrough
+|  +- block_diagram.png
 +- backend/
 |  +- requirements.txt
 |  +- data/                        # SQLite DB (gitignored)
@@ -174,24 +207,51 @@ Credlens/
 |  |     +- artifacts/risk_model.pkl
 |  +- tests/                       # 8 pytest tests
 +- frontend/
-   +- package.json
-   +- vite.config.ts
-   +- tailwind.config.js
-   +- index.html
-   +- src/
-      +- main.tsx
-      +- App.tsx                   # role-based router
-      +- context.tsx               # auth context
-      +- api/client.ts             # typed axios + auth interceptor
-      +- utils/format.ts
-      +- components/               # Layout, UI primitives, ScoreGauge
-      +- pages/
-         +- Login.tsx
-         +- lender/                # Dashboard, MsmeSearch, MsmeReport, Decisions
-         +- msme/                  # Dashboard, UploadData, ScoreHistory
-         +- government/            # PortfolioInsights
-         +- admin/                 # ModelMonitor, AuditLog
+|  +- package.json
+|  +- vite.config.ts
+|  +- tailwind.config.js           # Material Design 3 tokens
+|  +- index.html                   # Google Fonts (Inter, JetBrains Mono) + Material Symbols
+|  +- src/
+|     +- main.tsx
+|     +- index.css                 # design system CSS (tokens, utilities, components)
+|     +- App.tsx                   # role-based router
+|     +- context.tsx               # auth context
+|     +- api/client.ts             # typed axios + auth interceptor
+|     +- utils/format.ts           # INR formatting, score/grade/outcome color maps
+|     +- components/
+|     |  +- Layout.tsx             # fixed 260px sidebar + top header with breadcrumbs
+|     |  +- UI.tsx                 # Card, Badge, Stat, EmptyState, Spinner
+|     |  +- ScoreGauge.tsx         # circular score gauge with grade badge
+|     |  +- ThemeToggle.tsx        # light/dark mode toggle
+|     +- pages/
+|        +- Login.tsx              # demo account selector, institutional login form
+|        +- lender/                # Dashboard, MsmeSearch, MsmeReport, Decisions
+|        +- msme/                  # Dashboard, UploadData, ScoreHistory
+|        +- government/            # PortfolioInsights
+|        +- admin/                 # ModelMonitor, AuditLog
++- designs/                        # Stitch design references (HTML + screenshots)
 ```
+
+---
+
+## Design references
+
+The `designs/` folder contains 10 HTML design files generated from Google Stitch, one per page:
+
+| Page | File |
+|---|---|
+| Login | `designs/login/code.html` |
+| Lender Dashboard | `designs/lender_dashboard/code.html` |
+| MSME Search | `designs/msme_search/code.html` |
+| Credit Report | `designs/credit_report/code.html` |
+| Decisions | `designs/decisions/code.html` |
+| MSME Dashboard | `designs/msme_dashboard/code.html` |
+| Data Upload | `designs/data_upload/code.html` |
+| Score History | `designs/score_history/code.html` |
+| Portfolio Insights | `designs/portfolio_insights/code.html` |
+| Model Monitor | `designs/model_monitor/code.html` |
+
+Each folder also contains a `screen.png` screenshot for visual reference.
 
 ---
 
@@ -203,4 +263,4 @@ Credlens/
 - Multi-tenancy (single dealer org for demo)
 - Real cloud deployment (code is cloud-ready, not deployed)
 
-See `docs/architecture.md` for a deeper writeup of the four layers and `docs/sample_credit_report.md` for an example of what a real credit report looks like.
+See [`docs/architecture.md`](docs/architecture.md) for a deeper writeup of the four layers and [`docs/sample_credit_report.md`](docs/sample_credit_report.md) for an example of what a real credit report looks like.

@@ -42,24 +42,24 @@ export default function ModelMonitor() {
   const feedbackData = Object.entries(stats.feedback_distribution).map(([k, v]) => ({ name: k, value: v }))
 
   return (
-    <div ref={containerRef} className="space-y-5">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Model Monitor</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">Active model: <span className="font-mono">{stats.model_version}</span></p>
+          <h1 className="text-headline-lg text-primary font-bold tracking-tight">Model Monitor</h1>
+          <p className="text-body-md text-on-surface-variant mt-1">Active model: <span className="font-mono">{stats.model_version}</span></p>
         </div>
         <button onClick={retrain} disabled={retraining} className="btn-primary px-4 py-2 disabled:opacity-50">
           {retraining ? 'Retraining...' : 'Retrain model'}
         </button>
       </div>
 
-      {msg && <div data-reveal className="text-sm text-emerald-700 dark:text-emerald-300 bg-emerald-500/15 px-3 py-2 rounded-lg">{msg}</div>}
+      {msg && <div data-reveal className="text-body-sm text-tertiary-container bg-tertiary-container/20 px-3 py-2 rounded-lg">{msg}</div>}
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 reveal-stagger">
-        <div data-reveal><Stat label="Score runs" value={stats.total_score_runs} /></div>
-        <div data-reveal><Stat label="Decisions" value={stats.total_decisions} /></div>
-        <div data-reveal><Stat label="Feedback records" value={stats.total_feedback} /></div>
-        <div data-reveal><Stat label="Avg score" value={stats.avg_credit_score} /></div>
+        <div data-reveal><Stat label="Score runs" value={stats.total_score_runs} icon="speed" /></div>
+        <div data-reveal><Stat label="Decisions" value={stats.total_decisions} icon="gavel" /></div>
+        <div data-reveal><Stat label="Feedback records" value={stats.total_feedback} icon="feedback" /></div>
+        <div data-reveal><Stat label="Avg score" value={stats.avg_credit_score} icon="analytics" /></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 reveal-stagger">
@@ -69,8 +69,8 @@ export default function ModelMonitor() {
               <ResponsiveContainer>
                 <BarChart data={gradeData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgb(148 163 184 / 0.25)" />
-                  <XAxis dataKey="grade" stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
-                  <YAxis allowDecimals={false} stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
+                  <XAxis dataKey="grade" stroke="currentColor" className="text-on-surface-variant" />
+                  <YAxis allowDecimals={false} stroke="currentColor" className="text-on-surface-variant" />
                   <Tooltip />
                   <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                     {gradeData.map((d) => <Cell key={d.grade} fill={GRADE_COLORS[d.grade] || '#94a3b8'} />)}
@@ -116,8 +116,8 @@ export default function ModelMonitor() {
         <Card title="Recent audit log" subtitle={`Last ${audit.length} events`}>
           {audit.length === 0 ? <EmptyState title="No audit events" /> : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200/60 dark:border-slate-700/60">
+              <table className="w-full text-body-sm">
+                <thead className="text-left text-on-surface-variant border-b border-outline-variant">
                   <tr>
                     <th className="py-2 font-medium">When</th>
                     <th className="py-2 font-medium">Action</th>
@@ -128,12 +128,12 @@ export default function ModelMonitor() {
                 </thead>
                 <tbody>
                   {audit.slice(0, 25).map((a) => (
-                    <tr key={a.id} className="border-b border-slate-200/40 dark:border-slate-700/40 last:border-0">
-                      <td className="py-2 text-slate-500 dark:text-slate-400">{new Date(a.created_at).toLocaleString()}</td>
-                      <td className="py-2"><Badge className="bg-slate-100 dark:bg-slate-700/40 text-slate-700 dark:text-slate-300 ring-slate-200 dark:ring-slate-500/40">{a.action}</Badge></td>
-                      <td className="py-2 font-mono text-xs text-slate-600 dark:text-slate-400">{a.endpoint || '-'}</td>
-                      <td className="py-2 text-slate-600 dark:text-slate-300">{a.status_code || '-'}</td>
-                      <td className="py-2 text-slate-600 dark:text-slate-300">{a.latency_ms != null ? `${a.latency_ms} ms` : '-'}</td>
+                    <tr key={a.id} className="border-b border-outline-variant/40 last:border-0">
+                      <td className="py-2 text-on-surface-variant">{new Date(a.created_at).toLocaleString()}</td>
+                      <td className="py-2"><Badge className="chip bg-surface-container text-on-surface">{a.action}</Badge></td>
+                      <td className="py-2 font-mono text-mono-caption text-on-surface-variant">{a.endpoint || '-'}</td>
+                      <td className="py-2 text-on-surface">{a.status_code || '-'}</td>
+                      <td className="py-2 text-on-surface">{a.latency_ms != null ? `${a.latency_ms} ms` : '-'}</td>
                     </tr>
                   ))}
                 </tbody>

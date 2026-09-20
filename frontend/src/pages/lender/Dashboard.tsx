@@ -34,17 +34,17 @@ export default function LenderDashboard() {
   const decisionData = Object.entries(stats?.decision_distribution || {}).map(([k, v]) => ({ name: k, value: v }))
 
   return (
-    <div ref={containerRef} className="space-y-6">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Lender Dashboard</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Portfolio overview, recent decisions, and model health.</p>
+        <h1 className="text-headline-lg text-primary font-bold tracking-tight">Lender Dashboard</h1>
+        <p className="text-body-md text-on-surface-variant mt-1">Portfolio overview, recent decisions, and model health.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 reveal-stagger">
-        <div data-reveal><Stat label="MSMEs in platform" value={msmes.length} /></div>
-        <div data-reveal><Stat label="Decisions on file" value={decisions.length} /></div>
-        <div data-reveal><Stat label="Approved" value={approveCount} hint={`${((approveCount / Math.max(decisions.length, 1)) * 100).toFixed(0)}% approval rate`} /></div>
-        <div data-reveal><Stat label="Total recommended exposure" value={formatINR(totalExposure)} /></div>
+        <div data-reveal><Stat label="MSMEs in platform" value={msmes.length} icon="business" /></div>
+        <div data-reveal><Stat label="Decisions on file" value={decisions.length} icon="gavel" /></div>
+        <div data-reveal><Stat label="Approved" value={approveCount} hint={`${((approveCount / Math.max(decisions.length, 1)) * 100).toFixed(0)}% approval rate`} icon="check_circle" /></div>
+        <div data-reveal><Stat label="Total recommended exposure" value={formatINR(totalExposure)} icon="currency_rupee" /></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-stagger">
@@ -53,8 +53,8 @@ export default function LenderDashboard() {
             <div style={{ width: '100%', height: 260 }}>
               <ResponsiveContainer>
                 <BarChart data={gradeData}>
-                  <XAxis dataKey="grade" stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
-                  <YAxis allowDecimals={false} stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
+                  <XAxis dataKey="grade" stroke="currentColor" className="text-on-surface-variant" />
+                  <YAxis allowDecimals={false} stroke="currentColor" className="text-on-surface-variant" />
                   <Tooltip />
                   <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                     {gradeData.map((entry) => (
@@ -87,13 +87,13 @@ export default function LenderDashboard() {
 
       <div data-reveal>
         <Card title="Recent decisions" subtitle="Last 8 assessments"
-          action={<Link to="/lender/decisions" className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-200 font-medium">View all</Link>}>
+          action={<Link to="/lender/decisions" className="text-body-sm text-primary hover:text-primary font-medium">View all</Link>}>
           {recent.length === 0 ? (
-            <div className="text-sm text-slate-500 dark:text-slate-400">No decisions yet. Run an assessment from MSME Search.</div>
+            <div className="text-body-sm text-on-surface-variant">No decisions yet. Run an assessment from MSME Search.</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200/60 dark:border-slate-700/60">
+              <table className="w-full text-body-sm">
+                <thead className="text-left text-on-surface-variant border-b border-outline-variant">
                   <tr>
                     <th className="py-2 font-medium">MSME</th>
                     <th className="py-2 font-medium">Outcome</th>
@@ -106,16 +106,16 @@ export default function LenderDashboard() {
                   {recent.map((d) => {
                     const m = msmes.find((x) => x.id === d.msme_id)
                     return (
-                      <tr key={d.id} className="border-b border-slate-200/40 dark:border-slate-700/40 last:border-0 hover:bg-slate-900/5 dark:hover:bg-white/5 transition">
+                      <tr key={d.id} className="border-b border-outline-variant/40 last:border-0 hover:bg-surface-container-low transition">
                         <td className="py-2.5">
-                          <Link to={`/lender/report/${d.msme_id}`} className="text-brand-700 dark:text-brand-300 hover:text-brand-900 dark:hover:text-brand-100 font-medium">
+                          <Link to={`/lender/report/${d.msme_id}`} className="text-primary hover:text-primary font-medium">
                             {m?.legal_name || `MSME #${d.msme_id}`}
                           </Link>
                         </td>
                         <td className="py-2.5"><Badge className={outcomeColor(d.outcome)}>{d.outcome}</Badge></td>
-                        <td className="py-2.5 text-slate-600 dark:text-slate-400">-</td>
-                        <td className="py-2.5 text-slate-700 dark:text-slate-300">{formatINR(d.recommended_limit_inr)}</td>
-                        <td className="py-2.5 text-slate-500 dark:text-slate-400">{new Date(d.created_at).toLocaleString()}</td>
+                        <td className="py-2.5 text-on-surface-variant">-</td>
+                        <td className="py-2.5 text-on-surface">{formatINR(d.recommended_limit_inr)}</td>
+                        <td className="py-2.5 text-on-surface-variant">{new Date(d.created_at).toLocaleString()}</td>
                       </tr>
                     )
                   })}

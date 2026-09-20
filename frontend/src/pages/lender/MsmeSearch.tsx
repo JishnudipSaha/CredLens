@@ -37,10 +37,10 @@ export default function MsmeSearch() {
   }
 
   return (
-    <div ref={containerRef} className="space-y-4">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">MSME Search</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Find an MSME, then run a fresh credit assessment.</p>
+        <h1 className="text-headline-lg text-primary font-bold tracking-tight">MSME Search</h1>
+        <p className="text-body-md text-on-surface-variant mt-1">Find an MSME, then run a fresh credit assessment.</p>
       </div>
 
       <div data-reveal>
@@ -66,14 +66,14 @@ export default function MsmeSearch() {
         </Card>
       </div>
 
-      {error && <div className="text-sm text-rose-600 dark:text-rose-400 bg-rose-500/10 px-3 py-2 rounded-lg">{error}</div>}
+      {error && <div className="text-body-sm text-error bg-error-container/30 px-3 py-2 rounded-lg">{error}</div>}
 
       {loading ? <Spinner /> : (
         <div data-reveal>
           <Card title={`${rows.length} MSMEs`}>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="text-left text-slate-500 dark:text-slate-400 border-b border-slate-200/60 dark:border-slate-700/60">
+              <table className="w-full text-body-sm">
+                <thead className="text-left text-on-surface-variant border-b border-outline-variant">
                   <tr>
                     <th className="py-2 font-medium">Company</th>
                     <th className="py-2 font-medium">Sector</th>
@@ -86,28 +86,28 @@ export default function MsmeSearch() {
                 </thead>
                 <tbody>
                   {rows.map((m) => (
-                    <tr key={m.id} className="border-b border-slate-200/40 dark:border-slate-700/40 last:border-0 hover:bg-slate-900/5 dark:hover:bg-white/5 transition">
+                    <tr key={m.id} className="border-b border-outline-variant/40 last:border-0 hover:bg-surface-container-low transition">
                       <td className="py-3">
-                        <Link to={`/lender/report/${m.id}`} className="text-brand-700 dark:text-brand-300 hover:text-brand-900 dark:hover:text-brand-100 font-medium">{m.legal_name}</Link>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">{m.city}</div>
+                        <Link to={`/lender/report/${m.id}`} className="text-primary hover:text-primary font-medium">{m.legal_name}</Link>
+                        <div className="text-mono-caption text-on-surface-variant">{m.city}</div>
                       </td>
-                      <td className="py-3 capitalize text-slate-700 dark:text-slate-300">{m.sector}</td>
-                      <td className="py-3 text-slate-700 dark:text-slate-300">{m.state}</td>
-                      <td className="py-3 text-slate-700 dark:text-slate-300">{formatINR(m.annual_turnover_inr)}</td>
+                      <td className="py-3 capitalize text-on-surface">{m.sector}</td>
+                      <td className="py-3 text-on-surface">{m.state}</td>
+                      <td className="py-3 text-on-surface">{formatINR(m.annual_turnover_inr)}</td>
                       <td className="py-3">
                         {m.latest_score != null ? (
                           <span className="flex items-center gap-2">
                             <span className={`text-lg font-bold ${scoreColor(m.latest_score)}`}>{m.latest_score}</span>
                             <span className={`chip ${gradeColor(m.latest_grade)}`}>{m.latest_grade}</span>
                           </span>
-                        ) : <span className="text-slate-400">-</span>}
+                        ) : <span className="text-on-surface-variant">-</span>}
                       </td>
-                      <td className="py-3">{m.latest_decision ? <span className={`chip ${outcomeColor(m.latest_decision)}`}>{m.latest_decision}</span> : <span className="text-slate-400">-</span>}</td>
+                      <td className="py-3">{m.latest_decision ? <span className={`chip ${outcomeColor(m.latest_decision)}`}>{m.latest_decision}</span> : <span className="text-on-surface-variant">-</span>}</td>
                       <td className="py-3 text-right space-x-2">
-                        <Link to={`/lender/report/${m.id}`} className="text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-200 text-sm font-medium">View</Link>
+                        <Link to={`/lender/report/${m.id}`} className="text-primary hover:text-primary text-body-sm font-medium">View</Link>
                         <button
                           onClick={() => run(m.id)} disabled={running === m.id}
-                          className="text-sm font-medium text-white btn-primary px-3 py-1"
+                          className="text-body-sm font-medium text-white btn-primary px-3 py-1"
                         >
                           {running === m.id ? 'Running...' : 'Run Assessment'}
                         </button>

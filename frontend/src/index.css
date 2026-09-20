@@ -3,202 +3,221 @@
 @tailwind utilities;
 
 /* ====================================================================
-   THEME TOKENS
-   - Light is the default; toggling .dark on <html> switches to dark.
-   - All tokens are declared as space-separated RGB so Tailwind's
-     `rgb(var(--token) / <alpha-value>)` syntax works.
+   CREDLENS INSTITUTIONAL DESIGN SYSTEM
+   Modern Institutional Minimalism with Precision Data Density
    ==================================================================== */
-:root {
-  --c-bg-from:        238 244 255;   /* light: brand-50 */
-  --c-bg-via:         255 255 255;
-  --c-bg-to:          248 250 252;   /* slate-50 */
-  --c-surface:        255 255 255;
-  --c-surface-muted:  248 250 252;
-  --c-surface-subtle: 241 245 249;
-  --c-border:         226 232 240;   /* slate-200 */
-  --c-ink:            15  23  42;    /* slate-900 */
-  --c-ink-muted:      71  85 105;    /* slate-600 */
-  --c-ink-subtle:     148 163 184;   /* slate-400 */
-  --c-brand-glow:     53  99 255;    /* brand-500 */
-  --c-grid-line:      226 232 240;
-  color-scheme: light;
-}
-
-.dark {
-  --c-bg-from:        8   12  28;
-  --c-bg-via:         15  23  42;
-  --c-bg-to:          5   8  20;
-  --c-surface:        22  28  45;
-  --c-surface-muted:  17  24  39;
-  --c-surface-subtle: 12  18  32;
-  --c-border:         51  65  85;    /* slate-700 */
-  --c-ink:            241 245 249;
-  --c-ink-muted:      203 213 225;
-  --c-ink-subtle:     148 163 184;
-  --c-brand-glow:     90  139 255;
-  --c-grid-line:      30  41  59;
-  color-scheme: dark;
-}
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: rgb(var(--c-bg-via));
-  color: rgb(var(--c-ink));
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: #f8f9ff;
+  color: #0b1c30;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.4s ease, color 0.3s ease;
 }
 
-/* ====================================================================
-   GRADIENT MESH + ANIMATED BLOBS
-   - Sits behind every page; pointer-events: none so it never blocks.
-   - Three blurred radial blobs slowly drift to give the background life.
-   ==================================================================== */
-.app-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background:
-    radial-gradient(at 20% 0%, rgb(var(--c-bg-from) / 1) 0px, transparent 50%),
-    radial-gradient(at 80% 100%, rgb(var(--c-bg-to) / 1) 0px, transparent 50%),
-    rgb(var(--c-bg-via));
-  transition: background 0.4s ease;
-}
-.app-bg::before,
-.app-bg::after {
-  content: "";
-  position: absolute;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  filter: blur(96px);
-  opacity: 0.35;
-  pointer-events: none;
-}
-.app-bg::before {
-  background: rgb(var(--c-brand-glow) / 0.45);
-  top: -120px;
-  left: -120px;
-  animation: blob 18s ease-in-out infinite;
-}
-.app-bg::after {
-  background: rgb(168 85 247 / 0.35);
-  bottom: -160px;
-  right: -160px;
-  animation: blob 22s ease-in-out infinite reverse;
-}
-.dark .app-bg::before { opacity: 0.28; }
-.dark .app-bg::after  { opacity: 0.22; background: rgb(56 189 248 / 0.35); }
-
-/* ====================================================================
-   GLASS UTILITIES
-   - Frosted look: semi-transparent surface + backdrop blur + soft border.
-   - .glass-card   - cards & panels
-   - .glass-strong - prominent surfaces (login card, modals)
-   ==================================================================== */
 @layer components {
-  .glass {
-    background: rgb(var(--c-surface) / 0.65);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    border: 1px solid rgb(var(--c-border) / 0.6);
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.4) inset, 0 8px 32px -8px rgb(15 23 42 / 0.12);
+  /* App Background - Clean institutional canvas */
+  .app-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: #f8f9ff;
   }
-  .dark .glass {
-    background: rgb(var(--c-surface) / 0.55);
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 8px 32px -8px rgb(0 0 0 / 0.4);
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-xl shadow-sm transition-shadow;
+    border: 1px solid #e2e8f0;
+  }
+  .card:hover {
+    @apply shadow-md;
+  }
+
+  /* Metric card */
+  .metric-card {
+    @apply bg-white p-space-md rounded-xl shadow-sm flex flex-col justify-between;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Glass alternatives for backward compatibility */
+  .glass {
+    @apply bg-white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0px 1px 2px 0px rgba(15, 23, 42, 0.04);
   }
   .glass-strong {
-    background: rgb(var(--c-surface) / 0.78);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgb(var(--c-border) / 0.7);
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.5) inset, 0 20px 50px -12px rgb(15 23 42 / 0.18);
-  }
-  .dark .glass-strong {
-    background: rgb(var(--c-surface) / 0.7);
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.05) inset, 0 20px 50px -12px rgb(0 0 0 / 0.5);
+    @apply bg-white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0px 4px 6px -1px rgba(15, 23, 42, 0.06), 0px 2px 4px -2px rgba(15, 23, 42, 0.04);
   }
   .glass-card {
-    @apply glass rounded-2xl;
+    @apply glass rounded-xl;
   }
+
+  /* Input styles */
   .glass-input {
     @apply w-full px-3 py-2 rounded-lg border outline-none transition;
-    background: rgb(var(--c-surface) / 0.7);
-    border-color: rgb(var(--c-border) / 0.8);
-    color: rgb(var(--c-ink));
+    height: 38px;
+    background: #ffffff;
+    border-color: #cbd5e1;
+    color: #0f172a;
   }
   .glass-input:focus {
-    border-color: rgb(var(--c-brand-glow) / 0.7);
-    box-shadow: 0 0 0 3px rgb(var(--c-brand-glow) / 0.18);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
   }
+
+  /* Button styles */
   .btn-primary {
-    @apply font-semibold rounded-lg transition;
-    background: linear-gradient(135deg, rgb(53 99 255) 0%, rgb(90 139 255) 100%);
+    @apply font-semibold rounded-lg transition-all;
+    background: #1e3a8a;
     color: white;
-    box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.2) inset, 0 8px 24px -8px rgb(53 99 255 / 0.4);
+    height: 40px;
+    padding: 0 1rem;
   }
-  .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
-  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .btn-primary:hover {
+    background: #172554;
+  }
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   .btn-ghost {
-    @apply rounded-md transition;
-    color: rgb(var(--c-ink-muted));
+    @apply rounded-lg transition-all;
+    color: #444651;
+    background: transparent;
   }
   .btn-ghost:hover {
-    background: rgb(var(--c-surface-muted) / 0.6);
-    color: rgb(var(--c-ink));
+    background: #f1f5f9;
+    color: #0b1c30;
   }
+
+  .btn-secondary {
+    @apply font-medium rounded-lg transition-all;
+    background: #ffffff;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    height: 40px;
+    padding: 0 1rem;
+  }
+  .btn-secondary:hover {
+    background: #f8fafc;
+  }
+
+  .btn-danger {
+    @apply font-medium rounded-lg transition-all;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    height: 40px;
+    padding: 0 1rem;
+  }
+  .btn-danger:hover {
+    background: #fee2e2;
+  }
+
+  /* Badge / Chip styles */
   .chip {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ring-1 ring-inset;
+    @apply inline-flex items-center rounded-full font-medium;
+    height: 22px;
+    padding: 0 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  .badge-approved {
+    @apply chip;
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+  }
+  .badge-review {
+    @apply chip;
+    background: #fffbeb;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
+  .badge-rejected {
+    @apply chip;
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+  }
+
+  /* Table styles */
+  .table-header {
+    @apply bg-surface-container-low text-on-surface-variant font-mono-label uppercase tracking-wider;
+    height: 36px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .table-row {
+    @apply transition-colors;
+    height: 44px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .table-row:hover {
+    background: #f8fafc;
+  }
+
+  /* Status indicators */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+  .status-active {
+    @apply status-dot bg-tertiary;
+  }
+  .status-warning {
+    @apply status-dot bg-secondary;
+  }
+  .status-error {
+    @apply status-dot bg-error;
   }
 }
 
-/* ====================================================================
-   SCROLL REVEAL (CSS-only, animation-driven)
-   - Elements with [data-reveal] play a single fade-up animation on
-     mount. Pure CSS - no JS observer required, so content is always
-     visible even if the hook never runs.
-   - .reveal-stagger on the parent adds incremental delays so cards
-     or table rows cascade in one after another.
-   ==================================================================== */
+/* Scroll Reveal */
 [data-reveal] {
   animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.reveal-stagger > [data-reveal]:nth-child(1)  { animation-delay: 0.00s; }
-.reveal-stagger > [data-reveal]:nth-child(2)  { animation-delay: 0.04s; }
-.reveal-stagger > [data-reveal]:nth-child(3)  { animation-delay: 0.08s; }
-.reveal-stagger > [data-reveal]:nth-child(4)  { animation-delay: 0.12s; }
-.reveal-stagger > [data-reveal]:nth-child(5)  { animation-delay: 0.16s; }
-.reveal-stagger > [data-reveal]:nth-child(6)  { animation-delay: 0.20s; }
-.reveal-stagger > [data-reveal]:nth-child(7)  { animation-delay: 0.24s; }
-.reveal-stagger > [data-reveal]:nth-child(8)  { animation-delay: 0.28s; }
-.reveal-stagger > [data-reveal]:nth-child(n+9){ animation-delay: 0.32s; }
+.reveal-stagger > [data-reveal]:nth-child(1) { animation-delay: 0.00s; }
+.reveal-stagger > [data-reveal]:nth-child(2) { animation-delay: 0.04s; }
+.reveal-stagger > [data-reveal]:nth-child(3) { animation-delay: 0.08s; }
+.reveal-stagger > [data-reveal]:nth-child(4) { animation-delay: 0.12s; }
+.reveal-stagger > [data-reveal]:nth-child(5) { animation-delay: 0.16s; }
+.reveal-stagger > [data-reveal]:nth-child(6) { animation-delay: 0.20s; }
+.reveal-stagger > [data-reveal]:nth-child(7) { animation-delay: 0.24s; }
+.reveal-stagger > [data-reveal]:nth-child(8) { animation-delay: 0.28s; }
+.reveal-stagger > [data-reveal]:nth-child(n+9) { animation-delay: 0.32s; }
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { animation: none; }
-  .app-bg::before, .app-bg::after { animation: none; }
 }
 
-/* Recharts tooltip: make it readable on dark surfaces */
+/* Recharts tooltip */
 .recharts-default-tooltip {
-  background: rgb(var(--c-surface) / 0.95) !important;
-  border: 1px solid rgb(var(--c-border)) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.25) !important;
-  color: rgb(var(--c-ink)) !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0px 4px 6px -1px rgba(15, 23, 42, 0.06) !important;
+  color: #0b1c30 !important;
 }
-.recharts-tooltip-label { color: rgb(var(--c-ink-muted)) !important; }
+.recharts-tooltip-label { color: #444651 !important; }
 
-/* Subtle scrollbar that adapts to theme */
-::-webkit-scrollbar { width: 10px; height: 10px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--c-border));
-  border-radius: 8px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  background: #c5c5d3;
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-ink-subtle) / 0.6); background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: #757682; }
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}

@@ -51,14 +51,14 @@ export default function UploadData() {
   })
 
   return (
-    <div ref={containerRef} className="space-y-5">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Upload Data</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Push sample records to see how ingestion cleans, validates, and updates your financials.</p>
+        <h1 className="text-headline-lg text-primary font-bold tracking-tight">Upload Data</h1>
+        <p className="text-body-md text-on-surface-variant mt-1">Push sample records to see how ingestion cleans, validates, and updates your financials.</p>
       </div>
 
       {msg && (
-        <div data-reveal className={`text-sm px-3 py-2 rounded-lg ${msg.kind === 'ok' ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300' : 'bg-rose-500/15 text-rose-700 dark:text-rose-300'}`}>
+        <div data-reveal className={`text-body-sm px-3 py-2 rounded-lg ${msg.kind === 'ok' ? 'text-tertiary-container bg-tertiary-container/20' : 'text-error bg-error-container/30'}`}>
           {msg.text}
         </div>
       )}
@@ -68,7 +68,7 @@ export default function UploadData() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 reveal-stagger">
         <div data-reveal>
           <Card title="Financial data" subtitle="Bank statements, GST returns, ITR, balance sheet">
-            <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">Sample: 3 months of healthy bank balance and GST filings.</p>
+            <p className="text-body-sm text-on-surface mb-3">Sample: 3 months of healthy bank balance and GST filings.</p>
             <button onClick={sendSampleFinancial} disabled={!msmeId || loading} className="btn-primary px-4 py-2 disabled:opacity-50">
               Send sample financial payload
             </button>
@@ -76,7 +76,7 @@ export default function UploadData() {
         </div>
         <div data-reveal>
           <Card title="Alternative data" subtitle="Utility payments, telecom, digital footprint">
-            <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">Sample: all utility bills on time, healthy telecom & digital scores.</p>
+            <p className="text-body-sm text-on-surface mb-3">Sample: all utility bills on time, healthy telecom & digital scores.</p>
             <button onClick={sendSampleAlternative} disabled={!msmeId || loading} className="btn-primary px-4 py-2 disabled:opacity-50">
               Send sample alternative payload
             </button>

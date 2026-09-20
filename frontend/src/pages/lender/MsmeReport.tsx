@@ -49,12 +49,12 @@ export default function MsmeReport() {
   const breakdown: any = score?.score_breakdown || {}
 
   return (
-    <div ref={containerRef} className="space-y-5">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal className="flex items-center justify-between">
         <div>
-          <button onClick={() => navigate(-1)} className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200">&larr; Back</button>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">{msme.legal_name}</h1>
-          <div className="text-sm text-slate-500 dark:text-slate-400">
+          <button onClick={() => navigate(-1)} className="text-body-sm text-on-surface-variant hover:text-primary transition-colors">&larr; Back</button>
+          <h1 className="text-headline-lg text-primary font-bold tracking-tight mt-1">{msme.legal_name}</h1>
+          <div className="text-body-sm text-on-surface-variant">
             {msme.sector} - {msme.city}, {msme.state} - GSTIN {msme.gstin || '-'}
           </div>
         </div>
@@ -63,17 +63,17 @@ export default function MsmeReport() {
         </button>
       </div>
 
-      {error && <div className="text-sm text-rose-600 dark:text-rose-400 bg-rose-500/10 px-3 py-2 rounded-lg">{error}</div>}
+      {error && <div className="text-body-sm text-error bg-error-container/30 px-3 py-2 rounded-lg">{error}</div>}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 reveal-stagger">
         <div data-reveal>
           <Card title="Credit score" subtitle={score ? `Model ${score.model_version}` : 'No score yet'}>
             <ScoreGauge score={score?.credit_score} grade={score?.risk_grade} />
             {score && (
-              <div className="mt-4 space-y-1 text-sm">
-                <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-400">PD (12m default)</span><span className="font-medium text-slate-800 dark:text-slate-200">{(score.pd_default_12m * 100).toFixed(1)}%</span></div>
-                <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-400">ML raw score</span><span className="font-medium text-slate-800 dark:text-slate-200">{breakdown.ml_score}</span></div>
-                <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-400">Rule penalty</span><span className="font-medium text-rose-600 dark:text-rose-400">-{breakdown.rules_penalty}</span></div>
+              <div className="mt-4 space-y-1 text-body-sm">
+                <div className="flex justify-between"><span className="text-on-surface-variant">PD (12m default)</span><span className="font-medium text-on-surface">{(score.pd_default_12m * 100).toFixed(1)}%</span></div>
+                <div className="flex justify-between"><span className="text-on-surface-variant">ML raw score</span><span className="font-medium text-on-surface">{breakdown.ml_score}</span></div>
+                <div className="flex justify-between"><span className="text-on-surface-variant">Rule penalty</span><span className="font-medium text-error">-{breakdown.rules_penalty}</span></div>
               </div>
             )}
           </Card>
@@ -85,20 +85,20 @@ export default function MsmeReport() {
               <div className="space-y-3">
                 <Badge className={`${outcomeColor(decision.outcome)} text-base px-3 py-1`}>{decision.outcome}</Badge>
                 <div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">Recommended limit</div>
-                  <div className="text-2xl font-bold text-slate-900 dark:text-slate-100">{formatINR(decision.recommended_limit_inr)}</div>
+                  <div className="text-mono-caption text-on-surface-variant">Recommended limit</div>
+                  <div className="text-data-metric text-on-surface font-bold">{formatINR(decision.recommended_limit_inr)}</div>
                 </div>
-                <p className="text-sm text-slate-600 dark:text-slate-300">{decision.rationale}</p>
+                <p className="text-body-sm text-on-surface">{decision.rationale}</p>
                 <div>
-                  <div className="text-xs uppercase text-slate-500 dark:text-slate-400 mb-1">Reason codes</div>
+                  <div className="text-mono-caption uppercase text-on-surface-variant mb-1">Reason codes</div>
                   <div className="flex flex-wrap gap-1">
                     {decision.reason_codes.map((r) => (
-                      <span key={r} className="text-xs bg-slate-900/5 dark:bg-white/10 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded font-mono">{r}</span>
+                      <span key={r} className="text-mono-caption bg-surface-container text-on-surface px-2 py-0.5 rounded font-mono">{r}</span>
                     ))}
                   </div>
                 </div>
               </div>
-            ) : <div className="text-sm text-slate-500 dark:text-slate-400">Run an assessment to see the decision.</div>}
+            ) : <div className="text-body-sm text-on-surface-variant">Run an assessment to see the decision.</div>}
           </Card>
         </div>
 
@@ -107,47 +107,47 @@ export default function MsmeReport() {
             {score?.red_flags.length ? (
               <ul className="space-y-2">
                 {score.red_flags.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-amber-800 dark:text-amber-300">
-                    <span className="mt-0.5 text-amber-500">!</span>
+                  <li key={i} className="flex items-start gap-2 text-body-sm text-secondary-container">
+                    <span className="mt-0.5 material-symbols-outlined text-[16px]">warning</span>
                     <span>{f}</span>
                   </li>
                 ))}
               </ul>
-            ) : <div className="text-sm text-slate-500 dark:text-slate-400">No red flags raised.</div>}
+            ) : <div className="text-body-sm text-on-surface-variant">No red flags raised.</div>}
           </Card>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 reveal-stagger">
-        <div data-reveal><Stat label="Avg monthly revenue" value={formatINR(fin.avg_monthly_revenue_inr)} /></div>
-        <div data-reveal><Stat label="Revenue trend" value={formatPct(fin.revenue_trend_pct)} hint="Last 6 months" /></div>
-        <div data-reveal><Stat label="GST compliance" value={formatPct((fin.gst_compliance_ratio || 0) * 100, 0)} hint={`${fin.gst_filings_done || 0}/${fin.gst_filings_expected || 0} filings`} /></div>
-        <div data-reveal><Stat label="Vintage" value={`${formatNumber(fin.vintage_years, 1)} years`} /></div>
-        <div data-reveal><Stat label="Bank balance" value={formatINR(fin.avg_bank_balance_inr)} /></div>
-        <div data-reveal><Stat label="Bounced cheques (12m)" value={String(fin.bounced_cheques_12m ?? 0)} /></div>
-        <div data-reveal><Stat label="Existing debt" value={formatINR(fin.existing_loan_obligations_inr)} /></div>
-        <div data-reveal><Stat label="Customer concentration" value={formatPct((fin.top_customer_concentration_pct || 0) * 100, 0)} /></div>
+        <div data-reveal><Stat label="Avg monthly revenue" value={formatINR(fin.avg_monthly_revenue_inr)} icon="currency_rupee" /></div>
+        <div data-reveal><Stat label="Revenue trend" value={formatPct(fin.revenue_trend_pct)} hint="Last 6 months" icon="trending_up" /></div>
+        <div data-reveal><Stat label="GST compliance" value={formatPct((fin.gst_compliance_ratio || 0) * 100, 0)} hint={`${fin.gst_filings_done || 0}/${fin.gst_filings_expected || 0} filings`} icon="verified" /></div>
+        <div data-reveal><Stat label="Vintage" value={`${formatNumber(fin.vintage_years, 1)} years`} icon="schedule" /></div>
+        <div data-reveal><Stat label="Bank balance" value={formatINR(fin.avg_bank_balance_inr)} icon="account_balance" /></div>
+        <div data-reveal><Stat label="Bounced cheques (12m)" value={String(fin.bounced_cheques_12m ?? 0)} icon="error" /></div>
+        <div data-reveal><Stat label="Existing debt" value={formatINR(fin.existing_loan_obligations_inr)} icon="payments" /></div>
+        <div data-reveal><Stat label="Customer concentration" value={formatPct((fin.top_customer_concentration_pct || 0) * 100, 0)} icon="pie_chart" /></div>
       </div>
 
       {decision && (
         <div data-reveal>
           <Card title="Feedback Loop" subtitle="Record the actual outcome to improve the model">
             {feedbackSent ? (
-              <div className="text-sm text-emerald-700 dark:text-emerald-300 bg-emerald-500/15 px-3 py-2 rounded-lg">Recorded: {feedbackSent}. Thank you.</div>
+              <div className="text-body-sm text-tertiary-container bg-tertiary-container/20 px-3 py-2 rounded-lg">Recorded: {feedbackSent}. Thank you.</div>
             ) : (
               <div className="flex flex-wrap gap-2">
-                <button onClick={() => submitFeedback('PAID_ON_TIME')} className="px-3 py-2 bg-emerald-100 dark:bg-emerald-500/20 hover:bg-emerald-200 dark:hover:bg-emerald-500/30 text-emerald-800 dark:text-emerald-200 rounded-lg text-sm font-medium transition">Paid on time</button>
-                <button onClick={() => submitFeedback('DELAYED')} className="px-3 py-2 bg-yellow-100 dark:bg-yellow-500/20 hover:bg-yellow-200 dark:hover:bg-yellow-500/30 text-yellow-800 dark:text-yellow-200 rounded-lg text-sm font-medium transition">Delayed</button>
-                <button onClick={() => submitFeedback('PARTIAL_DEFAULT')} className="px-3 py-2 bg-orange-100 dark:bg-orange-500/20 hover:bg-orange-200 dark:hover:bg-orange-500/30 text-orange-800 dark:text-orange-200 rounded-lg text-sm font-medium transition">Partial default</button>
-                <button onClick={() => submitFeedback('NPA')} className="px-3 py-2 bg-rose-100 dark:bg-rose-500/20 hover:bg-rose-200 dark:hover:bg-rose-500/30 text-rose-800 dark:text-rose-200 rounded-lg text-sm font-medium transition">NPA</button>
+                <button onClick={() => submitFeedback('PAID_ON_TIME')} className="btn-feedback-approved">Paid on time</button>
+                <button onClick={() => submitFeedback('DELAYED')} className="btn-feedback-review">Delayed</button>
+                <button onClick={() => submitFeedback('PARTIAL_DEFAULT')} className="btn-feedback-review">Partial default</button>
+                <button onClick={() => submitFeedback('NPA')} className="btn-feedback-rejected">NPA</button>
               </div>
             )}
           </Card>
         </div>
       )}
 
-      <div data-reveal className="text-xs text-slate-500 dark:text-slate-400">
-        <Link to="/lender/search" className="text-brand-600 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-200">Search another MSME</Link>
+      <div data-reveal className="text-body-sm text-on-surface-variant">
+        <Link to="/lender/search" className="text-primary hover:text-primary font-medium">Search another MSME</Link>
       </div>
     </div>
   )

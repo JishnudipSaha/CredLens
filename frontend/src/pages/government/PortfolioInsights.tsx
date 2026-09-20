@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 import { formatINR } from '../../utils/format'
 import { useReveal } from '../../hooks/useReveal'
 
-const COLORS = ['#3563ff', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#84cc16', '#ec4899']
+const COLORS = ['#0051d5', '#0032a0', '#00236f', '#0077f5', '#1e3a8a', '#001845', '#003d99', '#0051d5']
 
 export default function PortfolioInsightsPage() {
   const [data, setData] = useState<PortfolioInsights | null>(null)
@@ -24,17 +24,17 @@ export default function PortfolioInsightsPage() {
   const gradeData = Object.entries(data.grade_distribution).map(([g, c]) => ({ grade: g, count: c }))
 
   return (
-    <div ref={containerRef} className="space-y-5">
+    <div ref={containerRef} className="space-y-space-lg">
       <div data-reveal>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Ecosystem Portfolio Insights</h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">Aggregate credit health of MSMEs in the platform.</p>
+        <h1 className="text-headline-lg text-primary font-bold tracking-tight">Ecosystem Portfolio Insights</h1>
+        <p className="text-body-md text-on-surface-variant mt-1">Aggregate credit health of MSMEs in the platform.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 reveal-stagger">
-        <div data-reveal><Stat label="Total MSMEs" value={data.total_msmes} /></div>
-        <div data-reveal><Stat label="Scored MSMEs" value={data.scored_msmes} /></div>
-        <div data-reveal><Stat label="Average credit score" value={data.avg_credit_score} /></div>
-        <div data-reveal><Stat label="Total recommended exposure" value={formatINR(data.total_recommended_exposure_inr)} /></div>
+        <div data-reveal><Stat label="Total MSMEs" value={data.total_msmes} icon="business" /></div>
+        <div data-reveal><Stat label="Scored MSMEs" value={data.scored_msmes} icon="speed" /></div>
+        <div data-reveal><Stat label="Average credit score" value={data.avg_credit_score} icon="analytics" /></div>
+        <div data-reveal><Stat label="Total recommended exposure" value={formatINR(data.total_recommended_exposure_inr)} icon="currency_rupee" /></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 reveal-stagger">
@@ -58,10 +58,10 @@ export default function PortfolioInsightsPage() {
               <ResponsiveContainer>
                 <BarChart data={gradeData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgb(148 163 184 / 0.25)" />
-                  <XAxis dataKey="grade" stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
-                  <YAxis allowDecimals={false} stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
+                  <XAxis dataKey="grade" stroke="currentColor" className="text-on-surface-variant" />
+                  <YAxis allowDecimals={false} stroke="currentColor" className="text-on-surface-variant" />
                   <Tooltip />
-                  <Bar dataKey="count" fill="#3563ff" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="count" fill="#0051d5" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -75,10 +75,10 @@ export default function PortfolioInsightsPage() {
             <ResponsiveContainer>
               <BarChart data={stateData} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" stroke="rgb(148 163 184 / 0.25)" />
-                <XAxis type="number" allowDecimals={false} stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
-                <YAxis dataKey="state" type="category" width={120} stroke="currentColor" className="text-slate-500 dark:text-slate-400" />
+                <XAxis type="number" allowDecimals={false} stroke="currentColor" className="text-on-surface-variant" />
+                <YAxis dataKey="state" type="category" width={120} stroke="currentColor" className="text-on-surface-variant" />
                 <Tooltip />
-                <Bar dataKey="count" fill="#10b981" radius={[0, 6, 6, 0]} />
+                <Bar dataKey="count" fill="#0032a0" radius={[0, 6, 6, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

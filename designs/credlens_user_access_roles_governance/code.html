@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"inverse-surface":"#213145","on-secondary":"#ffffff","on-primary":"#ffffff","primary-container":"#1e3a8a","on-primary-fixed":"#00164e","primary-fixed-dim":"#b6c4ff","surface-tint":"#4059aa","secondary-fixed":"#dbe1ff","secondary-fixed-dim":"#b4c5ff","on-secondary-container":"#fefcff","error":"#ba1a1a","on-background":"#0b1c30","surface-dim":"#cbdbf5","tertiary-fixed":"#85f8c4","error-container":"#ffdad6","tertiary":"#003120","on-tertiary-container":"#4ac08f","on-tertiary-fixed":"#002114","surface-container-high":"#dce9ff","on-tertiary":"#ffffff","on-error-container":"#93000a","on-secondary-fixed-variant":"#003ea8","secondary":"#0051d5","on-tertiary-fixed-variant":"#005137","surface-container-lowest":"#ffffff","secondary-container":"#316bf3","surface-bright":"#f8f9ff","on-error":"#ffffff","on-surface":"#0b1c30","background":"#f8f9ff","surface-container-highest":"#d3e4fe","on-primary-container":"#90a8ff","on-secondary-fixed":"#00174b","surface":"#f8f9ff","on-surface-variant":"#444651","inverse-primary":"#b6c4ff","surface-container":"#e5eeff","outline":"#757682","tertiary-fixed-dim":"#68dba9","surface-variant":"#d3e4fe","tertiary-container":"#004a32","surface-container-low":"#eff4ff","on-primary-fixed-variant":"#264191","outline-variant":"#c5c5d3","inverse-on-surface":"#eaf1ff","primary-fixed":"#dce1ff","primary":"#00236f"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xl":"2rem","space-md":"1rem","margin-mobile":"1rem","space-xs":"0.25rem","space-lg":"1.5rem","space-sm":"0.5rem","gutter-sm":"0.75rem","gutter":"1.25rem","margin":"1.5rem"},"fontFamily":{"data-metric":["Inter"],"headline-sm":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"headline-xl":["Inter"],"body-md":["Inter"],"mono-label":["JetBrains Mono"],"mono-caption":["JetBrains Mono"],"body-sm":["Inter"],"headline-xl-mobile":["Inter"],"headline-lg":["Inter"]},"fontSize":{"data-metric":["28px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"mono-label":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"mono-caption":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="CredLens Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Whebw0DHiUyNqr9-X9uPbKBvJ7I6lIdj1dqli0wx2qcoWeBGrkewVoD6upMXyTLwPa_0jozHngT5P-bsiSeu902W5x9YtxdG_Ha9Q5xWcmH2Um12G0nLofvqNTKwsZa4meUV5FXwaX1DYLCT4eL3cwDMxcr-px5J-iOVMKC0Fl1mtiOaDTuHQNQEHLEvX3W5f-528e__Iw5ecbg0bS6yy9KPc-lH0vk8llWy4HXEA9ooUARmOwOhhRNQ"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">CredLens</span><span class="px-space-xs py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption uppercase font-semibold border border-outline-variant">ADMIN PORTAL</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-low text-primary font-semibold border-b-2 border-primary"><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="model-monitor" href="#">Model Monitor</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="credit-policies" href="#">Credit Policies</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="audit-trail" href="#">Audit Trail</a><a aria-current="page" class="px-space-sm py-2 transition-colors bg-surface-container-low text-primary font-semibold border-b-2 border-primary" data-path="user-access-roles" href="#">User Access &amp; Roles</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="system-health" href="#">System Health</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low border border-surface-container-highest"><div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-mono-caption text-mono-caption text-on-surface">Model: <span class="font-medium text-primary">v2.4.1 (GBM-Active)</span></span></div><div class="h-3 w-px bg-outline-variant"></div><div class="flex items-center gap-1"><span class="font-mono-caption text-mono-caption text-on-surface-variant">Drift:</span><span class="font-mono-caption text-mono-caption text-tertiary-container font-medium">Nominal (0.018 PSI)</span></div></div><button aria-label="Notifications" class="relative p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-container-highest"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden lg:flex flex-col text-left"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Vikram Sengupta</span><span class="font-mono-caption text-mono-caption text-on-surface-variant leading-tight">Chief Risk &amp; Technology Officer</span></div></div></div></div></header><main class="w-full pt-16 bg-background"><div class="flex flex-col w-full">
+<!-- Top Breadcrumbs and Action Strip -->
+<div class="w-full px-margin py-space-sm bg-surface-container-low border-b border-surface-container-highest flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-mono-caption text-mono-caption text-on-surface-variant flex-wrap">
+<span>Platform Admin</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Security &amp; Compliance</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Role-Based Access Control (RBAC) &amp; Privileges</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span>
+<span>Directory Sync: <span class="font-medium text-on-surface">Azure AD / Okta SCIM (Synced 4m ago)</span></span>
+</span>
+<span class="h-3 w-px bg-outline-variant"></span>
+<span>HSM Node: <span class="font-medium text-primary">AWS-KMS-FIPS-04</span></span>
+</div>
+</div>
+<!-- Page Header Container -->
+<div class="w-full px-margin pt-space-lg pb-space-md flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1 max-w-3xl">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-xl text-headline-xl text-primary font-bold tracking-tight">User Access &amp; Roles Governance</h1>
+<div class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed border border-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[15px] text-tertiary-container font-semibold">verified_user</span>
+<span class="font-mono-caption text-mono-caption font-semibold tracking-wide uppercase">FIPS 140-3 &amp; Zero-Trust Enforced</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+        Manage institutional credit officer delegations, four-eyes policy signers, API automated service principals, and ephemeral enclave sessions.
+      </p>
+</div>
+<!-- Top Action Buttons -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="px-space-sm py-2 rounded bg-surface-container-lowest border border-outline-variant hover:bg-surface-container transition-colors text-on-surface font-body-sm text-body-sm font-medium flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>Invite / Provision User</span>
+</button>
+<button class="px-space-sm py-2 rounded bg-surface-container-lowest border border-outline-variant hover:bg-surface-container transition-colors text-on-surface font-body-sm text-body-sm font-medium flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Security Policies &amp; Rules</span>
+</button>
+<button class="px-space-md py-2 rounded bg-primary text-on-primary hover:bg-primary-container transition-all font-body-sm text-body-sm font-semibold flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_moderator</span>
+<span>+ Create Custom Role</span>
+</button>
+</div>
+</div>
+<!-- Security & Access KPI Quad-Grid -->
+<div class="w-full px-margin mb-space-lg">
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Card 1: Active Principals -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Active Principals (30D)</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-data-metric text-data-metric text-on-surface">48 Users</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-mono-caption text-mono-caption font-semibold">+3 This Month</span>
+</div>
+</div>
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+</div>
+</div>
+<div class="pt-space-sm mt-space-sm border-t border-surface-container-highest flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>32 Human Officers</span>
+<span>•</span>
+<span>16 Machine Principals</span>
+</div>
+</div>
+<!-- Card 2: Dual-Control Eligible -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Dual-Control Eligible</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-data-metric text-data-metric text-on-surface">6 Signers</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-mono-caption text-mono-caption font-semibold">Four-Eyes Mandatory</span>
+</div>
+</div>
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">security_update_good</span>
+</div>
+</div>
+<div class="pt-space-sm mt-space-sm border-t border-surface-container-highest flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>2 CRO Tier Signers</span>
+<span>•</span>
+<span>4 Senior Credit Leads</span>
+</div>
+</div>
+<!-- Card 3: Hardware MFA Adoption -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Hardware MFA Adoption</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-data-metric text-data-metric text-tertiary-container">100.0%</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-mono-caption text-mono-caption font-semibold">FIPS YubiKey Enforced</span>
+</div>
+</div>
+<div class="w-9 h-9 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">key</span>
+</div>
+</div>
+<div class="pt-space-sm mt-space-sm border-t border-surface-container-highest flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Zero SMS/TOTP Fallback</span>
+<span>•</span>
+<span>WebAuthn Hardware</span>
+</div>
+</div>
+<!-- Card 4: Ephemeral Sessions -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Ephemeral Sessions</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-data-metric text-data-metric text-on-surface">14 Active</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption font-semibold">Max 4h Leases</span>
+</div>
+</div>
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">av_timer</span>
+</div>
+</div>
+<div class="pt-space-sm mt-space-sm border-t border-surface-container-highest flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Nitro Enclave Bound</span>
+<span>•</span>
+<span class="text-tertiary-container font-medium">0 Stale Tokens</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Segmented View Tabs & Granular Search Filters -->
+<div class="w-full px-margin mb-space-md flex flex-col gap-space-sm">
+<!-- View Switcher Tabs -->
+<div class="flex items-center gap-space-xs border-b border-surface-container-highest pb-0 overflow-x-auto">
+<button class="px-space-md py-2.5 font-body-sm text-body-sm font-semibold text-primary border-b-2 border-primary -mb-px flex items-center gap-1.5 whitespace-nowrap bg-surface-container-lowest rounded-t">
+<span class="material-symbols-outlined text-[16px]">account_box</span>
+<span>User Directory (48)</span>
+</button>
+<button class="px-space-md py-2.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface border-b-2 border-transparent hover:border-surface-container-highest transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+<span>Institutional Roles &amp; Matrix (6)</span>
+</button>
+<button class="px-space-md py-2.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface border-b-2 border-transparent hover:border-surface-container-highest transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">how_to_reg</span>
+<span>Dual-Control Signers (6)</span>
+</button>
+<button class="px-space-md py-2.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface border-b-2 border-transparent hover:border-surface-container-highest transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+<span>Machine Service Principals (16)</span>
+</button>
+<button class="px-space-md py-2.5 font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface border-b-2 border-transparent hover:border-surface-container-highest transition-colors flex items-center gap-1.5 whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">policy</span>
+<span>Access Policies &amp; Quotas</span>
+</button>
+</div>
+<!-- Search & Multi-Filter Bar -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm">
+<div class="relative flex-1 min-w-[280px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
+<input class="w-full pl-9 pr-space-md py-2 rounded bg-surface border border-outline-variant text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-outline" placeholder="Search by user name, work email, role title, or YubiKey serial..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<!-- Role Filter -->
+<select class="px-space-sm py-2 rounded bg-surface border border-outline-variant text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary">
+<option>All Roles (Credit Officer, CRO, Auditor, ML Ops)</option>
+<option>CRO / Master Admin</option>
+<option>Senior Underwriting Lead</option>
+<option>Dual-Control Signer</option>
+<option>ML Ops Lead</option>
+<option>Regulatory Auditor</option>
+<option>Service Principal (Automated)</option>
+</select>
+<!-- Department Filter -->
+<select class="px-space-sm py-2 rounded bg-surface border border-outline-variant text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary">
+<option>All Entities (Underwriting, Risk, AI Ops, Statutory)</option>
+<option>Commercial Lending Desk - Mumbai</option>
+<option>Executive Risk Committee</option>
+<option>AI Governance &amp; Operations</option>
+<option>Statutory Compliance &amp; RBI Liaison</option>
+</select>
+<!-- Key Status Filter -->
+<select class="px-space-sm py-2 rounded bg-surface border border-outline-variant text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary">
+<option>MFA: All (FIPS Hardware Key, Active, Nitro)</option>
+<option>YubiKey 5 FIPS Enforced</option>
+<option>FIPS 140-3 Hardware Token</option>
+<option>WebAuthn Active</option>
+<option>Session Revoked / Suspended</option>
+</select>
+<!-- Export Matrix Button -->
+<button class="px-space-sm py-2 rounded bg-surface-container border border-outline-variant text-on-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+<span>Export Matrix (SOC-2 / CSV)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Institutional User Directory Table -->
+<div class="w-full px-margin mb-space-xl">
+<div class="w-full rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container-highest">
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">User / Principal</th>
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Assigned Roles</th>
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Department / Desk</th>
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Authentication &amp; Key Status</th>
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Privileged Scope &amp; Limits</th>
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Last Active &amp; IP</th>
+<th class="py-2.5 px-space-md font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm">
+<!-- Row 1: Vikram Sengupta -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm font-semibold ring-2 ring-surface-container">
+                    VS
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">Vikram Sengupta</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary-container" title="Cryptographically Verified Identity">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chief Risk &amp; Technology Officer</span>
+<span class="font-mono-caption text-mono-caption text-outline">vikram@credlens.in</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-wrap gap-1 max-w-[200px]">
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-mono-caption text-mono-caption font-semibold">CRO / Master Admin</span>
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-mono-caption text-mono-caption font-semibold">Merkle Signer Tier 1</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">
+<div class="flex flex-col">
+<span class="font-medium">Executive Risk Committee</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Board Delegation #CR-01</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">token</span>
+<span class="font-mono-caption text-mono-caption font-semibold text-on-surface">YubiKey 5 NFC FIPS</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Serial: #8921-A • Ed25519 Root</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-caption text-mono-caption text-on-surface font-medium">Policy Edit: Dual-Sign | HSM Signer</span>
+<span class="font-mono-caption text-mono-caption text-tertiary-container font-semibold">Sanctions: Uncapped (Committee)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-mono-caption text-mono-caption">
+<div class="flex flex-col">
+<span class="text-tertiary-container font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span> Active Now
+                  </span>
+<span class="text-on-surface-variant">AWS Nitro Enclave #01</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                    Manage
+                  </button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Rajesh Kumar -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-headline-sm text-headline-sm font-semibold ring-2 ring-surface-container">
+                    RK
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">Rajesh Kumar</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Senior Underwriting Lead</span>
+<span class="font-mono-caption text-mono-caption text-outline">rajesh.kumar@credlens.in</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-wrap gap-1 max-w-[200px]">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono-caption text-mono-caption font-semibold">Senior Underwriter</span>
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-mono-caption text-mono-caption font-semibold">Dual-Signer Level 2</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">
+<div class="flex flex-col">
+<span class="font-medium">Commercial Lending Desk - Mumbai</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Desk Authority #MUM-W1</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">token</span>
+<span class="font-mono-caption text-mono-caption font-semibold text-on-surface">YubiKey 5C FIPS</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Serial: #7741-B • WebAuthn HW</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-caption text-mono-caption text-on-surface font-medium">Policy Amendment Proposer</span>
+<span class="font-mono-caption text-mono-caption text-primary font-semibold">Sanctions: Up to ₹10.0 Cr</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-mono-caption text-mono-caption">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">12m ago</span>
+<span class="text-outline">103.21.244.18 (Enclave VPN)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                    Manage
+                  </button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Sunita Rao -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-headline-sm font-semibold ring-2 ring-surface-container">
+                    SR
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">Sunita Rao</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Head of Model Risk &amp; Quantitative Analytics</span>
+<span class="font-mono-caption text-mono-caption text-outline">sunita.rao@credlens.in</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-wrap gap-1 max-w-[200px]">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-mono-caption text-mono-caption font-semibold">ML Ops Lead</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-mono-caption text-mono-caption font-semibold">Model Risk Approver</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">
+<div class="flex flex-col">
+<span class="font-medium">AI Governance &amp; Operations</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Model Validation Board</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">fingerprint</span>
+<span class="font-mono-caption text-mono-caption font-semibold text-on-surface">FIPS Touch ID + Key</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Serial: #6104-M • T2 Enclave</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-caption text-mono-caption text-on-surface font-medium">Feature Weights &amp; Drift Calibration</span>
+<span class="font-mono-caption text-mono-caption text-primary font-semibold">GBM Retrain Auth: Active</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-mono-caption text-mono-caption">
+<div class="flex flex-col">
+<span class="text-tertiary-container font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span> Active Now
+                  </span>
+<span class="text-outline">Jupyter/MLflow Tunnel</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                    Manage
+                  </button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Amitav Ghosh -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest text-primary flex items-center justify-center font-headline-sm text-headline-sm font-semibold ring-2 ring-surface-container">
+                    AG
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">Amitav Ghosh</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Commercial Underwriter II</span>
+<span class="font-mono-caption text-mono-caption text-outline">amitav.g@credlens.in</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-wrap gap-1 max-w-[200px]">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption font-semibold">Credit Underwriter</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">
+<div class="flex flex-col">
+<span class="font-medium">Commercial Lending Desk - Mumbai</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">MSME Portfolio Unit</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">token</span>
+<span class="font-mono-caption text-mono-caption font-semibold text-on-surface">YubiKey 5 NFC FIPS</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Serial: #4409-C • Active</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-caption text-mono-caption text-on-surface font-medium">Borrower Dossier Review &amp; GST Check</span>
+<span class="font-mono-caption text-mono-caption text-primary font-semibold">Sanctions: Up to ₹2.5 Cr</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-mono-caption text-mono-caption">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">1h ago</span>
+<span class="text-outline">157.240.198.35 (Dedicated)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                    Manage
+                  </button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Priya Nair -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-headline-sm text-headline-sm font-semibold ring-2 ring-surface-container">
+                    PN
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">Priya Nair</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Lead Statutory Compliance Officer</span>
+<span class="font-mono-caption text-mono-caption text-outline">priya.nair@credlens.in</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-wrap gap-1 max-w-[200px]">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption font-semibold">Regulatory Auditor</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-mono-caption text-mono-caption font-semibold">SOC-2 Reporter</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">
+<div class="flex flex-col">
+<span class="font-medium">Statutory Compliance &amp; RBI Liaison</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">External Audit Oversight</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">token</span>
+<span class="font-mono-caption text-mono-caption font-semibold text-on-surface">YubiKey 5 FIPS Hardware</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Serial: #9011-L • Read-Only Scope</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-caption text-mono-caption text-on-surface font-medium">Immutable Audit Export &amp; Logs</span>
+<span class="font-mono-caption text-mono-caption text-error font-semibold">Data Mutation: Forbidden (0)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-mono-caption text-mono-caption">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">4h ago</span>
+<span class="text-outline">49.206.12.9 (Corporate VPN)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                    Manage
+                  </button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: ml.calibration@cron -->
+<tr class="hover:bg-surface-container-low/60 transition-colors bg-surface-container-low/30">
+<td class="py-space-sm px-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest text-primary flex items-center justify-center font-headline-sm text-headline-sm font-semibold border border-outline-variant">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-mono-caption text-mono-caption font-bold text-primary truncate">ml.calibration@cron</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container font-mono-caption text-[10px] text-on-surface-variant font-semibold">SERVICE</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Internal ML Orchestrator Daemon</span>
+<span class="font-mono-caption text-mono-caption text-outline">ml-worker-01@service.credlens.internal</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-wrap gap-1 max-w-[200px]">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption font-semibold">Service Principal (Automated)</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-on-surface">
+<div class="flex flex-col">
+<span class="font-medium">AI Governance &amp; Operations</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Kubernetes Pod CIDR 10.244.x</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">vpn_key</span>
+<span class="font-mono-caption text-mono-caption font-semibold text-on-surface">AWS IAM mTLS Enclave Cert</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Fingerprint: 88fa...901e</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-caption text-mono-caption text-on-surface font-medium">Read-Only AA Streams &amp; GST Cache</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant font-medium">Inference Cache Writes</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-mono-caption text-mono-caption">
+<div class="flex flex-col">
+<span class="text-tertiary-container font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span> Constant Daemon
+                  </span>
+<span class="text-outline">Internal VPC 10.0.12.80</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="px-2 py-1 rounded bg-surface-container border border-outline-variant hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                    Cert Config
+                  </button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination Controls -->
+<div class="py-space-sm px-space-md bg-surface-container-low border-t border-surface-container-highest flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">
+          Showing <span class="font-semibold text-on-surface">1 - 6</span> of <span class="font-semibold text-on-surface">48</span> principals • Cryptographically attested via SHA-256 state root
+        </span>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-mono-caption text-mono-caption disabled:opacity-40" disabled="">Previous</button>
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-mono-caption text-mono-caption font-semibold">1</button>
+<button class="px-2.5 py-1 rounded bg-surface border border-outline-variant text-on-surface font-mono-caption text-mono-caption hover:bg-surface-container">2</button>
+<button class="px-2.5 py-1 rounded bg-surface border border-outline-variant text-on-surface font-mono-caption text-mono-caption hover:bg-surface-container">3</button>
+<button class="px-2.5 py-1 rounded bg-surface border border-outline-variant text-on-surface font-mono-caption text-mono-caption hover:bg-surface-container">Next</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Two-Column Lower Governance & Security Architecture -->
+<div class="w-full px-margin mb-space-xl">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Column: Four-Eyes Authorization Matrix -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container-highest">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary">Four-Eyes Authorization &amp; Privileged Tier Matrix</h3>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Cryptographic dual-authorization rules mapped across high-consequence administrative actions.</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-mono-caption text-mono-caption font-semibold">Policy v3.1 Strict</span>
+</div>
+<div class="mt-space-md flex flex-col gap-space-sm">
+<!-- Rule 1: Policy Threshold Adjustment -->
+<div class="p-space-sm rounded-lg bg-surface border border-surface-container-highest flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm">
+<div class="p-1.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant mt-0.5">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Policy Threshold Adjustment</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-mono-caption text-[11px]">DSCR / Knock-Outs</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant mt-0.5">
+                    Requirement: <span class="font-medium text-primary">Proposer (Underwriting Lead) + Signer (CRO / Head of Risk)</span>
+</span>
+<span class="font-mono-caption text-mono-caption text-outline">
+                    24h approval SLA window • Ephemeral Nitro token mandatory
+                  </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-center">
+<span class="px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-mono-caption text-mono-caption font-semibold">2 Signers Ready</span>
+<button class="p-1.5 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Rule 2: Model Retraining & Production Promotion -->
+<div class="p-space-sm rounded-lg bg-surface border border-surface-container-highest flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm">
+<div class="p-1.5 rounded bg-primary-fixed text-on-primary-fixed-variant mt-0.5">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Model Retraining &amp; Production Promotion</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-mono-caption text-[11px]">GBM v2.4.1</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant mt-0.5">
+                    Requirement: <span class="font-medium text-primary">ML Ops Lead + Risk Committee Officer</span>
+</span>
+<span class="font-mono-caption text-mono-caption text-outline">
+                    Gate Check: Population Stability Index &lt; 0.100 &amp; ROC-AUC delta verified
+                  </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-center">
+<span class="px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-mono-caption text-mono-caption font-semibold">3 Signers Ready</span>
+<button class="p-1.5 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Rule 3: Hard Knock-Out Override -->
+<div class="p-space-sm rounded-lg bg-error-container/20 border border-error/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm">
+<div class="p-1.5 rounded bg-error/10 text-error mt-0.5">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Hard Knock-Out Override (Single-Borrower)</span>
+<span class="px-1.5 py-0.2 rounded bg-error text-on-error font-mono-caption text-[10px] font-bold uppercase">Locked</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant mt-0.5">
+                    Requirement: <span class="font-semibold text-error">Statutory Locked (Zero Single-Officer Bypass Allowed)</span>
+</span>
+<span class="font-mono-caption text-mono-caption text-outline">
+                    Mandates full Board Risk Sub-committee quorum + RBI Master Direction filing
+                  </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-center">
+<span class="px-2 py-1 rounded bg-surface text-on-surface-variant font-mono-caption text-mono-caption font-semibold border border-outline-variant">Zero-Bypass</span>
+</div>
+</div>
+<!-- Rule 4: Instant Disbursal Cap Increase -->
+<div class="p-space-sm rounded-lg bg-surface border border-surface-container-highest flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm">
+<div class="p-1.5 rounded bg-surface-container text-primary mt-0.5">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-md text-body-md font-semibold text-on-surface">Instant Disbursal Cap Increase (&gt; ₹5.0 Cr)</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface-variant font-mono-caption text-[11px]">Treasury Level</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant mt-0.5">
+                    Requirement: <span class="font-medium text-primary">Credit Committee Lead + Principal Treasury Officer</span>
+</span>
+<span class="font-mono-caption text-mono-caption text-outline">
+                    Liquidity buffer re-check + Escrow settlement confirmation
+                  </span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-center">
+<span class="px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-mono-caption text-mono-caption font-semibold">2 Signers Ready</span>
+<button class="p-1.5 rounded text-outline hover:text-on-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Active Session Telemetry & Ephemeral Keys -->
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-container-highest shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container-highest">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary">Privileged Session Telemetry</h3>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Live hardware attestations &amp; cryptographic token leases</p>
+</div>
+</div>
+<span class="flex items-center gap-1 font-mono-caption text-mono-caption text-tertiary-container font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+<span>Live Feed</span>
+</span>
+</div>
+<!-- Session Stream Items -->
+<div class="mt-space-md flex flex-col gap-space-xs">
+<!-- Telemetry 1 -->
+<div class="p-space-sm rounded bg-surface border border-surface-container-highest flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Vikram Sengupta (CRO)</span>
+<span class="font-mono-caption text-mono-caption text-tertiary-container font-medium">Expires in 3h 12m</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Hardware: <span class="font-medium text-on-surface">YubiKey 5 NFC</span></span>
+<span>Nitro Enclave Ephemeral</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-surface-container-highest font-mono-caption text-[11px]">
+<span class="text-outline font-mono">Token: 0x33ef...a210</span>
+<span class="text-primary font-medium">[policy:write, hsm:sign]</span>
+</div>
+</div>
+<!-- Telemetry 2 -->
+<div class="p-space-sm rounded bg-surface border border-surface-container-highest flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Rajesh Kumar (Senior Lead)</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Expires in 1h 48m</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Hardware: <span class="font-medium text-on-surface">YubiKey 5C</span></span>
+<span>Corporate VPN Leased</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-surface-container-highest font-mono-caption text-[11px]">
+<span class="text-outline font-mono">Token: 0x89e2...3f1a</span>
+<span class="text-primary font-medium">[sanction:approve, queue:batch]</span>
+</div>
+</div>
+<!-- Telemetry 3 -->
+<div class="p-space-sm rounded bg-surface border border-surface-container-highest flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Sunita Rao (Analytics)</span>
+<span class="font-mono-caption text-mono-caption text-tertiary-container font-medium">Expires in 2h 55m</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Hardware: <span class="font-medium text-on-surface">FIPS TouchID</span></span>
+<span>Jupyter/MLflow Tunnel</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-surface-container-highest font-mono-caption text-[11px]">
+<span class="text-outline font-mono">Token: 0x4fa1...90ce</span>
+<span class="text-primary font-medium">[model:retrain, feature:inspect]</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Security Policy Global Toggles -->
+<div class="mt-space-md pt-space-md border-t border-surface-container-highest flex flex-col gap-space-sm">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Zero-Trust Enforcements</span>
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Strict FIPS Hardware Token Mandate</span>
+<span class="font-mono-caption text-mono-caption text-outline">Rejects mobile TOTP &amp; SMS fallback entirely</span>
+</div>
+<input checked="" class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-primary accent-primary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Mandatory Dual-Control on Mutations</span>
+<span class="font-mono-caption text-mono-caption text-outline">Blocks single-admin policy modifications</span>
+</div>
+<input checked="" class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-primary accent-primary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-medium text-on-surface">IP Geo-Shift Token Invalidation</span>
+<span class="font-mono-caption text-mono-caption text-outline">Terminates active session upon subnet drift</span>
+</div>
+<input checked="" class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-primary accent-primary" type="checkbox"/>
+</div>
+<a class="inline-flex items-center gap-1 font-mono-caption text-mono-caption text-primary font-semibold hover:underline mt-1" href="#">
+<span>Configure Enclave Key Expiration &amp; TLS Ciphers</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container-highest py-space-md mt-space-xl"><div class="w-full px-margin flex flex-col xl:flex-row items-center justify-between gap-space-md text-on-surface-variant"><div class="flex flex-wrap items-center gap-space-md"><span class="font-mono-caption text-mono-caption font-semibold text-primary">CredLens Enterprise Governance</span><span class="hidden sm:inline-block w-1 h-1 rounded-full bg-outline-variant"></span><div class="flex flex-wrap items-center gap-space-xs font-mono-caption text-mono-caption"><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">SOC-2 Type II</span><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">RBI Master Direction</span><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">ISO 27001</span><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">Basel III &amp; Model Risk Management (SR 11-7)</span></div></div><div class="flex flex-wrap items-center gap-space-md font-mono-caption text-mono-caption"><span>Instance ID: <span class="font-medium text-on-surface">us-east-prod-ai-01</span></span><span>© 2025 CredLens Inc. All rights reserved.</span></div></div></footer></body></html>

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>CredLens Enterprise Lender Platform</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"tertiary-container":"#004a32","on-primary":"#ffffff","surface-container-lowest":"#ffffff","surface-container-high":"#dce9ff","surface":"#f8f9ff","error-container":"#ffdad6","surface-container":"#e5eeff","on-background":"#0b1c30","inverse-on-surface":"#eaf1ff","surface-tint":"#4059aa","on-tertiary-fixed-variant":"#005137","background":"#f8f9ff","on-primary-fixed":"#00164e","surface-variant":"#d3e4fe","on-tertiary-fixed":"#002114","outline-variant":"#c5c5d3","on-secondary-fixed-variant":"#003ea8","primary-container":"#1e3a8a","surface-dim":"#cbdbf5","primary-fixed-dim":"#b6c4ff","on-error-container":"#93000a","secondary-fixed":"#dbe1ff","secondary-fixed-dim":"#b4c5ff","on-secondary-fixed":"#00174b","secondary-container":"#316bf3","surface-container-highest":"#d3e4fe","outline":"#757682","error":"#ba1a1a","inverse-primary":"#b6c4ff","on-error":"#ffffff","surface-container-low":"#eff4ff","on-surface":"#0b1c30","inverse-surface":"#213145","on-tertiary-container":"#4ac08f","tertiary-fixed-dim":"#68dba9","primary-fixed":"#dce1ff","on-surface-variant":"#444651","on-primary-container":"#90a8ff","on-tertiary":"#ffffff","on-secondary-container":"#fefcff","primary":"#00236f","on-primary-fixed-variant":"#264191","tertiary":"#003120","secondary":"#0051d5","on-secondary":"#ffffff","tertiary-fixed":"#85f8c4","surface-bright":"#f8f9ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-sm":"0.5rem","space-lg":"1.5rem","space-md":"1rem","space-xl":"2rem","space-xs":"0.25rem","gutter":"1.25rem","margin-mobile":"1rem","margin":"1.5rem","gutter-sm":"0.75rem"},"fontFamily":{"headline-md":["Inter"],"headline-sm":["Inter"],"data-metric":["Inter"],"mono-label":["JetBrains Mono"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-xl":["Inter"],"headline-lg":["Inter"],"body-md":["Inter"],"headline-xl-mobile":["Inter"],"mono-caption":["JetBrains Mono"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"data-metric":["28px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}],"mono-label":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"mono-caption":["11px",{"lineHeight":"14px","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="CredLens Wordmark Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Whebw0DHiUyNqr9-X9uPbKBvJ7I6lIdj1dqli0wx2qcoWeBGrkewVoD6upMXyTLwPa_0jozHngT5P-bsiSeu902W5x9YtxdG_Ha9Q5xWcmH2Um12G0nLofvqNTKwsZa4meUV5FXwaX1DYLCT4eL3cwDMxcr-px5J-iOVMKC0Fl1mtiOaDTuHQNQEHLEvX3W5f-528e__Iw5ecbg0bS6yy9KPc-lH0vk8llWy4HXEA9ooUARmOwOhhRNQ"/><span class="hidden xl:inline-block font-headline-sm text-headline-sm text-primary tracking-tight">CredLens</span></div><div class="h-5 w-px bg-surface-variant hidden md:block"></div><nav class="hidden md:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-headline-sm rounded-lg"><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="msme-search" href="#">MSME Search</a><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="underwriting-and-reports" href="#">Underwriting &amp; Reports</a><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="decisions" href="#">Decisions</a><a class="px-space-md py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface rounded-lg transition-colors font-body-md text-body-md" data-path="portfolio-analytics" href="#">Portfolio Analytics</a></nav></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container rounded-full"><span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span><span class="font-mono-caption text-mono-caption text-on-surface-variant">AI Engine: v2.4 Online</span></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low rounded-lg"><span class="material-symbols-outlined text-secondary text-[18px]">corporate_fare</span><span class="font-mono-label text-mono-label text-on-surface">HDFC Commercial Banking / NBFC Unit</span></div><button aria-label="Notifications" class="relative p-space-xs text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="hidden sm:flex flex-col text-right"><span class="font-headline-sm text-headline-sm text-on-surface">Rajesh Kumar</span><span class="font-mono-caption text-mono-caption text-on-surface-variant">Senior Credit Officer</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-16 bg-surface"><div class="flex flex-col w-full">
+<!-- Interactive Script for Filtering & View Toggle -->
+<script>
+    function switchDirectoryView(view) {
+      const tableBtn = document.getElementById('btn-view-table');
+      const kanbanBtn = document.getElementById('btn-view-kanban');
+      const tableView = document.getElementById('view-table-container');
+      const kanbanView = document.getElementById('view-kanban-container');
+
+      if (view === 'table') {
+        tableBtn.classList.replace('bg-surface', 'bg-surface-container-lowest');
+        tableBtn.classList.replace('text-on-surface-variant', 'text-primary');
+        tableBtn.classList.add('shadow-sm');
+        
+        kanbanBtn.classList.replace('bg-surface-container-lowest', 'bg-surface');
+        kanbanBtn.classList.replace('text-primary', 'text-on-surface-variant');
+        kanbanBtn.classList.remove('shadow-sm');
+
+        tableView.classList.remove('hidden');
+        kanbanView.classList.add('hidden');
+      } else {
+        kanbanBtn.classList.replace('bg-surface', 'bg-surface-container-lowest');
+        kanbanBtn.classList.replace('text-on-surface-variant', 'text-primary');
+        kanbanBtn.classList.add('shadow-sm');
+
+        tableBtn.classList.replace('bg-surface-container-lowest', 'bg-surface');
+        tableBtn.classList.replace('text-primary', 'text-on-surface-variant');
+        tableBtn.classList.remove('shadow-sm');
+
+        tableView.classList.add('hidden');
+        kanbanView.classList.remove('hidden');
+      }
+    }
+
+    function toggleChipFilter(el) {
+      const isSelected = el.getAttribute('data-active') === 'true';
+      if (isSelected) {
+        el.setAttribute('data-active', 'false');
+        el.classList.replace('bg-primary-container', 'bg-surface-container-lowest');
+        el.classList.replace('text-on-primary', 'text-on-surface-variant');
+      } else {
+        el.setAttribute('data-active', 'true');
+        el.classList.replace('bg-surface-container-lowest', 'bg-primary-container');
+        el.classList.replace('text-on-surface-variant', 'text-on-primary');
+      }
+    }
+  </script>
+<!-- Page Top Utility Bar & Title Block -->
+<div class="w-full px-margin py-space-md bg-surface-container-lowest shadow-sm">
+<div class="flex flex-col gap-space-sm">
+<!-- Breadcrumb & Engine Status -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-mono-label text-mono-label text-on-surface-variant">
+<span class="hover:text-primary cursor-pointer transition-colors">Lender Portfolio</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Underwriting Pipeline</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Entity Directory</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-space-xs px-space-sm py-0.5 bg-surface-container-low rounded-full">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Active Batch: #MSME-2025-04</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">SLA Clock: 04m 12s avg</span>
+</div>
+</div>
+<!-- Main Headline and CTA Strip -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mt-space-xs">
+<div class="flex flex-col">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">MSME Entity Directory &amp; Assessment Queue</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5 max-w-4xl">
+            Real-time underwriting queue triangulating GSTN, MCA21, Banking, and Alternative telecom records across 50 active MSME commercial borrowers.
+          </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm self-start lg:self-center">
+<button class="flex items-center gap-space-xs px-space-md py-2 bg-surface-container-low hover:bg-surface-container text-on-surface font-headline-sm text-headline-sm rounded-lg transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+<span>Export Pipeline</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 bg-surface-container-high hover:bg-surface-dim text-primary font-headline-sm text-headline-sm rounded-lg transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Bulk Scoring (12)</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm rounded-lg transition-colors shadow-md">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Ingest MSME Dossier</span>
+</button>
+</div>
+</div>
+<!-- Quick Summary Status Pill Badges -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+<div class="px-space-sm py-1 bg-surface-container rounded-md flex items-center gap-space-xs">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant uppercase">Total MSMEs:</span>
+<span class="font-mono-label text-mono-label text-primary font-bold">50</span>
+</div>
+<div class="px-space-sm py-1 bg-surface-container-low rounded-md flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Scored &amp; Ready:</span>
+<span class="font-mono-label text-mono-label text-on-surface font-semibold">38 Entities</span>
+</div>
+<div class="px-space-sm py-1 bg-surface-container-low rounded-md flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Awaiting Trigger:</span>
+<span class="font-mono-label text-mono-label text-secondary font-semibold">12 Entities</span>
+</div>
+<div class="px-space-sm py-1 bg-surface-container-low rounded-md flex items-center gap-space-xs">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Queue Mean AI Score:</span>
+<span class="font-mono-label text-mono-label text-primary font-bold">782 / 900</span>
+</div>
+<div class="px-space-sm py-1 bg-surface-container-low rounded-md flex items-center gap-space-xs">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Gateway Health:</span>
+<span class="font-mono-label text-mono-label text-tertiary font-medium">99.94% Online</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Metric Analytics Strip (Bento-style 4 KPIs) -->
+<div class="w-full px-margin pt-space-md">
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Metric 1: Total Demand -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Total Borrowing Demand</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-primary">account_balance</span>
+</div>
+</div>
+<div class="my-space-xs flex items-baseline justify-between">
+<span class="font-data-metric text-data-metric text-primary">₹ 84.60 Cr</span>
+<span class="font-mono-caption text-mono-caption text-tertiary font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +14.2% MoM
+          </span>
+</div>
+<div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span>Across 50 applied files</span>
+<span class="font-mono-caption text-mono-caption text-outline">Avg ticket: ₹1.69 Cr</span>
+</div>
+</div>
+<!-- Metric 2: Sanction Readiness -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Sanction Readiness Rate</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+</div>
+</div>
+<div class="my-space-xs flex items-baseline justify-between">
+<span class="font-data-metric text-data-metric text-tertiary">76.0%</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">38 of 50 evaluated</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden flex">
+<div class="bg-tertiary h-full" style="width: 62%;"></div>
+<div class="bg-secondary-container h-full" style="width: 14%;"></div>
+<div class="bg-surface-dim h-full" style="width: 24%;"></div>
+</div>
+<div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant mt-1.5">
+<span>31 Sanction Ready</span>
+<span class="font-mono-caption text-mono-caption text-error">7 Non-compliant</span>
+</div>
+</div>
+<!-- Metric 3: Median Score -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Median AI Credit Score</span>
+<div class="w-7 h-7 rounded-lg bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+</div>
+</div>
+<div class="my-space-xs flex items-baseline justify-between">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-data-metric text-data-metric text-on-surface">794</span>
+<span class="font-mono-label text-mono-label text-outline">/ 900</span>
+</div>
+<span class="px-space-xs py-0.5 bg-surface-container text-primary font-mono-label text-mono-label rounded font-semibold">Grade A Tier</span>
+</div>
+<div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> 1.4% Est. Default Prob.
+          </span>
+<span class="font-mono-caption text-mono-caption text-outline">Q4 Baseline: 765</span>
+</div>
+</div>
+<!-- Metric 4: Outliers & Flags -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider">Policy Outliers &amp; Flags</span>
+<div class="w-7 h-7 rounded-lg bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+</div>
+</div>
+<div class="my-space-xs flex items-baseline justify-between">
+<span class="font-data-metric text-data-metric text-error">4 Actionable</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Requires Underwriter Review</span>
+</div>
+<div class="flex items-center justify-between font-body-sm text-body-sm text-on-surface-variant">
+<span class="truncate">2 Single-Client • 2 GST 3B Gaps</span>
+<span class="font-mono-caption text-mono-caption text-secondary cursor-pointer hover:underline">Filter</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Search, Filter & View Control Bar -->
+<div class="w-full px-margin pt-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-sm">
+<!-- Top Row: Full Search + Select Dropdowns + View Switcher -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-sm items-center">
+<!-- Search Input with Clear -->
+<div class="lg:col-span-4 relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-9 py-2 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-lg shadow-sm focus:outline-none focus:bg-surface-container-low transition-all" placeholder="Search Company, CIN, GSTIN, Udyam ID or Director..." type="text" value="Pune IT Solutions"/>
+<button class="absolute right-2.5 text-outline hover:text-on-surface flex items-center justify-center p-0.5 rounded-full" onclick="this.previousElementSibling.value='';">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+</button>
+</div>
+<!-- Sector Filter -->
+<div class="lg:col-span-2">
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm px-space-sm py-2 pr-8 rounded-lg shadow-sm focus:outline-none focus:bg-surface-container cursor-pointer">
+<option>All Sectors</option>
+<option selected="">IT Services &amp; SaaS</option>
+<option>Precision Engineering</option>
+<option>Food Processing &amp; Logistics</option>
+<option>Textiles &amp; Apparel</option>
+<option>Healthcare Supplies</option>
+<option>Infrastructure &amp; Mining</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- State Filter -->
+<div class="lg:col-span-2">
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm px-space-sm py-2 pr-8 rounded-lg shadow-sm focus:outline-none focus:bg-surface-container cursor-pointer">
+<option selected="">All States</option>
+<option>Maharashtra (MH)</option>
+<option>Tamil Nadu (TN)</option>
+<option>Karnataka (KA)</option>
+<option>Gujarat (GJ)</option>
+<option>Himachal Pradesh (HP)</option>
+<option>Telangana (TS)</option>
+<option>Odisha (OD)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- Status Filter -->
+<div class="lg:col-span-2">
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-body-sm text-body-sm px-space-sm py-2 pr-8 rounded-lg shadow-sm focus:outline-none focus:bg-surface-container cursor-pointer">
+<option selected="">All Statuses</option>
+<option>Approved (Grade A-B)</option>
+<option>Review / In Doubt</option>
+<option>Rejected (Policy Outlier)</option>
+<option>Unscored (Pending Run)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 pointer-events-none text-outline text-[16px]">expand_more</span>
+</div>
+</div>
+<!-- View Switch Toggle -->
+<div class="lg:col-span-2 flex items-center justify-end">
+<div class="flex items-center p-1 bg-surface rounded-lg shadow-inner w-full lg:w-auto">
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-1 px-space-sm py-1 text-primary font-headline-sm text-body-sm bg-surface-container-lowest rounded-md shadow-sm transition-all" id="btn-view-table" onclick="switchDirectoryView('table')">
+<span class="material-symbols-outlined text-[16px]">table_rows</span>
+<span>Table</span>
+</button>
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-1 px-space-sm py-1 text-on-surface-variant font-headline-sm text-body-sm bg-surface rounded-md transition-all hover:text-on-surface" id="btn-view-kanban" onclick="switchDirectoryView('kanban')">
+<span class="material-symbols-outlined text-[16px]">view_kanban</span>
+<span>Pipeline</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Category Chips -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+<span class="font-mono-caption text-mono-caption text-outline uppercase mr-1">Quick Filters:</span>
+<button class="px-space-sm py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container font-mono-label text-mono-label transition-all flex items-center gap-1 shadow-sm" data-active="false" onclick="toggleChipFilter(this)">
+<span>Requires Assessment</span>
+<span class="w-4 h-4 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-bold text-[10px]">12</span>
+</button>
+<button class="px-space-sm py-1 rounded-full bg-primary-container text-on-primary hover:bg-primary font-mono-label text-mono-label transition-all flex items-center gap-1 shadow-sm" data-active="true" onclick="toggleChipFilter(this)">
+<span>Grade A Instant Disbursal</span>
+<span class="w-4 h-4 rounded-full bg-on-primary text-primary flex items-center justify-center font-bold text-[10px]">19</span>
+</button>
+<button class="px-space-sm py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container font-mono-label text-mono-label transition-all flex items-center gap-1 shadow-sm" data-active="false" onclick="toggleChipFilter(this)">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+<span>Early Warning Flags</span>
+<span class="w-4 h-4 rounded-full bg-error-container text-error flex items-center justify-center font-bold text-[10px]">4</span>
+</button>
+<button class="px-space-sm py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container font-mono-label text-mono-label transition-all flex items-center gap-1 shadow-sm" data-active="false" onclick="toggleChipFilter(this)">
+<span>GST Mismatch &gt; 5%</span>
+<span class="w-4 h-4 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold text-[10px]">3</span>
+</button>
+<div class="ml-auto flex items-center gap-1 text-on-surface-variant font-mono-caption text-mono-caption">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+<span>Filtered: 8 of 50 entities displayed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary MSME Directory View Container -->
+<div class="w-full px-margin pt-space-md">
+<!-- TABLE VIEW -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col" id="view-table-container">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-outline font-mono-label text-mono-label uppercase tracking-wider">
+<th class="py-space-sm px-space-md">Company &amp; Registration</th>
+<th class="py-space-sm px-space-md">Industry Sector</th>
+<th class="py-space-sm px-space-md text-right">Turnover &amp; Vintage</th>
+<th class="py-space-sm px-space-md text-center">Data Ingestion</th>
+<th class="py-space-sm px-space-md">AI Credit Score</th>
+<th class="py-space-sm px-space-md">Decision Recommendation</th>
+<th class="py-space-sm px-space-md text-right">Underwriter Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container text-body-md text-on-surface">
+<!-- ROW 1: Anand, Mistry and Chawla -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    AM
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">Anand, Mistry &amp; Chawla IT Solutions Pvt Ltd</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Pvt Ltd</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">U72200PN2014PTC150221</span>
+<span>•</span>
+<span>Pune, MH</span>
+<span>•</span>
+<span class="text-tertiary font-semibold flex items-center gap-0.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active GST</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">IT Services &amp; SaaS</span>
+<span class="font-mono-caption text-mono-caption text-outline">B2B Enterprise Cloud</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 19.20 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">9.8 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary" title="GSTN 3B/GSTR1: Verified">
+<span class="material-symbols-outlined text-[15px]">receipt_long</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary" title="Bank AA Statement: 12M Reconciled">
+<span class="material-symbols-outlined text-[15px]">account_balance</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary" title="MCA21 Compliance: Good Standing">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary" title="Alt Data: Electricity &amp; Utilities Validated">
+<span class="material-symbols-outlined text-[15px]">electric_meter</span>
+</div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-tertiary mt-1">4/4 Layers Complete</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold">824</span>
+<span class="px-space-xs py-0.5 rounded-full bg-tertiary/15 text-tertiary font-mono-caption text-mono-caption font-semibold">Grade A</span>
+</div>
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-tertiary h-full" style="width: 91%;"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="px-space-sm py-0.5 rounded-md bg-tertiary/15 text-tertiary font-mono-label text-mono-label font-bold tracking-tight">
+                      APPROVED • ₹2.45 Cr
+                    </span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">DSCR 1.82 • 0 Cheque Bounces</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<a class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-body-sm rounded-md transition-colors inline-flex items-center gap-1" href="#">
+<span>View Dossier</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Vardhaman Precision Tooling -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    VP
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">Vardhaman Precision Tooling Works LLP</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">LLP</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">AAA-9821-COIMB</span>
+<span>•</span>
+<span>Coimbatore, TN</span>
+<span>•</span>
+<span class="text-tertiary font-semibold flex items-center gap-0.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Precision Engineering</span>
+<span class="font-mono-caption text-mono-caption text-outline">Auto Ancillary &amp; Dies</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 28.50 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">14.0 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">verified_user</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">electric_meter</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-tertiary mt-1">4/4 Layers Complete</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold">796</span>
+<span class="px-space-xs py-0.5 rounded-full bg-tertiary/15 text-tertiary font-mono-caption text-mono-caption font-semibold">Grade A</span>
+</div>
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-tertiary h-full" style="width: 88%;"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="px-space-sm py-0.5 rounded-md bg-tertiary/15 text-tertiary font-mono-label text-mono-label font-bold tracking-tight inline-block self-start">
+                    APPROVED • ₹3.50 Cr
+                  </span>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">Overdraft Facility • 9.25% ROI</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<a class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-body-sm rounded-md transition-colors inline-flex items-center gap-1" href="#">
+<span>View Dossier</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: Shiv Shakti Agro -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    SS
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">Shiv Shakti Agro Processing &amp; Cold Chain</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Partnership</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">27AARCS9812K1Z9</span>
+<span>•</span>
+<span>Nashik, MH</span>
+<span>•</span>
+<span class="text-on-surface-variant">Agri Exporter</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Food Processing &amp; Logistics</span>
+<span class="font-mono-caption text-mono-caption text-outline">Perishables &amp; Export</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 42.10 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">7.2 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">verified_user</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">electric_meter</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-tertiary mt-1">4/4 Layers Complete</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-secondary-container font-bold">682</span>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-mono-caption text-mono-caption font-semibold">Grade C</span>
+</div>
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-secondary-container h-full" style="width: 75%;"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="px-space-sm py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed font-mono-label text-mono-label font-bold tracking-tight inline-block self-start">
+                    REVIEW • Seasonal WC
+                  </span>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">Covenant Check • Single Buyer 38%</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<a class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-body-sm rounded-md transition-colors inline-flex items-center gap-1" href="#">
+<span>Review File</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: NexGen Telematics (UNSCORED) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    NT
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">NexGen Telematics &amp; IoT Hardware Pvt Ltd</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Pvt Ltd</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">U32109KA2020PTC139871</span>
+<span>•</span>
+<span>Bengaluru, KA</span>
+<span>•</span>
+<span class="text-secondary font-semibold">Udyam Certified</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Electronics &amp; Hardware</span>
+<span class="font-mono-caption text-mono-caption text-outline">Automotive Telemetry</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 12.40 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">4.5 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">verified_user</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-surface-container-high text-outline" title="Utility Ingestion Queued"><span class="material-symbols-outlined text-[15px]">pending</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-outline mt-1">3/4 Layers Ready</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono-label text-mono-label font-medium">
+                    Unscored
+                  </span>
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-mono-label text-mono-label text-secondary font-semibold">READY TO RUN</span>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">Requested: ₹1.80 Cr</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="px-space-md py-1.5 bg-secondary hover:bg-secondary-container text-on-secondary font-headline-sm text-body-sm rounded-md transition-all shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Run Assessment</span>
+</button>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 5: Royal TexFab Weaving Mills -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    RT
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">Royal TexFab Weaving Mills</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Proprietorship</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">24AAMPR7721H1ZG</span>
+<span>•</span>
+<span>Surat, GJ</span>
+<span>•</span>
+<span class="text-tertiary font-semibold flex items-center gap-0.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Direct Exporter</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Textiles &amp; Apparel</span>
+<span class="font-mono-caption text-mono-caption text-outline">Synthetic Weaving</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 34.80 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">18.0 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">verified_user</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">electric_meter</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-tertiary mt-1">4/4 Layers Complete</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold">845</span>
+<span class="px-space-xs py-0.5 rounded-full bg-tertiary/15 text-tertiary font-mono-caption text-mono-caption font-semibold">Grade A</span>
+</div>
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-tertiary h-full" style="width: 94%;"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="px-space-sm py-0.5 rounded-md bg-tertiary/15 text-tertiary font-mono-label text-mono-label font-bold tracking-tight inline-block self-start">
+                    APPROVED • ₹4.00 Cr
+                  </span>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">High Capex Collateral Cover</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<a class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-body-sm rounded-md transition-colors inline-flex items-center gap-1" href="#">
+<span>View Dossier</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 6: Apex Pharma Packaging (REJECTED) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group bg-error-container/10">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-error-container text-error flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    AP
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-error transition-colors font-semibold truncate">Apex Pharma Packaging &amp; Polymer Solutions</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Pvt Ltd</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">U25209HP2018PTC007421</span>
+<span>•</span>
+<span>Baddi, HP</span>
+<span>•</span>
+<span class="text-error font-semibold flex items-center gap-0.5"><span class="w-1.5 h-1.5 rounded-full bg-error"></span> DIN Default</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Healthcare Supplies</span>
+<span class="font-mono-caption text-mono-caption text-outline">Medical Sterile Polymers</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 16.70 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">6.0 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-error/15 text-error" title="Director Disqualification / ROC Filing Pending"><span class="material-symbols-outlined text-[15px]">gavel</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">electric_meter</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-error mt-1">MCA Default Flag</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-error font-bold">584</span>
+<span class="px-space-xs py-0.5 rounded-full bg-error-container text-error font-mono-caption text-mono-caption font-semibold">Grade D</span>
+</div>
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-error h-full" style="width: 64%;"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="px-space-sm py-0.5 rounded-md bg-error-container text-error font-mono-label text-mono-label font-bold tracking-tight inline-block self-start">
+                    REJECTED • High Risk
+                  </span>
+<span class="font-mono-caption text-mono-caption text-error mt-0.5">MCA Director Default • 90+ DPD</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<a class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-error font-headline-sm text-body-sm rounded-md transition-colors inline-flex items-center gap-1" href="#">
+<span>Audit Trail</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 7: Kalinga Infra (UNSCORED) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    KI
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">Kalinga Infra Equipment &amp; Earthmovers</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Partnership</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">21AABFK1109P1Z3</span>
+<span>•</span>
+<span>Bhubaneswar, OD</span>
+<span>•</span>
+<span class="text-on-surface-variant">Class-1 Contractor</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Infrastructure &amp; Heavy Equip</span>
+<span class="font-mono-caption text-mono-caption text-outline">Highway Subcontracting</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 22.90 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">8.5 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">verified_user</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">electric_meter</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-tertiary mt-1">4/4 Layers Complete</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono-label text-mono-label font-medium">
+                    Unscored
+                  </span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-mono-label text-mono-label text-secondary font-semibold">READY TO RUN</span>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">Bank Guarantees Pending</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="px-space-md py-1.5 bg-secondary hover:bg-secondary-container text-on-secondary font-headline-sm text-body-sm rounded-md transition-all shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Run Assessment</span>
+</button>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 8: Zenith Cloud Labs -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-space-md px-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high text-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                    ZC
+                  </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors font-semibold truncate">Zenith Cloud Labs Pvt Ltd</span>
+<span class="px-space-xs py-0.2 bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption rounded">Pvt Ltd</span>
+</div>
+<div class="flex items-center gap-space-sm font-mono-caption text-mono-caption text-outline mt-0.5">
+<span class="text-on-surface font-mono">U72900TG2021PTC148810</span>
+<span>•</span>
+<span>Hyderabad, TS</span>
+<span>•</span>
+<span class="text-tertiary font-semibold flex items-center gap-0.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> DPIIT Recognized</span>
+</div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">B2B SaaS</span>
+<span class="font-mono-caption text-mono-caption text-outline">Fintech Infrastructure</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-mono-label text-mono-label text-on-surface font-bold">₹ 8.30 Cr</span>
+<span class="font-mono-caption text-mono-caption text-outline">3.1 Yrs Vintage</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center justify-center gap-1.5">
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">receipt_long</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">account_balance</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">verified_user</span></div>
+<div class="flex items-center justify-center w-6 h-6 rounded bg-tertiary/10 text-tertiary"><span class="material-symbols-outlined text-[15px]">electric_meter</span></div>
+</div>
+<div class="text-center font-mono-caption text-mono-caption text-tertiary mt-1">4/4 Layers Complete</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">768</span>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-mono-caption text-mono-caption font-semibold">Grade B</span>
+</div>
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-secondary h-full" style="width: 85%;"></div>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="px-space-sm py-0.5 rounded-md bg-secondary-fixed text-on-secondary-fixed font-mono-label text-mono-label font-bold tracking-tight inline-block self-start">
+                    APPROVED • ₹1.20 Cr
+                  </span>
+<span class="font-mono-caption text-mono-caption text-outline mt-0.5">Recurring Revenue Linked</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<a class="px-space-sm py-1.5 bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-body-sm rounded-md transition-colors inline-flex items-center gap-1" href="#">
+<span>View Dossier</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1 text-outline hover:text-on-surface rounded-md">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer & Pagination Bar -->
+<div class="p-space-md bg-surface-container-low/60 flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Ingestion Health Badge -->
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5 px-space-sm py-1 bg-surface-container-lowest rounded-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-mono-caption text-mono-caption text-on-surface">Ingestion Gateway Sync: Active (Last synced 3m ago via GSTN/MCA API)</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline hidden xl:inline">Batch ID: #GST-SYNC-99214</span>
+</div>
+<!-- Pagination Controls -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-mono-caption text-mono-caption text-on-surface-variant">
+<span>Rows per page:</span>
+<select class="bg-surface-container-lowest text-on-surface font-mono-label text-mono-label px-space-xs py-1 rounded shadow-sm focus:outline-none cursor-pointer">
+<option>8</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+<div class="font-mono-caption text-mono-caption text-on-surface-variant">
+            Showing <strong class="text-on-surface">1 - 8</strong> of <strong>50</strong> MSMEs
+          </div>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded bg-surface-container-lowest hover:bg-surface-container text-outline hover:text-on-surface shadow-sm disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-7 h-7 rounded bg-primary text-on-primary font-mono-label text-mono-label font-bold flex items-center justify-center shadow-sm">1</button>
+<button class="w-7 h-7 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-mono-label text-mono-label flex items-center justify-center shadow-sm">2</button>
+<button class="w-7 h-7 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-mono-label text-mono-label flex items-center justify-center shadow-sm">3</button>
+<span class="font-mono-caption text-mono-caption px-1">...</span>
+<button class="w-7 h-7 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-mono-label text-mono-label flex items-center justify-center shadow-sm">7</button>
+<button class="p-1 rounded bg-surface-container-lowest hover:bg-surface-container text-outline hover:text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- KANBAN PIPELINE VIEW (Hidden by default, switched via toggle) -->
+<div class="hidden w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter" id="view-kanban-container">
+<!-- Column 1: Ready to Run / Unscored (12) -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Unscored / Ingestion</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest rounded-full font-mono-caption text-mono-caption text-primary font-bold">12</span>
+</div>
+<div class="flex flex-col gap-space-sm overflow-y-auto max-h-[640px] pr-1">
+<!-- Card A -->
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface line-clamp-1">NexGen Telematics &amp; IoT</span>
+<span class="px-1.5 py-0.5 bg-secondary-fixed text-on-secondary-fixed font-mono-caption text-mono-caption rounded">Pending 1</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">₹12.40 Cr Rev • Bengaluru, KA</span>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-mono-label text-mono-label text-secondary font-bold">Req: ₹1.80 Cr</span>
+<button class="px-space-sm py-1 bg-secondary text-on-secondary font-headline-sm text-body-sm rounded">Run AI</button>
+</div>
+</div>
+<!-- Card B -->
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface line-clamp-1">Kalinga Infra Earthmovers</span>
+<span class="px-1.5 py-0.5 bg-tertiary/15 text-tertiary font-mono-caption text-mono-caption rounded">4/4 Ready</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">₹22.90 Cr Rev • Bhubaneswar</span>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-mono-label text-mono-label text-secondary font-bold">Req: ₹3.00 Cr</span>
+<button class="px-space-sm py-1 bg-secondary text-on-secondary font-headline-sm text-body-sm rounded">Run AI</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Approved / Grade A (19) -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold">Sanction Approved</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest rounded-full font-mono-caption text-mono-caption text-tertiary font-bold">19</span>
+</div>
+<div class="flex flex-col gap-space-sm overflow-y-auto max-h-[640px] pr-1">
+<!-- Card C -->
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface line-clamp-1">Anand, Mistry IT Solutions</span>
+<span class="font-headline-sm text-body-md text-tertiary font-bold">824</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">₹19.20 Cr Rev • Pune, MH</span>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-mono-label text-mono-label text-tertiary font-bold">Sanction: ₹2.45 Cr</span>
+<span class="text-outline text-[12px]">Disbursal Pending</span>
+</div>
+</div>
+<!-- Card D -->
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface line-clamp-1">Royal TexFab Weaving Mills</span>
+<span class="font-headline-sm text-body-md text-tertiary font-bold">845</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">₹34.80 Cr Rev • Surat, GJ</span>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-mono-label text-mono-label text-tertiary font-bold">Sanction: ₹4.00 Cr</span>
+<span class="text-outline text-[12px]">Ready for Sign</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Under Review / Covenant Check (12) -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary-container"></span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Underwriter Review</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest rounded-full font-mono-caption text-mono-caption text-primary font-bold">12</span>
+</div>
+<div class="flex flex-col gap-space-sm overflow-y-auto max-h-[640px] pr-1">
+<!-- Card E -->
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface line-clamp-1">Shiv Shakti Agro Processing</span>
+<span class="font-headline-sm text-body-md text-secondary-container font-bold">682</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">₹42.10 Cr Rev • Nashik, MH</span>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Flag: Client Concentration</span>
+<button class="px-space-sm py-1 bg-surface-container text-primary font-headline-sm text-body-sm rounded">Open</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 4: Rejected / High Risk (7) -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="font-headline-sm text-headline-sm text-error font-bold">Policy Reject / Flag</span>
+</div>
+<span class="px-2 py-0.5 bg-surface-container-lowest rounded-full font-mono-caption text-mono-caption text-error font-bold">7</span>
+</div>
+<div class="flex flex-col gap-space-sm overflow-y-auto max-h-[640px] pr-1">
+<!-- Card F -->
+<div class="p-space-md bg-surface-container-lowest rounded-lg shadow-sm flex flex-col gap-space-xs hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface line-clamp-1">Apex Pharma Packaging</span>
+<span class="font-headline-sm text-body-md text-error font-bold">584</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">Baddi, HP • ₹16.70 Cr</span>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-mono-caption text-mono-caption text-error font-semibold">MCA Director Default</span>
+<span class="material-symbols-outlined text-error text-[18px]">block</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Real-Time Ingestion Activity & Bottom Informational Bento -->
+<div class="w-full px-margin py-space-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Live Sync Ingestion Ticker -->
+<div class="lg:col-span-8 bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">sync_saved_locally</span>
+<span class="font-headline-sm text-headline-sm text-primary">Live Multi-Source Gateway Ingestion Feed</span>
+</div>
+<span class="font-mono-caption text-mono-caption text-outline">WebSocket Engine: Active</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm mt-space-sm">
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-primary font-bold">GSTN 3B / 1 Feed</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">48/50 Entities Reconciled</span>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 96%;"></div>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-primary font-bold">Bank AA Network</span>
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">1,240 Statements Parsed</span>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 100%;"></div>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-mono-label text-mono-label text-primary font-bold">MCA21 &amp; Legal Scraper</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">2 Pending DIN Registry Queries</span>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 88%;"></div>
+</div>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption">
+<span>Automated Cross-Validation: Rule Pack #MSME-RBI-DIR-2024</span>
+<span class="text-secondary hover:underline cursor-pointer">View Ingestion API Logs →</span>
+</div>
+</div>
+<!-- Quick Action Underwriter Card -->
+<div class="lg:col-span-4 bg-primary text-on-primary p-space-md rounded-xl shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="px-space-xs py-0.5 bg-primary-container text-on-primary-container rounded font-mono-caption text-mono-caption font-semibold uppercase">Batch Assessment</span>
+<span class="material-symbols-outlined text-[18px] text-primary-fixed-dim">auto_awesome</span>
+</div>
+<h2 class="font-headline-md text-headline-md mt-space-sm">Queue Scoring Automation</h2>
+<p class="font-body-md text-body-md text-primary-fixed-dim mt-1">
+            12 entities hold complete telemetry ready for composite scoring. Triggering will update bureau pull, DSCR ratios, and credit sanction limits simultaneously.
+          </p>
+</div>
+<div class="pt-space-md flex items-center justify-between">
+<span class="font-mono-caption text-mono-caption text-primary-fixed-dim">Estimated execution: ~18 seconds</span>
+<button class="px-space-md py-2 bg-on-primary text-primary font-headline-sm text-headline-sm rounded-lg hover:bg-surface-container-high transition-colors shadow-sm">
+            Run Batch Scoring
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="w-full px-margin py-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant"><div class="flex items-center gap-space-sm"><span class="font-headline-sm text-headline-sm text-primary">CredLens</span><span class="font-body-sm text-body-sm">© 2025 CredLens Enterprise Financial Technologies. All rights reserved.</span></div><div class="flex items-center gap-space-lg font-mono-label text-mono-label"><span>SOC-2 Type II Certified</span><span>RBI Master Direction Compliant</span><a class="hover:text-primary transition-colors" data-path="audit-logs" href="#">Audit Logs</a></div></div></footer></body></html>

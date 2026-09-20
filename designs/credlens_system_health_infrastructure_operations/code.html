@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"error-container":"#ffdad6","on-primary-fixed-variant":"#264191","outline":"#757682","on-secondary-container":"#fefcff","surface-variant":"#d3e4fe","on-tertiary-fixed":"#002114","primary":"#00236f","on-background":"#0b1c30","on-tertiary-fixed-variant":"#005137","outline-variant":"#c5c5d3","secondary-fixed-dim":"#b4c5ff","on-primary-container":"#90a8ff","on-surface-variant":"#444651","inverse-on-surface":"#eaf1ff","on-primary":"#ffffff","on-secondary":"#ffffff","tertiary-container":"#004a32","on-secondary-fixed-variant":"#003ea8","secondary-container":"#316bf3","inverse-surface":"#213145","primary-container":"#1e3a8a","on-surface":"#0b1c30","surface-bright":"#f8f9ff","inverse-primary":"#b6c4ff","error":"#ba1a1a","on-tertiary-container":"#4ac08f","secondary-fixed":"#dbe1ff","surface-container":"#e5eeff","on-error":"#ffffff","background":"#f8f9ff","surface-dim":"#cbdbf5","surface-container-highest":"#d3e4fe","surface-container-lowest":"#ffffff","surface-container-low":"#eff4ff","surface-tint":"#4059aa","secondary":"#0051d5","on-primary-fixed":"#00164e","tertiary-fixed":"#85f8c4","tertiary":"#003120","primary-fixed":"#dce1ff","surface":"#f8f9ff","primary-fixed-dim":"#b6c4ff","surface-container-high":"#dce9ff","on-secondary-fixed":"#00174b","tertiary-fixed-dim":"#68dba9","on-tertiary":"#ffffff","on-error-container":"#93000a"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xl":"2rem","gutter-sm":"0.75rem","margin-mobile":"1rem","space-xs":"0.25rem","gutter":"1.25rem","space-lg":"1.5rem","space-md":"1rem","margin":"1.5rem","space-sm":"0.5rem"},"fontFamily":{"headline-sm":["Inter"],"mono-caption":["JetBrains Mono"],"mono-label":["JetBrains Mono"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"data-metric":["Inter"],"headline-xl":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-sm":["Inter"]},"fontSize":{"headline-sm":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"mono-caption":["11px",{"lineHeight":"14px","fontWeight":"400"}],"mono-label":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"700"}],"data-metric":["28px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="CredLens Brand Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Whebw0DHiUyNqr9-X9uPbKBvJ7I6lIdj1dqli0wx2qcoWeBGrkewVoD6upMXyTLwPa_0jozHngT5P-bsiSeu902W5x9YtxdG_Ha9Q5xWcmH2Um12G0nLofvqNTKwsZa4meUV5FXwaX1DYLCT4eL3cwDMxcr-px5J-iOVMKC0Fl1mtiOaDTuHQNQEHLEvX3W5f-528e__Iw5ecbg0bS6yy9KPc-lH0vk8llWy4HXEA9ooUARmOwOhhRNQ"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">CredLens</span><span class="px-space-xs py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption uppercase font-semibold border border-outline-variant">ADMIN PORTAL</span></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-low text-primary font-semibold border-b-2 border-primary"><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="model-monitor" href="#">Model Monitor</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="credit-policies" href="#">Credit Policies</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="audit-trail" href="#">Audit Trail</a><a class="px-space-sm py-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="user-access-roles" href="#">User Access &amp; Roles</a><a aria-current="page" class="px-space-sm py-2 transition-colors flex items-center gap-1.5 bg-surface-container-low text-primary font-semibold border-b-2 border-primary" data-path="system-health" href="#"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span>System Health</span></a></nav></div><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-sm px-space-sm py-1 rounded bg-surface-container-low border border-surface-container-highest"><div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-mono-caption text-mono-caption text-on-surface">Model: <span class="font-medium text-primary">v2.4.1 (GBM-Active)</span></span></div><div class="h-3 w-px bg-outline-variant"></div><div class="flex items-center gap-1"><span class="font-mono-caption text-mono-caption text-on-surface-variant">Drift:</span><span class="font-mono-caption text-mono-caption text-tertiary-container font-medium">Nominal (0.018 PSI)</span></div></div><button aria-label="Notifications" class="relative p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="flex items-center gap-space-sm pl-space-xs border-l border-surface-container-highest"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden lg:flex flex-col text-left"><span class="font-body-sm text-body-sm font-semibold text-on-surface leading-tight">Vikram Sengupta</span><span class="font-mono-caption text-mono-caption text-on-surface-variant leading-tight">Chief Risk &amp; Technology Officer</span></div></div></div></div><div class="w-full bg-surface-container-lowest border-t border-surface-container-high px-margin py-2 flex items-center gap-2 text-on-surface-variant font-mono-caption text-mono-caption"><a class="hover:text-primary transition-colors" href="#">Platform Admin</a><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><a class="hover:text-primary transition-colors" href="#">Infrastructure &amp; Reliability</a><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="font-medium text-on-surface">System Health &amp; Multi-Region Topology</span></div></header><main class="w-full pt-24 bg-background"><div class="flex flex-col w-full">
+<!-- Content Canvas Area -->
+<div class="px-margin py-space-lg flex flex-col gap-space-lg max-w-[1600px] mx-auto w-full">
+<!-- Top Sub-Header & Live Operational Status Banner -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+            ALL SYSTEMS OPERATIONAL
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-mono-caption text-mono-caption font-medium">
+<span class="material-symbols-outlined text-[13px] text-tertiary-container">verified</span>
+            99.994% AVAILABILITY (30D)
+          </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono-caption text-mono-caption">
+            REGION: ACTIVE-ACTIVE (EU-CENTRAL-1 / AP-SOUTH-1)
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">System Health &amp; Infrastructure Operations</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl">
+          Continuous telemetry across distributed Kubernetes clusters, low-latency ML scoring enclaves, statutory GSTN/RBI ingestion bridges, AWS Nitro HSM nodes, and real-time Kafka event buses.
+        </p>
+</div>
+<!-- Action Panel -->
+<div class="flex flex-wrap items-center gap-space-sm self-start xl:self-center">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors shadow-sm" id="refreshBtn" onclick="triggerRefreshUI()">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span>Refresh Telemetry</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">(Auto: <span id="refreshTimer">9</span>s)</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-medium transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">download_for_offline</span>
+<span>Reliability Report (RBI/SLA)</span>
+</button>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-body-sm text-body-sm font-semibold transition-colors shadow-sm" onclick="triggerSyntheticProbe()">
+<span class="material-symbols-outlined text-[18px]">cell_tower</span>
+<span>Trigger Synthetic Health Probe</span>
+</button>
+</div>
+</div>
+<!-- Infrastructure KPI Quad-Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Global Service Uptime</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-data-metric text-data-metric text-on-surface">99.994%</span>
+<span class="inline-flex items-center text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +0.02% MoM
+            </span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 99.99%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption pt-space-xs">
+<span>SLA Target: 99.95%</span>
+<span class="font-medium text-on-surface">Streak: 114 Days</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Inference P95 Latency</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-data-metric text-data-metric text-on-surface">18.2<span class="text-headline-md font-body-md text-on-surface-variant">ms</span></span>
+<span class="inline-flex items-center text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span> -1.2ms
+            </span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 38%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption pt-space-xs">
+<span>FastAPI Cluster Engine</span>
+<span class="font-medium text-on-surface">Threshold: &lt;45.0ms</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Ingestion Throughput</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">swap_calls</span>
+</div>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-data-metric text-data-metric text-on-surface">1,420 <span class="text-headline-sm font-headline-sm text-on-surface-variant font-normal">req/s</span></span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-mono-caption text-mono-caption font-semibold">
+              Nominal
+            </span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 52%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption pt-space-xs">
+<span>Peak: 2,850 req/s</span>
+<span class="font-medium text-on-surface">4 Streams Sync</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-mono-caption text-mono-caption uppercase font-semibold text-on-surface-variant tracking-wider">Nitro HSM &amp; Enclave Root</span>
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[20px]">shield_lock</span>
+</div>
+</div>
+<div class="my-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-data-metric text-data-metric text-on-surface">100.0%</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+              Attested
+            </span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption pt-space-xs">
+<span>FIPS 140-3 Cryptographic</span>
+<span class="font-medium text-on-surface">Epoch #4192</span>
+</div>
+</div>
+</div>
+<!-- Live Service Fabric & Component Health Matrix Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">dns</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Service Fabric Architecture Matrix</h2>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Live telemetry, runtime pods, latency percentiles, and statutory integration nodes</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant mr-1">Filter Layer:</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-mono-caption text-mono-caption font-semibold shadow-sm">All (8)</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption font-medium transition-colors">Core AI</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption font-medium transition-colors">Ingestion</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container text-on-surface-variant font-mono-caption text-mono-caption font-medium transition-colors">Crypto &amp; Storage</button>
+</div>
+</div>
+<!-- Dense Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-low text-on-surface-variant uppercase font-mono-caption text-mono-caption">
+<tr>
+<th class="py-2.5 px-space-md font-semibold" scope="col">Layer &amp; Component</th>
+<th class="py-2.5 px-space-md font-semibold" scope="col">Instance Topology &amp; Pods</th>
+<th class="py-2.5 px-space-md font-semibold" scope="col">Routing &amp; Protocol</th>
+<th class="py-2.5 px-space-md font-semibold" scope="col">Latency / Throughput</th>
+<th class="py-2.5 px-space-md font-semibold" scope="col">Health Status</th>
+<th class="py-2.5 px-space-md text-right font-semibold" scope="col">Diagnostic</th>
+</tr>
+</thead>
+<tbody class="text-on-surface font-mono-label">
+<!-- Row 1: ML Scoring Engine -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">ML Scoring Engine</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">GBM v2.4.1 (ONNX/C++ Runtime)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-mono-caption text-mono-caption font-semibold text-on-surface">18/18 Pods Running</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">(HPA: 8-32)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">eu-central-1 (Pri) + ap-south-1 (Hot)</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">18.2ms <span class="text-on-surface-variant font-normal">(p95)</span></span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Error: 0.001%</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> OPERATIONAL
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  View Pod Metrics
+                </button>
+</td>
+</tr>
+<!-- Row 2: GSTN GSP Direct Connector -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">L1: GSTN GSP Direct Connector</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Statutory Tax Filing Gateway</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">NIC GSP v2.4 mTLS Enclave</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Direct Leased NLD Circuit</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">182ms • 340 req/min</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Quota: 74% used</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> OPERATIONAL
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  Test Gateway
+                </button>
+</td>
+</tr>
+<!-- Row 3: RBI Account Aggregator Gateway -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">L1: RBI Account Aggregator (AA) Gateway</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Banking FiU Connector (Sahamati)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">ReBIT 1.1.3 FIP/FIU Spec</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">mTLS Elliptic Curve (P-256)</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">310ms • 124 sessions/min</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Consents: 99.8% valid</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> OPERATIONAL
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  Test Gateway
+                </button>
+</td>
+</tr>
+<!-- Row 4: NIC e-Invoicing & IRN Stream -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">L2: NIC e-Invoicing &amp; IRN Stream</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Kafka Topic: irn-ingest-v1</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">8 Partitions • 3x Replica</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Zero Message Lag (0 offset)</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">520 msgs/sec</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Commit Latency: 4.2ms</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> OPERATIONAL
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  Inspect Queue
+                </button>
+</td>
+</tr>
+<!-- Row 5: MCA21 & CIBIL Bureau Crawler (DEGRADED) -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-low/40">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">L3: MCA21 &amp; CIBIL Bureau Crawler</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Corporate Filings &amp; Commercial Bureau</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Sandbox Bus &amp; Webhook Proxy</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Fallback: In-Memory Warm Cache</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption text-on-surface">420ms <span class="text-on-surface-variant font-normal">(+85ms drift)</span></span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Hit Ratio: 89.2%</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> DEGRADED (Latency)
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-mono-caption text-mono-caption font-medium transition-colors">
+                  Route to Cache
+                </button>
+</td>
+</tr>
+<!-- Row 6: Utility & Alternative Telemetry Bus -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">L4: Utility &amp; Alternative Telemetry Bus</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Discom &amp; Telecom Leased Pipes</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Batch Sync Hourly (44 Providers)</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">SFTP / S3 Ingestion Sinks</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">100% Ingested</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Next run in 24m</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> OPERATIONAL
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  View Status
+                </button>
+</td>
+</tr>
+<!-- Row 7: Cryptographic Ledger & Nitro HSM -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">Cryptographic Ledger &amp; Nitro HSM</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">RFC-6962 Merkle Tree Audit Epoch</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">AWS Nitro FIPS 140-3 Hardware</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">KMS Attestation Key Ring</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">4.8ms Signature</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Epoch #4192 Root Sealed</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> OPERATIONAL
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  Attestation Cert
+                </button>
+</td>
+</tr>
+<!-- Row 8: Distributed PostgreSQL & TimescaleDB -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-body-sm">Distributed PostgreSQL &amp; TimescaleDB</span>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Financial Ledger &amp; Metric Chronos</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">3 Nodes (1 Primary, 2 Sync Read)</span>
+</td>
+<td class="py-3 px-space-md">
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Multi-AZ Dedicated Aurora</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface font-mono-caption text-mono-caption">Lag: 0.4ms • I/O: 32%</span>
+<span class="text-on-surface-variant font-mono-caption text-mono-caption">Queries: 4,920 QPS</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> HEALTHY
+                </span>
+</td>
+<td class="py-3 px-space-md text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary font-mono-caption text-mono-caption font-medium transition-colors">
+                  DB Console
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Multi-Region Topology & Compute Telemetry (Two Columns) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg">
+<!-- Left Column: Multi-Region Topology & Failover Orchestration (7 Cols) -->
+<div class="xl:col-span-7 bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">public</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Multi-Region Topology &amp; Routing Fabric</h2>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Active-Active synchrony between EU and APAC sovereign zones</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">
+            SYNCHRONIZED (RPO: 0s)
+          </span>
+</div>
+<!-- Visual Topology Flow -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<!-- Primary Region Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col justify-between gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container"></span>
+<div>
+<div class="font-semibold text-on-surface font-body-sm">AWS eu-central-1 (Frankfurt)</div>
+<span class="font-mono-caption text-mono-caption text-primary font-medium">PRIMARY CLUSTER • 70% TRAFFIC</span>
+</div>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-medium">Healthy</span>
+</div>
+<div class="space-y-1 font-mono-caption text-mono-caption text-on-surface-variant bg-surface-container-lowest p-2 rounded">
+<div class="flex justify-between"><span>Compute Node:</span><span class="font-medium text-on-surface">c6i.4xlarge (14 Pods)</span></div>
+<div class="flex justify-between"><span>P95 In-Region:</span><span class="font-medium text-on-surface">18.2ms</span></div>
+<div class="flex justify-between"><span>Envoy Mesh:</span><span class="font-medium text-tertiary-container">Active v1.28.1</span></div>
+</div>
+</div>
+<!-- Secondary Region Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col justify-between gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container"></span>
+<div>
+<div class="font-semibold text-on-surface font-body-sm">AWS ap-south-1 (Mumbai)</div>
+<span class="font-mono-caption text-mono-caption text-primary font-medium">HOT-STANDBY • 30% TRAFFIC</span>
+</div>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-medium">Healthy</span>
+</div>
+<div class="space-y-1 font-mono-caption text-mono-caption text-on-surface-variant bg-surface-container-lowest p-2 rounded">
+<div class="flex justify-between"><span>Data Localization:</span><span class="font-medium text-on-surface">RBI Master Direction</span></div>
+<div class="flex justify-between"><span>Sync Lag:</span><span class="font-medium text-on-surface">12.1ms (Cross-Oceanic)</span></div>
+<div class="flex justify-between"><span>Failover Ready:</span><span class="font-medium text-tertiary-container">Autonomic (&lt;15s)</span></div>
+</div>
+</div>
+</div>
+<!-- Global Edge and Chaos Drill Metadata -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-space-xs font-mono-caption text-mono-caption">
+<div class="flex items-center justify-between text-on-surface font-medium">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">cloud_done</span>
+              Cloudflare Anycast Global Edge Network
+            </span>
+<span class="text-tertiary-container font-semibold">285 PoPs Active • WAF Mode: High Strictness</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-space-xs text-on-surface-variant">
+<div class="bg-surface-container-lowest p-2 rounded">
+<span class="block">DDoS Mitigations:</span>
+<span class="text-on-surface font-semibold">0 anomalies / 24h</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded">
+<span class="block">RTO Commitment:</span>
+<span class="text-on-surface font-semibold">&lt; 15 seconds</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded">
+<span class="block">RPO Guarantee:</span>
+<span class="text-on-surface font-semibold">0 seconds (Strict)</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded">
+<span class="block">Last Chaos Drill:</span>
+<span class="text-tertiary-container font-semibold">Passed (8.4s)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-mono-caption text-mono-caption pt-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+            Dual-Officer authorization required to force unilateral regional failover redirection.
+          </span>
+<a class="text-primary hover:underline font-medium" href="#">View Disaster Recovery Runbook →</a>
+</div>
+</div>
+<!-- Right Column: Live Compute, Memory & Network Saturations (5 Cols) -->
+<div class="xl:col-span-5 bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Compute &amp; Network Saturation</h2>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Live hardware limits and buffer headroom</p>
+</div>
+</div>
+<span class="font-mono-caption text-mono-caption text-on-surface-variant">Cluster Avg: 48.4%</span>
+</div>
+<!-- Progress Bars for Compute & Storage -->
+<div class="space-y-space-sm">
+<!-- Item 1 -->
+<div>
+<div class="flex justify-between text-on-surface font-mono-caption text-mono-caption mb-1">
+<span class="font-semibold">EKS Inference Cluster (c6i.4xlarge)</span>
+<span>48.2% CPU Utilized</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 48.2%"></div>
+</div>
+<div class="flex justify-between text-on-surface-variant font-mono-caption text-mono-caption mt-0.5">
+<span>Allocated: 64 vCPU</span>
+<span>Reserve Cap: 51.8%</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div>
+<div class="flex justify-between text-on-surface font-mono-caption text-mono-caption mb-1">
+<span class="font-semibold">Ingestion Worker Cluster (m6i.2xlarge)</span>
+<span>61.5% CPU Utilized</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-500" style="width: 61.5%"></div>
+</div>
+<div class="flex justify-between text-on-surface-variant font-mono-caption text-mono-caption mt-0.5">
+<span>Allocated: 32 vCPU</span>
+<span>Batch Peak Headroom: 38.5%</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div>
+<div class="flex justify-between text-on-surface font-mono-caption text-mono-caption mb-1">
+<span class="font-semibold">TimescaleDB Memory Buffer Pool</span>
+<span>142 GB / 256 GB (55.4%)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full transition-all duration-500" style="width: 55.4%"></div>
+</div>
+<div class="flex justify-between text-on-surface-variant font-mono-caption text-mono-caption mt-0.5">
+<span>Shared Buffers: 64 GB</span>
+<span>WAL Cache Hit: 99.4%</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div>
+<div class="flex justify-between text-on-surface font-mono-caption text-mono-caption mb-1">
+<span class="font-semibold">Redis Sub-Second Score Cache</span>
+<span>18.2 GB / 64 GB (28.4%)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full transition-all duration-500" style="width: 28.4%"></div>
+</div>
+<div class="flex justify-between text-on-surface-variant font-mono-caption text-mono-caption mt-0.5">
+<span>Keys Count: 1,849,201</span>
+<span>Eviction Policy: volatile-lru</span>
+</div>
+</div>
+</div>
+<!-- Network I/O Specs and Maintenance Lock Switch -->
+<div class="pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm font-mono-caption text-mono-caption">
+<div class="flex items-center gap-space-md">
+<div>
+<span class="block text-on-surface-variant">Ingress:</span>
+<span class="font-semibold text-on-surface">482 Mbps</span>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div>
+<span class="block text-on-surface-variant">Egress:</span>
+<span class="font-semibold text-on-surface">1.2 Gbps</span>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div>
+<span class="block text-on-surface-variant">Packet Drop:</span>
+<span class="font-semibold text-tertiary-container">0.000%</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+<span class="text-on-surface font-medium">Maint Mode: Locked</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Incident Log, Real-Time Telemetry Stream & Synthetic Probes -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Real-Time Infrastructure Event Ledger &amp; Probes</h2>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Immutable audit stream of auto-mitigations, cron checks, and probe evaluations</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs font-mono-caption text-mono-caption">
+<span class="text-on-surface-variant">Filter Level:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-medium">All Events (5)</span>
+<span class="px-2 py-0.5 rounded text-on-surface-variant hover:bg-surface-container-low cursor-pointer">Warnings Only (1)</span>
+</div>
+</div>
+<!-- Event Stream List -->
+<div class="space-y-2">
+<!-- Event 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface font-body-sm">Synthetic Health Probe #8491</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">ALL 14 PASSED</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Synthetic heartbeat across GSTN, RBI AA, EKS FastAPI, and Nitro HSM Enclave. End-to-end global latency: 24.1ms.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-md font-mono-caption text-mono-caption text-on-surface-variant self-end md:self-center">
+<span>Agent: synthetic-bot-eu</span>
+<span class="font-medium text-on-surface">11:28 AM (4m ago)</span>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/60 flex flex-col md:flex-row md:items-center justify-between gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface font-body-sm">MCA21 Sandbox Gateway Response Degradation</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface font-mono-caption text-mono-caption font-semibold">AUTO-MITIGATED</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Upstream MCA endpoint response reached 480ms (&gt;400ms threshold). Automatic dynamic throttling routed 45% traffic to L3 Warm Cache.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-md font-mono-caption text-mono-caption text-on-surface-variant self-end md:self-center">
+<span>Circuit Breaker #22</span>
+<span class="font-medium text-on-surface">10:14 AM (1h 18m ago)</span>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">task_alt</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface font-body-sm">Scheduled TimescaleDB Vacuum &amp; WAL Checkpoint</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">SUCCESS</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Routine maintenance completed on RDS primary instance. 4.2 GB disk reclaimed, 0 transactions stalled.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-md font-mono-caption text-mono-caption text-on-surface-variant self-end md:self-center">
+<span>Cron: wal-cleaner</span>
+<span class="font-medium text-on-surface">08:30 AM (3h ago)</span>
+</div>
+</div>
+<!-- Event 4 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[16px]">lock_reset</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface font-body-sm">TLS Certificate Auto-Renewed (`api.credlens.internal`)</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-tertiary-container font-mono-caption text-mono-caption font-semibold">RENEWED</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">AWS Private Certificate Authority automatically refreshed internal mTLS leaf certificates. Valid for 90 days.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-md font-mono-caption text-mono-caption text-on-surface-variant self-end md:self-center">
+<span>AWS Private CA</span>
+<span class="font-medium text-on-surface">Yesterday, 11:45 PM</span>
+</div>
+</div>
+<!-- Event 5 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-semibold text-on-surface font-body-sm">EKS Horizontal Pod Autoscaler (HPA) Triggered</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-primary font-mono-caption text-mono-caption font-semibold">SCALED 14 → 18</span>
+</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant">Scale out initiated to absorb high-volume month-end GST bulk batch processing. Cluster stabilized within 42 seconds.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-md font-mono-caption text-mono-caption text-on-surface-variant self-end md:self-center">
+<span>hpa/scoring-engine</span>
+<span class="font-medium text-on-surface">Yesterday, 04:12 PM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Synthetic Probe Toast Notification Container -->
+<div class="fixed bottom-6 right-6 hidden z-50 transition-all duration-300 transform translate-y-4" id="probeModal">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-xl border border-outline-variant max-w-md w-full flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container text-tertiary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div class="flex-1">
+<div class="font-semibold text-on-surface font-body-sm">Synthetic Probe Executed</div>
+<p class="font-mono-caption text-mono-caption text-on-surface-variant mt-0.5">
+          Dispatched 14 synthetic transactions across eu-central-1 and ap-south-1. All cryptographic assertions verified. Latency: 19.4ms.
+        </p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="dismissProbeModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<script>
+    // Telemetry Counter Auto-Refresh Logic
+    let counter = 9;
+    const timerElem = document.getElementById('refreshTimer');
+    setInterval(() => {
+      counter--;
+      if (counter <= 0) {
+        counter = 10;
+        triggerRefreshUI(true);
+      }
+      if (timerElem) timerElem.innerText = counter;
+    }, 1000);
+
+    function triggerRefreshUI(isSilent) {
+      const btn = document.getElementById('refreshBtn');
+      if (btn && !isSilent) {
+        btn.classList.add('opacity-50');
+        setTimeout(() => {
+          btn.classList.remove('opacity-50');
+        }, 400);
+      }
+    }
+
+    function triggerSyntheticProbe() {
+      const modal = document.getElementById('probeModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.remove('translate-y-4');
+        setTimeout(() => {
+          dismissProbeModal();
+        }, 5000);
+      }
+    }
+
+    function dismissProbeModal() {
+      const modal = document.getElementById('probeModal');
+      if (modal) {
+        modal.classList.add('translate-y-4');
+        modal.classList.add('hidden');
+      }
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container-highest py-space-md mt-space-xl"><div class="w-full px-margin flex flex-col xl:flex-row items-center justify-between gap-space-md text-on-surface-variant"><div class="flex flex-wrap items-center gap-space-md"><span class="font-mono-caption text-mono-caption font-semibold text-primary">CredLens Enterprise Governance</span><span class="hidden sm:inline-block w-1 h-1 rounded-full bg-outline-variant"></span><div class="flex flex-wrap items-center gap-space-xs font-mono-caption text-mono-caption"><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">SOC-2 Type II</span><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">RBI Master Direction</span><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">ISO 27001</span><span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant font-medium text-on-surface">Basel III &amp; Model Risk Management (SR 11-7)</span></div></div><div class="flex flex-wrap items-center gap-space-md font-mono-caption text-mono-caption"><span>Instance ID: <span class="font-medium text-on-surface">us-east-prod-ai-01</span></span><span>© 2025 CredLens Inc. All rights reserved.</span></div></div></footer></body></html>
