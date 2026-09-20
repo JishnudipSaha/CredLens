@@ -2,20 +2,25 @@
 
 You have four deployment options, ordered from quickest to most production-grade. Pick the one that matches your budget, scale, and operational appetite.
 
-| Option | Frontend | Backend | DB | Time to live | Cost |
-|---|---|---|---|---|---|
-| 1. Vercel + Render | Vercel free | Render starter | Render Postgres (free 90d) | 15 min | $0 (then ~$7/mo) |
-| 2. Single VM | nginx | uvicorn + systemd | SQLite or Postgres | 45 min | $5-10/mo |
-| 3. Docker on a VM | nginx (container) | FastAPI (container) | Postgres (container) | 30 min | $5-10/mo |
-| 4. AWS / GCP managed | S3+CloudFront or Amplify | ECS Fargate or Cloud Run | RDS Postgres | 2-3 hrs | $30+/mo |
+
+| Option               | Frontend                 | Backend                  | DB                         | Time to live | Cost             |
+| -------------------- | ------------------------ | ------------------------ | -------------------------- | ------------ | ---------------- |
+| 1. Vercel + Render   | Vercel free              | Render starter           | Render Postgres (free 90d) | 15 min       | $0 (then ~$7/mo) |
+| 2. Single VM         | nginx                    | uvicorn + systemd        | SQLite or Postgres         | 45 min       | $5-10/mo         |
+| 3. Docker on a VM    | nginx (container)        | FastAPI (container)      | Postgres (container)       | 30 min       | $5-10/mo         |
+| 4. AWS / GCP managed | S3+CloudFront or Amplify | ECS Fargate or Cloud Run | RDS Postgres               | 2-3 hrs      | $30+/mo          |
+
 
 The codebase ships with config for all four:
+
 - `vercel.json` (Vercel routing)
 - `render.yaml` (Render Blueprint)
 - `Dockerfile` x2 + `docker-compose.yml` (Docker route)
 - The backend reads `CREDLENS_DATABASE_URL`, `CREDLENS_SECRET_KEY`, and `CREDLENS_CORS_ORIGINS` env vars for any provider.
 
 ---
+
+
 
 ## Option 1: Vercel + Render (recommended for demos)
 
@@ -32,38 +37,46 @@ gh repo create credlens --public --source=. --remote=origin --push
 ```
 
 If you don't have `gh`, create the repo on github.com and:
+
 ```bash
 git remote add origin https://github.com/<you>/credlens.git
 git push -u origin main
 ```
 
+
+
 ### 1.2 Deploy the backend on Render
 
-1. Go to https://render.com, sign up with GitHub.
+1. Go to [https://render.com](https://render.com), sign up with GitHub.
 2. Click **New +** -> **Blueprint** -> select your `credlens` repo.
 3. Render reads `render.yaml` and provisions:
-   - A web service `credlens-backend` (Python)
-   - A Postgres database `credlens-db`
-   - A `CREDLENS_SECRET_KEY` env var (auto-generated)
+  - A web service `credlens-backend` (Python)
+  - A Postgres database `credlens-db`
+  - A `CREDLENS_SECRET_KEY` env var (auto-generated)
 4. Click **Apply**. Wait ~5 min for the first build.
 5. The backend will be live at `https://credlens-backend.onrender.com`. Health check: `/health`.
 6. The seed runs automatically on first launch (creates the 4 demo users, 50 MSMEs, default policy).
 
+
+
 ### 1.3 Deploy the frontend on Vercel
 
-1. Go to https://vercel.com, sign up with GitHub.
+1. Go to [https://vercel.com](https://vercel.com), sign up with GitHub.
 2. Click **Add New** -> **Project** -> import `credlens`.
 3. Configure:
-   - **Root Directory:** `frontend`
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-   - **Environment Variable:** `VITE_API_BASE` = `https://credlens-backend.onrender.com/api/v1`
+  - **Root Directory:** `frontend`
+  - **Build Command:** `npm run build`
+  - **Output Directory:** `dist`
+  - **Environment Variable:** `VITE_API_BASE` = `https://credlens-backend.onrender.com/api/v1`
 4. Click **Deploy**. Wait ~1 min.
 5. The frontend will be live at `https://credlens.vercel.app`.
+
+
 
 ### 1.4 Connect the two
 
 Go back to Render -> `credlens-backend` -> Environment, and set:
+
 - `CREDLENS_CORS_ORIGINS` = `https://credlens.vercel.app`
 
 (The default in code only allows localhost, so the Vercel frontend will be blocked by CORS until you set this. Restart the Render service after editing.)
@@ -80,6 +93,8 @@ Open `https://credlens.vercel.app`, sign in with `lender@credlens.in` / `lender1
 
 ---
 
+
+
 ## Option 2: Single-VM deployment (no Docker)
 
 Use a Linux VM (Hetzner, DigitalOcean, AWS Lightsail, your own server). One box, nginx in front, uvicorn behind it.
@@ -91,6 +106,8 @@ Spin up Ubuntu 22.04, SSH in. Install dependencies:
 ```bash
 sudo apt update && sudo apt install -y python3.13 python3-pip python3-venv nodejs npm nginx certbot python3-certbot-nginx git
 ```
+
+
 
 ### 2.2 Clone and install
 
@@ -107,6 +124,8 @@ cd /opt/credlens/frontend
 npm install
 npm run build
 ```
+
+
 
 ### 2.3 systemd unit for the backend
 
@@ -136,6 +155,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now credlens-backend
 sudo systemctl status credlens-backend
 ```
+
+
 
 ### 2.4 nginx
 
@@ -178,6 +199,8 @@ sudo systemctl reload nginx
 sudo certbot --nginx -d credlens.example.com
 ```
 
+
+
 ### 2.5 Backups
 
 The backend uses SQLite by default at `/opt/credlens/backend/data/credlens.db`. For a real deployment switch to Postgres:
@@ -190,11 +213,13 @@ sudo -u postgres psql -c "ALTER USER credlens WITH PASSWORD '<your-password>';"
 ```
 
 Then add to the systemd unit:
+
 ```
 Environment="CREDLENS_DATABASE_URL=postgresql+psycopg2://credlens:<your-password>@127.0.0.1:5432/credlens"
 ```
 
 And set up a daily backup:
+
 ```bash
 # /etc/cron.daily/credlens-backup
 pg_dump -U credlens credlens | gzip > /var/backups/credlens-$(date +\%F).sql.gz
@@ -202,6 +227,8 @@ find /var/backups -name 'credlens-*.sql.gz' -mtime +30 -delete
 ```
 
 ---
+
+
 
 ## Option 3: Docker on a single VM
 
@@ -215,6 +242,8 @@ curl -fsSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 ```
 
+
+
 ### 3.2 Clone and run
 
 ```bash
@@ -225,14 +254,18 @@ docker compose up -d --build
 ```
 
 `.env`:
+
 ```
 CREDLENS_SECRET_KEY=<32 random bytes>
 ```
 
 That's it. The stack is up. Ports:
+
 - Frontend (nginx): `http://your-vm-ip:8080`
 - Backend (FastAPI): `http://your-vm-ip:8000` (only if you need to hit it directly)
 - Postgres: `localhost:5432` (only from inside the VM)
+
+
 
 ### 3.3 TLS with nginx + certbot on the host
 
@@ -256,6 +289,8 @@ server {
 sudo certbot --nginx -d credlens.example.com
 ```
 
+
+
 ### 3.4 Backups
 
 The Postgres volume is `credlens_pgdata`. Back it up with:
@@ -265,10 +300,13 @@ docker compose exec db pg_dump -U credlens credlens | gzip > credlens-$(date +%F
 ```
 
 Or schedule a daily containerised cron:
+
 ```bash
 # /etc/cron.d/credlens-backup
 0 3 * * *  cd /opt/credlens && /usr/local/bin/docker compose exec -T db pg_dump -U credlens credlens | gzip > /var/backups/credlens-$(date +\%F).sql.gz
 ```
+
+
 
 ### 3.5 Updating
 
@@ -279,6 +317,8 @@ docker compose up -d --build
 ```
 
 ---
+
+
 
 ## Option 4: AWS / GCP / Azure
 
@@ -315,6 +355,8 @@ Cloud Run will scale to zero and back; budget $5-20/mo for low traffic.
 
 ---
 
+
+
 ## Pre-deployment checklist
 
 - [ ] **Secret key generated** - `python -c "import secrets; print(secrets.token_urlsafe(48))"`. Put it in `CREDLENS_SECRET_KEY`.
@@ -325,6 +367,8 @@ Cloud Run will scale to zero and back; budget $5-20/mo for low traffic.
 - [ ] **Backups scheduled** - daily `pg_dump` or filesystem snapshot
 - [ ] **Health check monitored** - point your uptime monitor at `/health`
 - [ ] **Logs forwarded** - Render/Cloud Run/CloudWatch already do this; on a VM, use journalctl or a sidecar like Promtail
+
+
 
 ## What the seed does on first boot
 
@@ -340,6 +384,7 @@ So the first request after deploy will already have a populated demo. For produc
 ## Monitoring in production
 
 For each option, expose:
+
 - `/health` - already returns `{"status":"ok"}` - point an uptime monitor here
 - Structured JSON logs - already on stdout - your platform will pick them up
 - Audit log table - `GET /api/v1/admin/audit-log` shows every authenticated API call
