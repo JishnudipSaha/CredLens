@@ -2,6 +2,8 @@
 
 This is an example of what a full credit report looks like in CredLens, produced by running the demo flow on `Anand, Mistry and Chawla It Pvt Ltd` (MSME #31). The lender logged in, ran the assessment, and got back a complete credit decision.
 
+> **Note:** the specific figures below are from one representative run. Demo data is Faker-seeded and the model can be retrained, so your exact scores and financials will differ — the structure, reason codes, grade bands, and thresholds are what stay stable.
+
 ---
 
 ## 1. MSME profile
@@ -44,7 +46,8 @@ This is an example of what a full credit report looks like in CredLens, produced
 |---|---|
 | Credit score | **859** |
 | Risk grade | **A** |
-| Probability of default (12m) | **2.77%** |
+| Probability of default (12m) | **6.83%** — recomputed from the final score so score and PD stay consistent |
+| Raw model PD (`pd_model_raw`) | 2.77% (preserved in the breakdown for transparency) |
 | Model version | v1.0-synthetic |
 | ML raw score | 883 |
 | Rule-layer penalty | -24 |
@@ -113,7 +116,7 @@ POST /api/v1/feedback
 }
 ```
 
-This is recorded in `audit_log` with a numeric label (0 = good, 1 = default). The Platform Admin sees the new feedback in their Model Monitor dashboard. Over time, the model is retrained on the augmented data so it can learn the patterns specific to this lender's portfolio.
+This is recorded in `audit_log` with a numeric label (0 = good, 1 = default). The Platform Admin sees the new feedback in their Model Monitor dashboard. Once at least 30 labelled outcomes accumulate, "Retrain model" fits the model on those real labels (falling back to synthetic data until then) so it can learn the patterns specific to this lender's portfolio.
 
 In production, this loop runs continuously:
 1. Lender runs an assessment

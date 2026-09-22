@@ -1,130 +1,173 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowRight, Building2, CheckCircle2, Gavel, Wallet } from 'lucide-react'
+import { BarChart, Bar, Cell, Legend, Pie, PieChart, Tooltip, XAxis, YAxis } from 'recharts'
 import {
-  api_list_decisions, api_list_msmes, api_model_monitor, type Decision, type MSMEListItem, type ModelMonitorStats,
+  api_list_decisions,
+  api_list_msmes,
+  api_model_monitor,
+  type Decision,
+  type MSMEListItem,
+  type ModelMonitorStats,
 } from '../../api/client'
-import { Badge, Card, Spinner, Stat } from '../../components/UI'
-import { outcomeColor, formatINR } from '../../utils/format'
-import { useReveal } from '../../hooks/useReveal'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts'
-
-const GRADE_COLOR: Record<string, string> = { A: '#10b981', B: '#84cc16', C: '#eab308', D: '#f97316', E: '#ef4444', F: '#e11d48' }
-const OUTCOME_COLOR: Record<string, string> = { APPROVE: '#10b981', REVIEW: '#eab308', REJECT: '#e11d48' }
+import { Badge, Card, EmptyState, ErrorState, Spinner, Stat, buttonClasses } from '../../components/UI'
+import { ChartCard, ChartTooltip, axisProps, useChartColors } from '../../components/charts'
+import { formatDate, formatINR, gradeColor, outcomeColor } from '../../utils/format'
 
 export default function LenderDashboard() {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<unknown>(null)
   const [msmes, setMsmes] = useState<MSMEListItem[]>([])
   const [decisions, setDecisions] = useState<Decision[]>([])
   const [stats, setStats] = useState<ModelMonitorStats | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  useReveal(containerRef)
+  const colors = useChartColors()
 
-  useEffect(() => {
+  const load = useCallback(() => {
+    setLoading(true)
+    setError(null)
     Promise.all([api_list_msmes({ limit: 100 }), api_list_decisions({}), api_model_monitor()])
-      .then(([m, d, s]) => { setMsmes(m); setDecisions(d); setStats(s) })
+      .then(([m, d, s]) => {
+        setMsmes(m)
+        setDecisions(d)
+        setStats(s)
+      })
+      .catch((e) => setError(e))
       .finally(() => setLoading(false))
   }, [])
 
+  useEffect(() => {
+    load()
+  }, [load])
+
   if (loading) return <Spinner />
+  if (error) return <ErrorState error={error} onRetry={load} />
 
   const recent = decisions.slice(0, 8)
   const totalExposure = decisions.reduce((acc, d) => acc + (d.recommended_limit_inr || 0), 0)
   const approveCount = decisions.filter((d) => d.outcome === 'APPROVE').length
-  const gradeData = Object.entries(stats?.grade_distribution || {}).map(([g, c]) => ({ grade: g, count: c }))
-  const decisionData = Object.entries(stats?.decision_distribution || {}).map(([k, v]) => ({ name: k, value: v }))
+  const gradeData = Object.entries(stats?.grade_distribution || {}).map(([grade, count]) => ({ grade, count }))
+  const decisionData = Object.entries(stats?.decision_distribution || {}).map(([name, value]) => ({ name, value }))
 
   return (
-    <div ref={containerRef} className="space-y-space-lg">
-      <div data-reveal>
-        <h1 className="text-headline-lg text-primary font-bold tracking-tight">Lender Dashboard</h1>
-        <p className="text-body-md text-on-surface-variant mt-1">Portfolio overview, recent decisions, and model health.</p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Lender Dashboard</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Portfolio overview, recent decisions, and model health.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 reveal-stagger">
-        <div data-reveal><Stat label="MSMEs in platform" value={msmes.length} icon="business" /></div>
-        <div data-reveal><Stat label="Decisions on file" value={decisions.length} icon="gavel" /></div>
-        <div data-reveal><Stat label="Approved" value={approveCount} hint={`${((approveCount / Math.max(decisions.length, 1)) * 100).toFixed(0)}% approval rate`} icon="check_circle" /></div>
-        <div data-reveal><Stat label="Total recommended exposure" value={formatINR(totalExposure)} icon="currency_rupee" /></div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Stat label="MSMEs in platform" value={msmes.length} icon={Building2} />
+        <Stat label="Decisions on file" value={decisions.length} icon={Gavel} />
+        <Stat
+          label="Approved"
+          value={approveCount}
+          hint={`${((approveCount / Math.max(decisions.length, 1)) * 100).toFixed(0)}% approval rate`}
+          icon={CheckCircle2}
+        />
+        <Stat label="Total recommended exposure" value={formatINR(totalExposure)} icon={Wallet} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal-stagger">
-        <div data-reveal>
-          <Card title="Risk grade distribution" subtitle="Latest score per MSME">
-            <div style={{ width: '100%', height: 260 }}>
-              <ResponsiveContainer>
-                <BarChart data={gradeData}>
-                  <XAxis dataKey="grade" stroke="currentColor" className="text-on-surface-variant" />
-                  <YAxis allowDecimals={false} stroke="currentColor" className="text-on-surface-variant" />
-                  <Tooltip />
-                  <Bar dataKey="count" radius={[6, 6, 0, 0]}>
-                    {gradeData.map((entry) => (
-                      <Cell key={entry.grade} fill={GRADE_COLOR[entry.grade] || '#94a3b8'} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </Card>
-        </div>
-        <div data-reveal>
-          <Card title="Decision distribution">
-            <div style={{ width: '100%', height: 260 }}>
-              <ResponsiveContainer>
-                <PieChart>
-                  <Pie data={decisionData} dataKey="value" nameKey="name" innerRadius={50} outerRadius={90}>
-                    {decisionData.map((entry) => (
-                      <Cell key={entry.name} fill={OUTCOME_COLOR[entry.name] || '#94a3b8'} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </Card>
-        </div>
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <ChartCard title="Risk grade distribution" subtitle="Latest score per MSME" empty={gradeData.length === 0}>
+          <BarChart data={gradeData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+            <XAxis dataKey="grade" {...axisProps(colors)} />
+            <YAxis allowDecimals={false} {...axisProps(colors)} width={44} />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={{ fill: colors.grid, fillOpacity: 0.4 }}
+            />
+            <Bar dataKey="count" name="MSMEs" radius={[6, 6, 0, 0]}>
+              {gradeData.map((entry) => (
+                <Cell key={entry.grade} fill={colors.grade[entry.grade] || colors.palette[0]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ChartCard>
+
+        <ChartCard title="Decision distribution" empty={decisionData.length === 0}>
+          <PieChart>
+            <Pie data={decisionData} dataKey="value" nameKey="name" innerRadius={55} outerRadius={95} paddingAngle={2}>
+              {decisionData.map((entry) => (
+                <Cell key={entry.name} fill={colors.outcome[entry.name] || colors.palette[0]} />
+              ))}
+            </Pie>
+            <Tooltip content={<ChartTooltip />} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+          </PieChart>
+        </ChartCard>
       </div>
 
-      <div data-reveal>
-        <Card title="Recent decisions" subtitle="Last 8 assessments"
-          action={<Link to="/lender/decisions" className="text-body-sm text-primary hover:text-primary font-medium">View all</Link>}>
-          {recent.length === 0 ? (
-            <div className="text-body-sm text-on-surface-variant">No decisions yet. Run an assessment from MSME Search.</div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-body-sm">
-                <thead className="text-left text-on-surface-variant border-b border-outline-variant">
-                  <tr>
-                    <th className="py-2 font-medium">MSME</th>
-                    <th className="py-2 font-medium">Outcome</th>
-                    <th className="py-2 font-medium">Score</th>
-                    <th className="py-2 font-medium">Recommended limit</th>
-                    <th className="py-2 font-medium">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recent.map((d) => {
-                    const m = msmes.find((x) => x.id === d.msme_id)
-                    return (
-                      <tr key={d.id} className="border-b border-outline-variant/40 last:border-0 hover:bg-surface-container-low transition">
-                        <td className="py-2.5">
-                          <Link to={`/lender/report/${d.msme_id}`} className="text-primary hover:text-primary font-medium">
-                            {m?.legal_name || `MSME #${d.msme_id}`}
-                          </Link>
-                        </td>
-                        <td className="py-2.5"><Badge className={outcomeColor(d.outcome)}>{d.outcome}</Badge></td>
-                        <td className="py-2.5 text-on-surface-variant">-</td>
-                        <td className="py-2.5 text-on-surface">{formatINR(d.recommended_limit_inr)}</td>
-                        <td className="py-2.5 text-on-surface-variant">{new Date(d.created_at).toLocaleString()}</td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </Card>
-      </div>
+      <Card
+        flush
+        title="Recent decisions"
+        subtitle="Last 8 assessments"
+        action={
+          <Link to="/lender/decisions" className={buttonClasses('ghost', 'sm')}>
+            View all <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+          </Link>
+        }
+      >
+        {recent.length === 0 ? (
+          <EmptyState
+            icon={Gavel}
+            title="No decisions yet"
+            message="Run an assessment from MSME Search to get started."
+            action={
+              <Link to="/lender/search" className={buttonClasses('primary', 'sm')}>
+                Go to MSME Search
+              </Link>
+            }
+          />
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="tbl">
+              <thead>
+                <tr>
+                  <th>MSME</th>
+                  <th>Outcome</th>
+                  <th className="num">Score</th>
+                  <th className="num">Recommended limit</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recent.map((d) => {
+                  const m = msmes.find((x) => x.id === d.msme_id)
+                  return (
+                    <tr key={d.id}>
+                      <td>
+                        <Link
+                          to={`/lender/report/${d.msme_id}`}
+                          className="font-medium text-primary transition-colors hover:text-primary-hover"
+                        >
+                          {m?.legal_name || `MSME #${d.msme_id}`}
+                        </Link>
+                      </td>
+                      <td>
+                        <Badge className={outcomeColor(d.outcome)}>{d.outcome}</Badge>
+                      </td>
+                      <td className="num">
+                        {d.credit_score != null ? (
+                          <span className="inline-flex items-center gap-2">
+                            <span className="font-semibold">{d.credit_score}</span>
+                            {d.risk_grade && <span className={gradeColor(d.risk_grade)}>{d.risk_grade}</span>}
+                          </span>
+                        ) : (
+                          <span className="text-subtle-foreground">—</span>
+                        )}
+                      </td>
+                      <td className="num">{formatINR(d.recommended_limit_inr)}</td>
+                      <td className="text-muted-foreground">{formatDate(d.created_at)}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </Card>
     </div>
   )
 }

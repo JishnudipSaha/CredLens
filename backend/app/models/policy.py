@@ -24,6 +24,10 @@ class Policy(Base):
     min_avg_monthly_revenue_inr: Mapped[float] = mapped_column(Float, default=100000.0)
     max_customer_concentration_pct: Mapped[float] = mapped_column(Float, default=0.7)
 
+    # Decision engine score bands (used by decide())
+    auto_approve_score: Mapped[int] = mapped_column(Integer, default=700)
+    review_min_score: Mapped[int] = mapped_column(Integer, default=600)
+
     # Limit engine multipliers
     limit_multiplier_a: Mapped[float] = mapped_column(Float, default=0.5)
     limit_multiplier_b: Mapped[float] = mapped_column(Float, default=0.35)

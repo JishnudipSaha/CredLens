@@ -54,6 +54,47 @@ def _dedup_by_key(records: list[dict], key_fn) -> list[dict]:
     return out
 
 
+# Natural identity keys for list-valued raw fields, used when merging
+# an incoming payload with what is already stored (incremental ingest).
+_LIST_MERGE_KEYS: dict[str, Any] = {
+    "bank_statements": lambda r: r.get("month", ""),
+    "gst_returns": lambda r: r.get("period", ""),
+    "itr_filings": lambda r: r.get("assessment_year", ""),
+    "invoices": lambda r: r.get("invoice_number", ""),
+    "purchase_orders": lambda r: r.get("po_number", r.get("invoice_number", "")),
+    "bills": lambda r: r.get("bill_number", r.get("invoice_number", "")),
+    "utility_payments": lambda r: r.get("month", ""),
+}
+
+
+def _merge_record_lists(field: str, existing: list, incoming: list) -> list:
+    """Merge two record lists for the same raw_* field without losing data.
+
+    Records sharing a natural key (month / period / invoice_number / ...) are
+    replaced by the incoming version (latest data wins); new keys are appended
+    in order. Fields without a registered key fall back to value-equality
+    append so nothing is silently dropped.
+    """
+    if not isinstance(existing, list):
+        return incoming
+    key_fn = _LIST_MERGE_KEYS.get(field)
+    if key_fn is None:
+        out = list(existing)
+        for rec in incoming:
+            if rec not in out:
+                out.append(rec)
+        return out
+
+    order: list = []
+    merged: dict = {}
+    for rec in list(existing) + list(incoming):
+        k = key_fn(rec) if isinstance(rec, dict) else ("__raw__", id(rec))
+        if k not in merged:
+            order.append(k)
+        merged[k] = rec  # incoming wins on key collision
+    return [merged[k] for k in order]
+
+
 # ---------- generic ingest pipeline ----------
 
 def _ingest_payload(
@@ -63,8 +104,9 @@ def _ingest_payload(
     payload: dict,
     validator,
 ) -> IngestResult:
-    """Apply validation to each record, then merge the cleaned payload into MSME.raw_*."""
+    """Validate each record, keep only accepted ones, deep-merge into MSME.raw_*."""
     errors: list[str] = []
+    accepted_payload: dict = {}
     accepted = 0
     rejected = 0
 
@@ -74,6 +116,7 @@ def _ingest_payload(
 
     for key, value in payload.items():
         if isinstance(value, list):
+            kept: list[dict] = []
             for i, rec in enumerate(value):
                 if not isinstance(rec, dict):
                     errors.append(f"{key}[{i}]: not an object")
@@ -85,6 +128,9 @@ def _ingest_payload(
                     rejected += 1
                 else:
                     accepted += 1
+                    kept.append(rec)
+            if kept:
+                accepted_payload[key] = kept
         elif isinstance(value, dict):
             errs = validator(key, value)
             if errs:
@@ -92,15 +138,23 @@ def _ingest_payload(
                 rejected += 1
             else:
                 accepted += 1
+                accepted_payload[key] = value
         elif value is None:
             continue
         else:
             accepted += 1
+            accepted_payload[key] = value
 
-    # Persist on the MSME row (shallow merge into the raw_* JSON column)
+    # Persist only accepted records, deep-merging lists so incremental
+    # ingestion appends/replaces records instead of wiping prior data.
     existing = getattr(msme, field_name) or {}
-    existing.update(payload)
-    setattr(msme, field_name, existing)
+    merged = dict(existing)
+    for key, value in accepted_payload.items():
+        if key in merged and isinstance(merged[key], list) and isinstance(value, list):
+            merged[key] = _merge_record_lists(key, merged[key], value)
+        else:
+            merged[key] = value
+    setattr(msme, field_name, merged)
     db.add(msme)
     db.flush()
 
@@ -188,7 +242,7 @@ def ingest_business(db: Session, msme: MSME, payload: BusinessIngest) -> IngestR
 
 def ingest_alternative(db: Session, msme: MSME, payload: AlternativeIngest) -> IngestResult:
     data = {
-        "utility_payments": payload.utility_payments,
+        "utility_payments": _dedup_by_key(payload.utility_payments, lambda r: r.get("month", "")),
         "telecom_data": payload.telecom_data,
         "digital_footprint": payload.digital_footprint,
     }
@@ -213,12 +267,45 @@ def ingest_manual(db: Session, msme: MSME, payload: ManualIngest) -> IngestResul
 
 # ---------- derive financials from raw data ----------
 
+def _period_to_month_index(period: Any) -> int | None:
+    """Parse 'YYYY-MM' into a monotonic month index; None if unparseable."""
+    m = re.match(r"^(\d{4})-(\d{1,2})$", str(period or "").strip())
+    if not m:
+        return None
+    year, month = int(m.group(1)), int(m.group(2))
+    if not 1 <= month <= 12:
+        return None
+    return year * 12 + (month - 1)
+
+
+def _gst_compliance(gst_returns: list[dict]) -> tuple[int, int, float]:
+    """Compute (expected, done, ratio) from GST returns.
+
+    Expected = calendar months spanned from first to last filing period
+    (a filing gap in the middle means a missed return). Done = distinct
+    periods actually filed. Falls back to n/n when periods are unparseable.
+    """
+    idxs = [_period_to_month_index(r.get("period")) for r in gst_returns]
+    if not idxs or any(i is None for i in idxs):
+        n = len(gst_returns)
+        return n, n, (1.0 if n else 0.0)
+    span = max(idxs) - min(idxs) + 1
+    done = len(set(idxs))
+    expected = max(span, done)
+    return expected, done, round(min(done / expected, 1.0), 4)
+
+
 def derive_financials(db: Session, msme: MSME) -> MSMEFinancials:
     """Recompute the MSMEFinancials snapshot from raw ingested data.
 
     This is the bridge from Layer 1 to Layer 2.
     """
-    fin: MSMEFinancials = msme.financials or MSMEFinancials(msme_id=msme.id)
+    fin: MSMEFinancials = msme.financials
+    if fin is None:
+        fin = MSMEFinancials()
+        # Link both sides now so msme.financials is usable immediately
+        # (otherwise the relationship stays cached as None until a refresh).
+        msme.financials = fin
     if not fin.msme_id:
         fin.msme_id = msme.id
 
@@ -240,9 +327,12 @@ def derive_financials(db: Session, msme: MSME) -> MSMEFinancials:
         # Trend: last vs first
         if len(monthly) >= 2 and monthly[0] > 0:
             fin.revenue_trend_pct = round(((monthly[-1] - monthly[0]) / monthly[0]) * 100, 2)
-        fin.gst_filings_expected = n
-        fin.gst_filings_done = n
-        fin.gst_compliance_ratio = round(n / n, 4) if n else 0.0
+        # Compliance: expected = calendar span of filing periods, done = periods filed.
+        # Missing interior periods (filing gaps) now lower the ratio below 1.0.
+        expected, done, ratio = _gst_compliance(gst_returns)
+        fin.gst_filings_expected = expected
+        fin.gst_filings_done = done
+        fin.gst_compliance_ratio = ratio
 
     # --- Bank statements ---
     balances = [_clean_money(b.get("closing_balance")) for b in bank_stmts]
@@ -274,20 +364,33 @@ def derive_financials(db: Session, msme: MSME) -> MSMEFinancials:
     if "score" in digital:
         fin.digital_footprint_score = max(0.0, min(1.0, float(digital["score"])))
 
-    # --- Government data: CIBIL accounts, concentration ---
+    # --- Government data ---
     gov = msme.raw_government or {}
     if gov.get("cibil_score"):
         # Map external bureau score into our range indirectly via utilisation later;
         # we keep financials free of bureau influence - the model will use it.
         pass
-    accounts = gov.get("cibil_accounts", []) or []
-    if accounts:
-        # Customer concentration: largest outstanding balance vs total
-        outstandings = [_clean_money(a.get("outstanding")) for a in accounts]
-        if outstandings and sum(outstandings) > 0:
-            fin.top_customer_concentration_pct = round(
-                max(outstandings) / sum(outstandings), 4
-            )
+    # NOTE: top_customer_concentration_pct is deliberately NOT derived from
+    # cibil_accounts - those are lender outstandings, not customer revenue.
+    # It is derived from invoices below (customer-attributed amounts only).
+
+    # --- Customer concentration from invoices (customer_id-attributed) ---
+    invoices = (msme.raw_business or {}).get("invoices", []) or []
+    amounts_by_customer: dict[str, float] = {}
+    for inv in invoices:
+        if not isinstance(inv, dict):
+            continue
+        cid = inv.get("customer_id")
+        if cid is None:
+            continue  # cannot attribute - leave any existing value untouched
+        amounts_by_customer[str(cid)] = amounts_by_customer.get(str(cid), 0.0) + _clean_money(
+            inv.get("amount")
+        )
+    total_customer_amount = sum(amounts_by_customer.values())
+    if amounts_by_customer and total_customer_amount > 0:
+        fin.top_customer_concentration_pct = round(
+            max(amounts_by_customer.values()) / total_customer_amount, 4
+        )
 
     # --- Vintage ---
     if msme.incorporation_date:

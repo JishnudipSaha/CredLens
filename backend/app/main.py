@@ -31,7 +31,7 @@ from app.api import msme as msme_api
 from app.api import scoring as scoring_api
 from app.config import settings
 from app.core.logging import configure_logging
-from app.database import Base, SessionLocal, engine
+from app.database import Base, SessionLocal, engine, ensure_sqlite_columns
 from app.models.audit_log import AuditAction, AuditLog
 
 
@@ -45,6 +45,7 @@ async def lifespan(app: FastAPI):
 
     # Create tables
     Base.metadata.create_all(engine)
+    ensure_sqlite_columns()
 
     # Auto-seed on first run
     from app.seed import seed_all
@@ -104,7 +105,7 @@ async def audit_request_middleware(request: Request, call_next):
             with SessionLocal() as db:
                 AuditLog.log(
                     db,
-                    action=AuditAction.INGEST,  # generic - actual action is in API log
+                    action=AuditAction.REQUEST,  # generic HTTP access; domain actions log their own
                     actor_user_id=user_id,
                     endpoint=f"{request.method} {path}",
                     status_code=response.status_code,

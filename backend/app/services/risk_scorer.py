@@ -90,8 +90,21 @@ GRADE_BANDS = [
 ]
 
 
-def score_to_grade(score: int) -> str:
-    for threshold, grade in GRADE_BANDS:
+def score_to_grade(score: int, policy=None) -> str:
+    """Map score -> grade using policy.grade_thresholds when available,
+    falling back to the built-in GRADE_BANDS."""
+    bands = None
+    if policy is not None:
+        thresholds = getattr(policy, "grade_thresholds", None)
+        if thresholds:
+            # thresholds: {"A": 800, ..., "F": 300} -> [(800,"A"), ...] desc
+            bands = sorted(
+                ((int(v), str(k)) for k, v in thresholds.items()),
+                key=lambda kv: -kv[0],
+            )
+    if not bands:
+        bands = GRADE_BANDS
+    for threshold, grade in bands:
         if score >= threshold:
             return grade
     return "F"
@@ -104,7 +117,7 @@ _model_version: str = "v1.0-synthetic"
 
 
 def _load_model() -> None:
-    global _model
+    global _model, _model_version
     if _model is not None:
         return
     if not settings.model_path.exists():
@@ -112,10 +125,25 @@ def _load_model() -> None:
         return
     try:
         _model = joblib.load(settings.model_path)
-        log.info("Loaded risk model from %s", settings.model_path)
+        # Pick up the version recorded by the trainer (feedback retrains bump it)
+        if settings.features_path.exists():
+            try:
+                meta = json.loads(settings.features_path.read_text())
+                _model_version = meta.get("model_version", _model_version)
+            except (OSError, ValueError):
+                pass
+        log.info("Loaded risk model from %s (%s)", settings.model_path, _model_version)
     except Exception as exc:
         log.error("Failed to load model: %s", exc)
         _model = None
+
+
+def reload_model() -> str:
+    """Force a reload from disk (call after retraining) and return the version."""
+    global _model
+    _model = None
+    _load_model()
+    return _model_version
 
 
 def model_version() -> str:
@@ -125,7 +153,7 @@ def model_version() -> str:
 # ---------- public entry ----------
 
 def score_msme(
-    db: Session, msme: MSME, financials: MSMEFinancials | None
+    db: Session, msme: MSME, financials: MSMEFinancials | None, policy=None
 ) -> dict:
     """Return a dict with credit_score, risk_grade, pd_default_12m, red_flags, breakdown."""
     _load_model()
@@ -165,7 +193,14 @@ def score_msme(
 
     # Combine: subtract rule penalty as a deduction on the ML score
     final_score = int(max(300, min(900, ml_score - rule_penalty)))
-    grade = score_to_grade(final_score)
+    grade = score_to_grade(final_score, policy)
+    # Keep PD consistent with the final (penalised) score so the breakdown,
+    # credit_score and pd_default_12m tell the same story. Raw model PD is
+    # preserved in the breakdown for transparency.
+    breakdown["pd_model_raw"] = breakdown.get("pd_default_12m", prob_default)
+    prob_default = float(max(0.0, min(1.0, (900 - final_score) / 600.0)))
+    breakdown["pd_default_12m"] = round(prob_default, 4)
+    breakdown["rules_penalty"] = rule_penalty
     breakdown["final_score"] = final_score
     breakdown["grade"] = grade
 

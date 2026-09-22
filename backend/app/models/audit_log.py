@@ -18,6 +18,7 @@ class AuditAction(str, enum.Enum):
     FEEDBACK = "FEEDBACK"
     POLICY_UPDATE = "POLICY_UPDATE"
     MODEL_RETRAIN = "MODEL_RETRAIN"
+    REQUEST = "REQUEST"  # generic authenticated HTTP request (middleware)
 
 
 class AuditLog(Base):

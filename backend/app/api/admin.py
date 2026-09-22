@@ -121,7 +121,20 @@ def retrain(
     current_user: User = Depends(require_roles(UserRole.ADMIN)),
 ) -> dict:
     from app.ml import train_synthetic
-    result = train_synthetic.train_and_save()
+    from app.services.risk_scorer import reload_model
+
+    # Prefer real feedback labels; fall back to synthetic when insufficient
+    result = train_synthetic.train_and_save_feedback(db)
+    source = "feedback"
+    if result is None:
+        result = train_synthetic.train_and_save()
+        source = "synthetic"
+    result["source"] = source
+
+    # Hot-reload so the new model is used without restarting the process
+    version = reload_model()
+    result["loaded_version"] = version
+
     AuditLog.log(db, action=AuditAction.MODEL_RETRAIN, actor_user_id=current_user.id,
                  details=result)
     db.commit()

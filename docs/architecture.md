@@ -1,6 +1,6 @@
 # CredLens Architecture
 
-This document mirrors the block diagram in `CredLens_Block_Diagram.pdf` in text form. It explains the four layers, the data flow between them, and the cross-cutting infrastructure that ties them together.
+This document mirrors the block diagram in `docs/block_diagram.png` in text form. It explains the four layers, the data flow between them, and the cross-cutting infrastructure that ties them together.
 
 ## Big picture
 
@@ -91,22 +91,24 @@ Build a 20-dimensional feature vector:
 
 Two complementary layers:
 
-- **Rule layer (transparent):** 0-100 penalty based on hand-crafted red flags. Each penalty is also pushed to `red_flags[]` for explainability.
-  - GST compliance < 60% -> +35 penalty
-  - Bounced cheques >= 3 -> +30 penalty
-  - Revenue declined > 20% -> +20 penalty
-  - Customer concentration > 70% -> +15 penalty
-  - Debt-to-revenue > 50% -> +20 penalty
-  - Bank balance < 5% of annual revenue -> +15 penalty
-  - Vintage < 1 year -> +8 penalty
-  - Utility payment consistency < 80% -> +10 penalty
-  - No revenue data -> +25 penalty
+- **Rule layer (transparent):** tiered 0-100 penalty based on hand-crafted red flags. Material breaches are also pushed to `red_flags[]` for explainability; softer breaches carry a smaller penalty.
+  - GST compliance < 60% -> +35 (60-80% -> +15 "Inconsistent GST filings")
+  - Bounced cheques >= 3 -> +30 (1-2 -> +10)
+  - Revenue declined > 20% -> +20 (> 5% -> +8)
+  - Customer concentration > 70% -> +15 (> 50% -> +6)
+  - Debt-to-revenue > 50% -> +20 (> 30% -> +8)
+  - Bank balance < 5% of annual revenue -> +15
+  - Vintage < 1 year -> +8 (< 3 years -> +3)
+  - Utility payment consistency < 80% -> +10
+  - No revenue data -> +25
 
-- **ML layer (data-driven):** GradientBoosting classifier trained on 5,000 synthetic samples. Produces `P(default in 12 months)` which is mapped to a 300-900 score: `score = 900 - pd * 600`.
+- **ML layer (data-driven):** GradientBoosting classifier trained on 5,000 synthetic samples. Produces `P(default in 12 months)` which is mapped to a 300-900 score: `ml_score = 900 - pd * 600`.
 
 - **Combine:** `final_score = max(300, min(900, ml_score - rule_penalty))`
 
-- **Grade mapping:**
+- **Consistency:** the reported `pd_default_12m` is recomputed from the final score (`pd = (900 - final_score) / 600`) so score, grade, and PD always tell the same story; the raw model probability is preserved as `pd_model_raw` in the breakdown.
+
+- **Grade mapping** (defaults; overridable per policy via `policy.grade_thresholds`):
   - 800+ -> A
   - 740-799 -> B
   - 680-739 -> C
@@ -120,7 +122,7 @@ Two complementary layers:
 {
   "credit_score": 859,
   "risk_grade": "A",
-  "pd_default_12m": 0.0277,
+  "pd_default_12m": 0.0683,
   "red_flags": ["Low liquidity: bank balance <5% of annual revenue"],
   "score_breakdown": {
     "model_version": "v1.0-synthetic",
@@ -128,6 +130,7 @@ Two complementary layers:
     "rules_penalty": 24,
     "final_score": 859,
     "grade": "A",
+    "pd_model_raw": 0.0277,
     "features": {...}
   }
 }
@@ -168,11 +171,13 @@ Editable by admin via `PUT /api/v1/admin/policies/{id}`.
 
 **Step 3: Decision** (`policy_engine.decide`)
 
+Score bands come from the policy (`auto_approve_score` / `review_min_score`, defaulting to 700 / 600 when no policy is supplied):
+
 | Conditions | Decision |
 |---|---|
 | Hard reject triggered | REJECT |
-| 0 violations AND score >= 700 AND limit > 0 | APPROVE |
-| <=1 violation AND score >= 600 | REVIEW |
+| 0 violations AND score >= policy auto-approve band (default 700) AND limit > 0 | APPROVE |
+| <=1 violation AND score >= policy review band (default 600) | REVIEW |
 | Otherwise | REJECT |
 
 **Output:**
@@ -201,43 +206,53 @@ These are implemented as middleware, dependencies, and configuration rather than
 
 ## Feedback Loop
 
-After the dealer extends credit, they report the actual outcome via `POST /api/v1/feedback`. The outcome is recorded in `audit_log` with a numeric label (PAID_ON_TIME=0, DELAYED=0.3, PARTIAL_DEFAULT=0.7, NPA=1.0). Admin can then click "Retrain model" to retrain the GradientBoosting on the augmented data; AUC and model version are surfaced on the Model Monitor.
+After the dealer extends credit, they report the actual outcome via `POST /api/v1/feedback`. The outcome is recorded in `audit_log` with a numeric label (PAID_ON_TIME=0, DELAYED=0.3, PARTIAL_DEFAULT=0.7, NPA=1.0). Admin can then click "Retrain model": the trainer joins feedback rows to each decision's `ScoreRun.feature_snapshot` and, when at least 30 labelled samples with both classes exist, fits the GradientBoosting on those real labels (labels ≥0.5 count as default) and hot-reloads the new version; with insufficient feedback it falls back to the synthetic dataset. AUC, data source, and model version are surfaced on the Model Monitor.
 
 In production, the feedback dataset grows over time, the model is retrained periodically (e.g. weekly), and the new version is A/B tested against the old one before promotion.
 
 ## Layer 5: Frontend UI
 
-**Goal:** present credit intelligence in a clean, data-dense interface that institutional users can trust.
+**Goal:** present credit intelligence in a clean, data-dense interface that institutional users can trust — in light and dark mode.
 
 **Code:** `frontend/src/` (React + TypeScript + TailwindCSS)
 
 ### Design System
 
-The frontend uses a **Modern Institutional Minimalism** design system with Material Design 3 color tokens. See `docs/design-system.md` for the full specification.
+The frontend uses an **Institutional Light + Dark Mode** design system driven entirely by semantic CSS variables (HSL tokens in `index.css`, mapped through `tailwind.config.js`). See `docs/design-system.md` for the full specification.
 
 Key principles:
-- **Fixed 260px sidebar** navigation with Material Symbols icons
-- **Solid white backgrounds** (no glassmorphism) for institutional trust
+- **Semantic tokens only** — components color themselves with `bg-card`, `text-muted-foreground`, `border-border`, etc., so light/dark parity is automatic; a `.dark` class toggle (persisted in localStorage, bootstrapped in `index.html`) switches themes
+- **Fixed 248px sidebar** at ≥1024px with a slide-over drawer + hamburger below it
 - **Inter** for UI text, **JetBrains Mono** for data values and labels
-- **Deep navy primary** (`#00236f`) with vivid blue secondary (`#0051d5`)
+- **Navy-indigo primary** (`#1e3ecc` light / `#637cee` dark) with semantic success/warning/danger and grade colors
+- **Lucide** icons (no icon-font CDN)
 
 ### Component Architecture
 
 ```
-App.tsx
-  context.tsx          (auth context, role-based routing)
-  api/client.ts        (typed axios + JWT interceptor)
+App.tsx                   (providers: auth, theme, toasts + ErrorBoundary)
+  context.tsx             (auth context, role-based routing)
+  theme.tsx               (light/dark theme provider, localStorage)
+  api/client.ts           (typed axios + JWT interceptor)
   components/
-    Layout.tsx         (sidebar + header + breadcrumbs)
-    UI.tsx             (Card, Badge, Stat, EmptyState, Spinner)
-    ScoreGauge.tsx     (circular score gauge)
-    ThemeToggle.tsx    (light/dark toggle)
+    Layout.tsx            (sidebar/drawer + sticky header + breadcrumbs)
+    UI.tsx                (Card, Button, Badge, Alert, Stat, EmptyState,
+                           Spinner, Skeleton, ErrorState, TableWrap)
+    ScoreGauge.tsx        (300-900 SVG gauge with grade chip)
+    ThemeToggle.tsx       (light/dark toggle)
+    Toast.tsx             (ToastProvider + useToast)
+    ErrorBoundary.tsx     (React error boundary)
+    charts.tsx            (theme-aware Recharts helpers: ChartCard,
+                           ChartTooltip, useChartColors, axisProps)
+  utils/
+    format.ts             (INR/date formatting, grade/outcome color maps)
+    cn.ts                 (clsx class-name helper)
   pages/
-    Login.tsx          (demo account selector)
-    lender/            (Dashboard, MsmeSearch, MsmeReport, Decisions)
-    msme/              (Dashboard, UploadData, ScoreHistory)
-    government/        (PortfolioInsights)
-    admin/             (ModelMonitor, AuditLog)
+    Login.tsx             (demo account selector, split brand panel)
+    lender/               (Dashboard, MsmeSearch, MsmeReport, Decisions)
+    msme/                 (Dashboard, UploadData, ScoreHistory)
+    government/           (PortfolioInsights)
+    admin/                (ModelMonitor, AuditLog)
 ```
 
 ### Role-Based Routing
@@ -258,3 +273,4 @@ Each role sees a different sidebar navigation and page set:
 3. Pages call typed API functions from `api/client.ts`
 4. Vite dev server proxies `/api/*` to backend on `:8000`
 5. In production, nginx or CDN handles the proxy
+6. Theme preference persists in localStorage (`credlens_theme`) and is applied before first paint by an inline script in `index.html`

@@ -7,11 +7,28 @@ from sqlalchemy.orm import Session
 from app.core.deps import get_current_user
 from app.database import get_db
 from app.models.decision import Decision, DecisionOutcome
+from app.models.score_run import ScoreRun
 from app.models.user import User
 from app.schemas.scoring import DecisionOut
 
 
 router = APIRouter(prefix="/decisions", tags=["decisions"])
+
+
+def _with_scores(db: Session, rows: list[Decision]) -> list[DecisionOut]:
+    """Attach credit_score / risk_grade from the related score runs."""
+    run_ids = {r.score_run_id for r in rows}
+    runs = db.query(ScoreRun).filter(ScoreRun.id.in_(run_ids)).all() if run_ids else []
+    run_map = {r.id: r for r in runs}
+    out: list[DecisionOut] = []
+    for row in rows:
+        item = DecisionOut.model_validate(row)
+        score_run = run_map.get(row.score_run_id)
+        if score_run is not None:
+            item.credit_score = score_run.credit_score
+            item.risk_grade = score_run.risk_grade
+        out.append(item)
+    return out
 
 
 @router.get("", response_model=list[DecisionOut])
@@ -28,7 +45,7 @@ def list_decisions(
     if msme_id:
         q = q.filter(Decision.msme_id == msme_id)
     rows = q.order_by(Decision.id.desc()).limit(limit).all()
-    return [DecisionOut.model_validate(r) for r in rows]
+    return _with_scores(db, rows)
 
 
 @router.get("/{decision_id}", response_model=DecisionOut)
@@ -40,4 +57,4 @@ def get_decision(
     d = db.get(Decision, decision_id)
     if not d:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Decision not found")
-    return DecisionOut.model_validate(d)
+    return _with_scores(db, [d])[0]

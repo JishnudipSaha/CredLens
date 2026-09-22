@@ -1,59 +1,122 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ScrollText } from 'lucide-react'
 import { api_audit_log } from '../../api/client'
-import { Card, EmptyState, Spinner, Badge } from '../../components/UI'
-import { useReveal } from '../../hooks/useReveal'
+import { Badge, Card, EmptyState, ErrorState, Spinner } from '../../components/UI'
+import { formatDateTime } from '../../utils/format'
+
+interface AuditRow {
+  id: number
+  created_at: string
+  action: string
+  actor_user_id?: number | null
+  msme_id?: number | null
+  endpoint?: string | null
+  details?: unknown
+}
 
 export default function AuditLog() {
-  const [rows, setRows] = useState<any[]>([])
+  const [rows, setRows] = useState<AuditRow[]>([])
+  const [action, setAction] = useState('')
   const [loading, setLoading] = useState(true)
-  const containerRef = useRef<HTMLDivElement>(null)
-  useReveal(containerRef)
-  useEffect(() => {
-    api_audit_log().then(setRows).finally(() => setLoading(false))
+  const [error, setError] = useState<unknown>(null)
+
+  const load = useCallback(() => {
+    setLoading(true)
+    setError(null)
+    api_audit_log()
+      .then((data) => setRows(Array.isArray(data) ? data : []))
+      .catch((e) => setError(e))
+      .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <Spinner />
+  useEffect(() => {
+    load()
+  }, [load])
+
+  const actions = useMemo(
+    () => Array.from(new Set(rows.map((r) => r.action).filter(Boolean))).sort(),
+    [rows],
+  )
+  const filtered = action ? rows.filter((r) => r.action === action) : rows
 
   return (
-    <div ref={containerRef} className="space-y-space-lg">
-      <div data-reveal>
-        <h1 className="text-headline-lg text-primary font-bold tracking-tight">Audit Log</h1>
-        <p className="text-body-md text-on-surface-variant mt-1">All platform events for monitoring and compliance.</p>
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">Audit Log</h1>
+          <p className="mt-1 text-sm text-muted-foreground">All platform events for monitoring and compliance.</p>
+        </div>
+        <select
+          value={action}
+          onChange={(e) => setAction(e.target.value)}
+          className="select w-auto"
+          aria-label="Filter by action"
+        >
+          <option value="">All actions</option>
+          {actions.map((a) => (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {rows.length === 0 ? <EmptyState title="No audit events yet" /> : (
-        <div data-reveal>
-          <Card>
-            <div className="overflow-x-auto">
-              <table className="w-full text-body-sm">
-                <thead className="text-left text-on-surface-variant border-b border-outline-variant">
-                  <tr>
-                    <th className="py-2 font-medium">When</th>
-                    <th className="py-2 font-medium">Action</th>
-                    <th className="py-2 font-medium">Actor</th>
-                    <th className="py-2 font-medium">MSME</th>
-                    <th className="py-2 font-medium">Endpoint</th>
-                    <th className="py-2 font-medium">Details</th>
+      {error != null && <ErrorState error={error} onRetry={load} />}
+
+      {loading ? (
+        <Spinner />
+      ) : filtered.length === 0 ? (
+        <Card>
+          <EmptyState
+            icon={ScrollText}
+            title="No audit events found"
+            message={action ? `No events match action “${action}”.` : 'Events appear as the platform is used.'}
+          />
+        </Card>
+      ) : (
+        <Card
+          flush
+          title={`${filtered.length} events`}
+          subtitle={action ? `Filtered to ${action}` : 'Most recent first'}
+        >
+          <div className="overflow-x-auto">
+            <table className="tbl">
+              <thead>
+                <tr>
+                  <th>When</th>
+                  <th>Action</th>
+                  <th className="num">Actor</th>
+                  <th className="num">MSME</th>
+                  <th>Endpoint</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((a) => (
+                  <tr key={a.id}>
+                    <td className="whitespace-nowrap text-muted-foreground">{formatDateTime(a.created_at)}</td>
+                    <td>
+                      <Badge>{a.action}</Badge>
+                    </td>
+                    <td className="num">{a.actor_user_id ?? '—'}</td>
+                    <td className="num">{a.msme_id ?? '—'}</td>
+                    <td className="font-mono text-xs text-muted-foreground">{a.endpoint ?? '—'}</td>
+                    <td className="align-top">
+                      <details>
+                        <summary className="cursor-pointer select-none text-xs font-medium text-primary transition-colors hover:text-primary-hover">
+                          View JSON
+                        </summary>
+                        <pre className="mt-1.5 max-w-md overflow-auto rounded-lg border border-border bg-muted p-2.5 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                          {JSON.stringify(a.details ?? {}, null, 2)}
+                        </pre>
+                      </details>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {rows.map((a) => (
-                    <tr key={a.id} className="border-b border-outline-variant/40 last:border-0 align-top">
-                      <td className="py-2 text-on-surface-variant whitespace-nowrap">{new Date(a.created_at).toLocaleString()}</td>
-                      <td className="py-2"><Badge className="chip bg-surface-container text-on-surface">{a.action}</Badge></td>
-                      <td className="py-2 text-on-surface">{a.actor_user_id ?? '-'}</td>
-                      <td className="py-2 text-on-surface">{a.msme_id ?? '-'}</td>
-                      <td className="py-2 font-mono text-mono-caption text-on-surface-variant">{a.endpoint ?? '-'}</td>
-                      <td className="py-2 text-mono-caption text-on-surface-variant max-w-md truncate" title={JSON.stringify(a.details)}>
-                        {JSON.stringify(a.details)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
       )}
     </div>
   )

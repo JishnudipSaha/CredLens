@@ -52,33 +52,36 @@ def build_features(msme: MSME, financials: MSMEFinancials | None) -> dict[str, A
     """Return a dict of features. Missing values are zero-filled safely."""
     f: dict[str, Any] = {k: 0.0 for k in FEATURE_NAMES}
 
+    # Sector one-hot only needs the MSME row - set it before the
+    # financials early-return so sector_other is never skipped.
+    sector_key = SECTOR_MAP.get((msme.sector or "").lower(), "sector_other")
+    f[sector_key] = 1.0
+
     if financials is None:
         return f
 
-    f["avg_monthly_revenue_inr"] = financials.avg_monthly_revenue_inr
-    f["revenue_trend_pct"] = financials.revenue_trend_pct
-    f["ebitda_margin_pct"] = financials.ebitda_margin_pct
-    f["gst_compliance_ratio"] = financials.gst_compliance_ratio
-    f["avg_bank_balance_inr"] = financials.avg_bank_balance_inr
-    f["bounced_cheques_12m"] = financials.bounced_cheques_12m
-    f["existing_loan_obligations_inr"] = financials.existing_loan_obligations_inr
-    f["utility_payment_consistency"] = financials.utility_payment_consistency
-    f["telecom_footprint_score"] = financials.telecom_footprint_score
-    f["digital_footprint_score"] = financials.digital_footprint_score
-    f["top_customer_concentration_pct"] = financials.top_customer_concentration_pct
-    f["vintage_years"] = financials.vintage_years
+    # `or 0.0` guards against unset column defaults on transient rows
+    f["avg_monthly_revenue_inr"] = financials.avg_monthly_revenue_inr or 0.0
+    f["revenue_trend_pct"] = financials.revenue_trend_pct or 0.0
+    f["ebitda_margin_pct"] = financials.ebitda_margin_pct or 0.0
+    f["gst_compliance_ratio"] = financials.gst_compliance_ratio if financials.gst_compliance_ratio is not None else 0.0
+    f["avg_bank_balance_inr"] = financials.avg_bank_balance_inr or 0.0
+    f["bounced_cheques_12m"] = financials.bounced_cheques_12m or 0
+    f["existing_loan_obligations_inr"] = financials.existing_loan_obligations_inr or 0.0
+    f["utility_payment_consistency"] = financials.utility_payment_consistency if financials.utility_payment_consistency is not None else 0.0
+    f["telecom_footprint_score"] = financials.telecom_footprint_score if financials.telecom_footprint_score is not None else 0.0
+    f["digital_footprint_score"] = financials.digital_footprint_score if financials.digital_footprint_score is not None else 0.0
+    f["top_customer_concentration_pct"] = financials.top_customer_concentration_pct if financials.top_customer_concentration_pct is not None else 0.0
+    f["vintage_years"] = financials.vintage_years or 0.0
 
-    f["log_revenue"] = _safe_log(financials.avg_monthly_revenue_inr)
-    annual_rev = financials.avg_monthly_revenue_inr * 12.0
+    f["log_revenue"] = _safe_log(f["avg_monthly_revenue_inr"])
+    annual_rev = f["avg_monthly_revenue_inr"] * 12.0
     f["debt_to_revenue_ratio"] = (
-        financials.existing_loan_obligations_inr / annual_rev if annual_rev > 0 else 0.0
+        f["existing_loan_obligations_inr"] / annual_rev if annual_rev > 0 else 0.0
     )
     f["liquidity_ratio"] = (
-        financials.avg_bank_balance_inr / annual_rev if annual_rev > 0 else 0.0
+        f["avg_bank_balance_inr"] / annual_rev if annual_rev > 0 else 0.0
     )
-
-    sector_key = SECTOR_MAP.get((msme.sector or "").lower(), "sector_other")
-    f[sector_key] = 1.0
 
     return f
 

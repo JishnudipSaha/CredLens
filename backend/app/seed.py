@@ -31,6 +31,8 @@ CITIES = ["Mumbai", "Bengaluru", "Chennai", "Ahmedabad", "New Delhi", "Hyderabad
 
 def _ensure_schema() -> None:
     Base.metadata.create_all(engine)
+    from app.database import ensure_sqlite_columns
+    ensure_sqlite_columns()
 
 
 def _ensure_model() -> None:
@@ -130,22 +132,64 @@ def _gen_msme_record(idx: int) -> dict:
     util = round(random.uniform(0.9, 1.0), 2) if not risky else round(random.uniform(0.5, 0.85), 2)
     concentration = round(random.uniform(0.2, 0.5), 2) if not risky else round(random.uniform(0.55, 0.85), 2)
     debt = avg_rev * 12 * random.uniform(0.05, 0.25) if not risky else avg_rev * 12 * random.uniform(0.3, 0.8)
-    balance = avg_rev * random.uniform(0.1, 0.5) if not risky else avg_rev * random.uniform(0.01, 0.08)
+    # Liquidity calibration: balance is a fraction of ANNUAL revenue so the
+    # risk_scorer rule (balance / annual_revenue < 0.05) only trips for risky
+    # profiles. Healthy: 0.10-0.40 of annual revenue. Risky: 0.01-0.045 (trips).
+    annual = avg_rev * 12
+    balance = annual * random.uniform(0.10, 0.40) if not risky else annual * random.uniform(0.01, 0.045)
 
     # Raw payloads (simulate what ingestion would have produced)
+    # Consecutive calendar months Jan-Jun 2025 (previous 30-day stepping
+    # produced duplicate YYYY-MM labels).
+    periods_all = [f"2025-{m:02d}" for m in range(1, 7)]
+    # GST filing gaps: keep the first and last period so the calendar span
+    # stays 6 months, drop interior months to match filings_done. This lets
+    # derive_financials reproduce filings_done/6 instead of always 1.0.
+    if filings_done >= len(periods_all):
+        kept_periods = list(periods_all)
+    elif filings_done <= 1:
+        kept_periods = periods_all[:1]
+    else:
+        middle = periods_all[1:-1]
+        chosen = sorted(random.sample(middle, filings_done - 2))
+        kept_periods = [periods_all[0], *chosen, periods_all[-1]]
+    kept_set = set(kept_periods)
     gst_returns = []
-    for m in range(filings_expected):
+    for m, period in enumerate(periods_all):
+        if period not in kept_set:
+            continue
         gst_returns.append({
-            "period": (datetime(2025, 1, 1) + timedelta(days=30 * m)).strftime("%Y-%m"),
+            "period": period,
             "taxable_value": round(avg_rev * (1 + trend / 100) ** (m / 6), 2),
             "tax_paid": round(avg_rev * 0.18 * (1 + trend / 100) ** (m / 6), 2),
         })
     bank_stmts = []
     for m in range(6):
         bank_stmts.append({
-            "month": (datetime(2025, 1, 1) + timedelta(days=30 * m)).strftime("%Y-%m"),
+            "month": periods_all[m],
             "closing_balance": round(balance * (0.9 + 0.05 * m), 2),
             "bounced_cheques": bounced if m == 5 else 0,
+        })
+    # Invoices attributed to customers so concentration derives from revenue:
+    # top customer carries exactly `concentration` of total invoiced amount.
+    n_invoices = 5
+    total_invoiced = avg_rev * 0.5
+    top_amount = total_invoiced * concentration
+    rest_total = total_invoiced - top_amount
+    invoices = [
+        {
+            "invoice_number": "INV1000",
+            "amount": round(top_amount, 2),
+            "date": fake.date_between("-6M", "today").isoformat(),
+            "customer_id": "CUST-1",
+        }
+    ]
+    for i in range(1, n_invoices):
+        invoices.append({
+            "invoice_number": f"INV{1000 + i}",
+            "amount": round(rest_total / (n_invoices - 1), 2),
+            "date": fake.date_between("-6M", "today").isoformat(),
+            "customer_id": f"CUST-{(i % 3) + 2}",
         })
     return {
         **profile,
@@ -164,17 +208,13 @@ def _gen_msme_record(idx: int) -> dict:
             },
         },
         "raw_business": {
-            "invoices": [
-                {"invoice_number": f"INV{1000 + i}", "amount": round(avg_rev * 0.1, 2), "date": fake.date_between("-6M", "today").isoformat()}
-                for i in range(5)
-            ],
+            "invoices": invoices,
             "purchase_orders": [],
             "bills": [],
         },
         "raw_alternative": {
             "utility_payments": [
-                {"month": (datetime(2025, 1, 1) + timedelta(days=30 * m)).strftime("%Y-%m"),
-                 "on_time": random.random() < util}
+                {"month": periods_all[m], "on_time": random.random() < util}
                 for m in range(6)
             ],
             "telecom_data": {"score": round(random.uniform(0.5, 0.9), 2)},

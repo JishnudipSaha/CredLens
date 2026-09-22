@@ -57,8 +57,10 @@ def evaluate_policy(
         hard.append(REASON_HARD_REJECT_NO_REVENUE)
 
     if hard:
+        # Hard-reject codes live only in hard_reject_reasons so the
+        # orchestrator's reasons+violations+hard concat emits each once.
         return PolicyEvaluation(
-            hard_reject=True, hard_reject_reasons=hard, violations=hard, reasons=hard,
+            hard_reject=True, hard_reject_reasons=hard, violations=[], reasons=[],
         )
 
     # Soft violations
@@ -135,18 +137,26 @@ def decide(
     grade: str,
     eval_result: PolicyEvaluation,
     limit: float,
+    policy: Policy | None = None,
 ) -> tuple[DecisionOutcome, str]:
-    """Map policy evaluation + score into APPROVE / REVIEW / REJECT."""
+    """Map policy evaluation + score into APPROVE / REVIEW / REJECT.
+
+    Score bands come from the policy (auto_approve_score / review_min_score);
+    falls back to 700/600 when no policy is supplied.
+    """
+    auto_score = policy.auto_approve_score if policy is not None else 700
+    review_score = policy.review_min_score if policy is not None else 600
+
     if eval_result.hard_reject:
         rationale = "Hard reject triggered: " + ", ".join(eval_result.hard_reject_reasons)
         return DecisionOutcome.REJECT, rationale
 
     n_violations = len(eval_result.violations)
-    if n_violations == 0 and score >= 700 and limit > 0:
+    if n_violations == 0 and score >= auto_score and limit > 0:
         rationale = f"Auto-approved. Grade {grade}, score {score}, recommended limit INR {limit:,.0f}."
         return DecisionOutcome.APPROVE, rationale
 
-    if n_violations <= 1 and score >= 600:
+    if n_violations <= 1 and score >= review_score:
         reasons_str = "; ".join(eval_result.violations) if eval_result.violations else "borderline score"
         rationale = f"Sent for manual review. Grade {grade}, score {score}. {reasons_str}."
         return DecisionOutcome.REVIEW, rationale

@@ -4,23 +4,24 @@
 
 CredLens lets lenders, banks, and NBFCs verify an MSME and decide whether to extend credit **before** transacting. MSMEs upload their financial, business, alternative, and government data; the platform runs it through ingestion, AI scoring, and a business-logic decision engine; and returns a credit score (300-900), risk grade (A-F), recommended limit, decision (APPROVE / REVIEW / REJECT), and explainable reason codes.
 
-This repository contains a runnable full-stack prototype that mirrors the architecture in `CredLens_Block_Diagram.pdf`.
+This repository contains a runnable full-stack prototype that mirrors the architecture in [`docs/block_diagram.png`](docs/block_diagram.png).
 
 ---
 
 ## Design System
 
-CredLens uses a **Modern Institutional Minimalism** design system — clean, data-dense interfaces inspired by Bloomberg Terminal and NCDEX dashboards.
+CredLens uses an **Institutional Light** design system with a first-class **dark mode** — clean, data-dense interfaces inspired by Bloomberg Terminal and NCDEX dashboards. Every color is a semantic CSS variable, so both themes stay in sync automatically.
 
 | Token | Value |
 |---|---|
-| Primary | `#00236f` / `#1e3a8a` (deep navy) |
-| Secondary | `#0051d5` (vivid blue) |
-| Background | `#f8f9ff` (near-white) |
-| Surface | `#ffffff` (pure white cards) |
+| Primary | `#1e3ecc` navy-indigo (light) / `#637cee` (dark) |
+| Background | `#f6f6f9` (light) / `#090d15` (dark) |
+| Surface | `#ffffff` (light) / `#0d121c` (dark) |
+| Semantic | success `#1c8252`, warning `#b15e0b`, danger `#b81e1e` (+ brighter dark variants) |
 | Typography | Inter (UI) + JetBrains Mono (data/labels) |
-| Icons | Material Symbols Outlined |
-| Layout | Fixed 260px sidebar + top header with breadcrumbs |
+| Icons | Lucide (`lucide-react`) |
+| Layout | Fixed 248px sidebar at ≥1024px (slide-over drawer below) + sticky blurred header |
+| Theming | HSL CSS variables in `index.css`; `.dark` class persisted to `localStorage` (`credlens_theme`) with an anti-flash bootstrap in `index.html` |
 
 See [`docs/design-system.md`](docs/design-system.md) for the full specification.
 
@@ -53,7 +54,7 @@ Manual Upload     |    |     (Cloud)                      |  |
 
 - **Backend:** Python 3.13, FastAPI, SQLAlchemy 2.x, SQLite, scikit-learn
 - **Frontend:** React 18, Vite, TypeScript, TailwindCSS, Recharts, Axios
-- **Design:** Material Design 3 tokens, Inter + JetBrains Mono, Material Symbols
+- **Design:** HSL CSS-variable design tokens, Inter + JetBrains Mono, Lucide icons, light + dark themes
 - **Auth:** JWT (4 roles: LENDER, MSME, GOVERNMENT, ADMIN)
 - **ML:** GradientBoosting classifier trained on 5,000 synthetic samples
 - **Data:** Faker-generated 50 MSMEs seeded on first run
@@ -116,11 +117,11 @@ Click any of the four demo account buttons on the login page to pre-fill the cre
 1. **Login as Lender** at `http://127.0.0.1:5173`
 2. **Click "MSME Search"** in the sidebar — 50 MSMEs are listed
 3. **Click "Run Assessment"** on any unscored row (e.g. "Anand, Mistry and Chawla It Pvt Ltd")
-4. **Inspect the credit report** — score 800+ Grade A typically, 1-3 red flags, recommended limit INR 1-3 Cr
+4. **Inspect the credit report** — 300–900 score with grade A–F, red flags, recommended limit, and reason codes (exact figures vary with seed data and model version)
 5. **Click "Paid on time"** (or any other outcome) under "Feedback Loop" — your feedback is recorded
 6. **Sign out** (top right) and **sign in as Platform Admin**
 7. **Visit Model Monitor** — your feedback shows up in the "Feedback outcomes" donut
-8. **Click "Retrain model"** to retrain the synthetic model on the augmented data
+8. **Click "Retrain model"** — retrains on your feedback labels when ≥30 labelled outcomes exist (falls back to synthetic data otherwise); the new model version loads immediately
 9. **Visit Audit Log** — every action is recorded with timestamp, actor, and endpoint
 
 ---
@@ -152,14 +153,14 @@ Click any of the four demo account buttons on the login page to pre-fill the cre
 | `POST` | `/api/v1/score/run` | Run Layer 2 + Layer 3 (full assessment) |
 | `GET`  | `/api/v1/score/report/{msme_id}` | Latest credit report (no re-run) |
 | `GET`  | `/api/v1/score/runs/{msme_id}` | Score history for an MSME |
-| `GET`  | `/api/v1/decisions` | List decisions, filter by outcome / msme |
+| `GET`  | `/api/v1/decisions` | List decisions, filter by outcome / msme (each row includes `credit_score` + `risk_grade`) |
 | `POST` | `/api/v1/feedback` | Lender reports actual outcome (Feedback Loop) |
 | `GET`  | `/api/v1/admin/users` | Admin: list users |
 | `GET`  | `/api/v1/admin/policies` | List active credit policies |
 | `PUT`  | `/api/v1/admin/policies/{id}` | Admin: update policy thresholds |
 | `GET`  | `/api/v1/admin/audit-log` | Admin: full audit trail |
 | `GET`  | `/api/v1/admin/model-monitor` | Admin: model + scoring stats |
-| `POST` | `/api/v1/admin/model/retrain` | Admin: retrain synthetic model |
+| `POST` | `/api/v1/admin/model/retrain` | Admin: retrain on feedback labels (synthetic fallback) |
 | `GET`  | `/api/v1/government/portfolio-insights` | Ecosystem-level analytics |
 
 Full auto-generated docs at `http://127.0.0.1:8000/docs`.
@@ -173,7 +174,7 @@ cd backend
 python -m pytest tests/ -v
 ```
 
-Covers: grade mapping, feature engine shape, financial ingestion -> financials derivation, policy approve / hard-reject / violation, full assessment pipeline, synthetic ML training. All 8 tests pass.
+Covers: grade mapping, feature engine shape, financial ingestion -> financials derivation, policy approve / hard-reject / violation, policy-driven decision bands and grade thresholds, PD/score consistency, reason-code deduplication, feedback retrain on real labels, model hot-reload, full assessment pipeline, seed-data sanity. All 22 tests pass.
 
 ---
 
@@ -205,24 +206,29 @@ CredLens/
 |  |  +- ml/
 |  |     +- train_synthetic.py     # GradientBoosting on 5,000 synthetic samples
 |  |     +- artifacts/risk_model.pkl
-|  +- tests/                       # 8 pytest tests
+|  +- tests/                       # 22 pytest tests
 +- frontend/
 |  +- package.json
 |  +- vite.config.ts
-|  +- tailwind.config.js           # Material Design 3 tokens
-|  +- index.html                   # Google Fonts (Inter, JetBrains Mono) + Material Symbols
+|  +- tailwind.config.js           # HSL design tokens mapped to Tailwind color utilities
+|  +- index.html                   # Google Fonts (Inter, JetBrains Mono) + anti-flash theme bootstrap
 |  +- src/
 |     +- main.tsx
-|     +- index.css                 # design system CSS (tokens, utilities, components)
-|     +- App.tsx                   # role-based router
+|     +- index.css                 # design tokens (light/dark), base + component styles
+|     +- App.tsx                   # role-based router + providers (auth, theme, toasts, ErrorBoundary)
 |     +- context.tsx               # auth context
+|     +- theme.tsx                 # light/dark theme provider (localStorage)
 |     +- api/client.ts             # typed axios + auth interceptor
 |     +- utils/format.ts           # INR formatting, score/grade/outcome color maps
+|     +- utils/cn.ts               # clsx class-name helper
 |     +- components/
-|     |  +- Layout.tsx             # fixed 260px sidebar + top header with breadcrumbs
-|     |  +- UI.tsx                 # Card, Badge, Stat, EmptyState, Spinner
+|     |  +- Layout.tsx             # sidebar/drawer + sticky header with breadcrumbs
+|     |  +- UI.tsx                 # Card, Button, Badge, Alert, Stat, states, TableWrap
 |     |  +- ScoreGauge.tsx         # circular score gauge with grade badge
 |     |  +- ThemeToggle.tsx        # light/dark mode toggle
+|     |  +- Toast.tsx              # ToastProvider + useToast
+|     |  +- ErrorBoundary.tsx      # app-level error fallback
+|     |  +- charts.tsx             # theme-aware Recharts helpers (ChartCard, ChartTooltip)
 |     +- pages/
 |        +- Login.tsx              # demo account selector, institutional login form
 |        +- lender/                # Dashboard, MsmeSearch, MsmeReport, Decisions
@@ -236,22 +242,21 @@ CredLens/
 
 ## Design references
 
-The `designs/` folder contains 10 HTML design files generated from Google Stitch, one per page:
+The `designs/` folder contains 11 Google Stitch design references (brand explorations and page comps). Each folder holds reference assets — a self-contained `code.html` and/or a `screen.png`:
 
-| Page | File |
+| Folder | Subject |
 |---|---|
-| Login | `designs/login/code.html` |
-| Lender Dashboard | `designs/lender_dashboard/code.html` |
-| MSME Search | `designs/msme_search/code.html` |
-| Credit Report | `designs/credit_report/code.html` |
-| Decisions | `designs/decisions/code.html` |
-| MSME Dashboard | `designs/msme_dashboard/code.html` |
-| Data Upload | `designs/data_upload/code.html` |
-| Score History | `designs/score_history/code.html` |
-| Portfolio Insights | `designs/portfolio_insights/code.html` |
-| Model Monitor | `designs/model_monitor/code.html` |
-
-Each folder also contains a `screen.png` screenshot for visual reference.
+| `credlens_intelligence` | Brand + intelligence concept (includes `DESIGN.md`) |
+| `credlens_wordmark_logo` | Wordmark / logo exploration |
+| `credlens_enterprise_lender_platform` | Lender platform overview |
+| `credlens_msme_search_underwriting_pipeline` | MSME search & underwriting |
+| `credlens_lender_credit_report` | Credit report |
+| `credlens_msme_borrower_self_serve_ingestion_portal` | MSME data upload |
+| `credlens_credit_policies_underwriting_rules_engine` | Credit policies / rules |
+| `credlens_ai_risk_model_governance_operations_hub` | Model governance / monitor |
+| `credlens_system_audit_trail_cryptographic_governance` | Audit trail |
+| `credlens_system_health_infrastructure_operations` | System health / operations |
+| `credlens_user_access_roles_governance` | User access & roles |
 
 ---
 

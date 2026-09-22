@@ -41,6 +41,8 @@ class DecisionOut(BaseModel):
     recommended_limit_inr: float
     reason_codes: list[str]
     rationale: str
+    credit_score: int | None = None  # joined from score run
+    risk_grade: str | None = None  # joined from score run
     created_at: datetime
 
     class Config:

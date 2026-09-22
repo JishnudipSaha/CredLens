@@ -32,8 +32,11 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
     # Step 1: ensure financials are derived from any newly ingested data
     financials = derive_financials(db, msme)
 
+    # Policy is needed by scoring (grade bands) and decision (score bands)
+    policy = get_default_policy(db)
+
     # Step 2: Layer 2 - scoring
-    score_out = score_msme(db, msme, financials)
+    score_out = score_msme(db, msme, financials, policy=policy)
     features = feature_engine.build_features(msme, financials)
 
     score_run = ScoreRun(
@@ -54,7 +57,6 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
                  details={"score": score_run.credit_score, "grade": score_run.risk_grade})
 
     # Step 3: Layer 3 - decision
-    policy = get_default_policy(db)
     evaluation = evaluate_policy(
         score=score_run.credit_score,
         grade=score_run.risk_grade,
@@ -71,6 +73,7 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
         grade=score_run.risk_grade,
         eval_result=evaluation,
         limit=limit,
+        policy=policy,
     )
     reason_codes = evaluation.reasons + evaluation.violations + evaluation.hard_reject_reasons
 
@@ -98,7 +101,8 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
 
 
 def decide_existing_score_run(
-    db: Session, score_run: ScoreRun, policy: Policy | None = None
+    db: Session, score_run: ScoreRun, policy: Policy | None = None,
+    decided_by_user_id: int | None = None,
 ) -> Decision:
     """Re-run only the decision step on an existing score_run (for policy changes)."""
     if policy is None:
@@ -122,10 +126,12 @@ def decide_existing_score_run(
         grade=score_run.risk_grade,
         eval_result=evaluation,
         limit=limit,
+        policy=policy,
     )
     decision = Decision(
         msme_id=score_run.msme_id,
         score_run_id=score_run.id,
+        decided_by_user_id=decided_by_user_id,
         outcome=outcome,
         recommended_limit_inr=limit,
         reason_codes=evaluation.reasons + evaluation.violations + evaluation.hard_reject_reasons,

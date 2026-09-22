@@ -84,6 +84,8 @@ export interface Decision {
   recommended_limit_inr: number
   reason_codes: string[]
   rationale: string
+  credit_score?: number | null
+  risk_grade?: string | null
   created_at: string
 }
 

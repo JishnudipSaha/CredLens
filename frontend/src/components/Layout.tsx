@@ -1,7 +1,12 @@
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import {
+  BarChart3, ChevronRight, Cpu, Gavel, Gauge, History, Landmark, LayoutDashboard,
+  LogOut, Menu, ScrollText, Search, Store, Upload, X, type LucideIcon,
+} from 'lucide-react'
 import { auth, UserRole } from '../api/client'
 import { ThemeToggle } from './ThemeToggle'
+import { cn } from '../utils/cn'
 
 interface LayoutProps {
   role: UserRole
@@ -16,31 +21,35 @@ const roleLabel: Record<UserRole, string> = {
   ADMIN: 'Platform Admin',
 }
 
-const navByRole: Record<UserRole, { to: string; label: string; icon: string }[]> = {
+interface NavItem {
+  to: string
+  label: string
+  icon: LucideIcon
+}
+
+const navByRole: Record<UserRole, NavItem[]> = {
   LENDER: [
-    { to: '/lender', label: 'Portfolio', icon: 'dashboard' },
-    { to: '/lender/search', label: 'MSME Search', icon: 'search' },
-    { to: '/lender/decisions', label: 'Decision Queue', icon: 'gavel' },
+    { to: '/lender', label: 'Portfolio', icon: LayoutDashboard },
+    { to: '/lender/search', label: 'MSME Search', icon: Search },
+    { to: '/lender/decisions', label: 'Decision Queue', icon: Gavel },
   ],
   MSME: [
-    { to: '/msme', label: 'Credit Health', icon: 'speed' },
-    { to: '/msme/upload', label: 'Data Upload', icon: 'upload_file' },
-    { to: '/msme/history', label: 'Score History', icon: 'history' },
+    { to: '/msme', label: 'Credit Health', icon: Gauge },
+    { to: '/msme/upload', label: 'Data Upload', icon: Upload },
+    { to: '/msme/history', label: 'Score History', icon: History },
   ],
-  GOVERNMENT: [
-    { to: '/government', label: 'Portfolio Insights', icon: 'analytics' },
-  ],
+  GOVERNMENT: [{ to: '/government', label: 'Portfolio Insights', icon: BarChart3 }],
   ADMIN: [
-    { to: '/admin', label: 'Model Monitor', icon: 'monitoring' },
-    { to: '/admin/audit', label: 'Audit Log', icon: 'receipt_long' },
+    { to: '/admin', label: 'Model Monitor', icon: Cpu },
+    { to: '/admin/audit', label: 'Audit Log', icon: ScrollText },
   ],
 }
 
-const roleIcons: Record<UserRole, string> = {
-  LENDER: 'account_balance',
-  MSME: 'business',
-  GOVERNMENT: 'domain',
-  ADMIN: 'admin_panel_settings',
+const roleIcons: Record<UserRole, LucideIcon> = {
+  LENDER: Landmark,
+  MSME: Store,
+  GOVERNMENT: BarChart3,
+  ADMIN: Cpu,
 }
 
 function getBreadcrumbs(pathname: string): { label: string; path: string }[] {
@@ -48,7 +57,7 @@ function getBreadcrumbs(pathname: string): { label: string; path: string }[] {
   const crumbs: { label: string; path: string }[] = []
 
   if (parts[0] === 'lender') {
-    crumbs.push({ label: 'Lender Portfolio', path: '/lender' })
+    crumbs.push({ label: 'Lender', path: '/lender' })
     if (parts[1] === 'search') crumbs.push({ label: 'MSME Search', path: '/lender/search' })
     if (parts[1] === 'decisions') crumbs.push({ label: 'Decision Queue', path: '/lender/decisions' })
     if (parts[1] === 'report') crumbs.push({ label: 'Credit Report', path: pathname })
@@ -68,145 +77,206 @@ function getBreadcrumbs(pathname: string): { label: string; path: string }[] {
   return crumbs
 }
 
+function LensLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="2" strokeDasharray="28 12" />
+      <circle cx="11" cy="11" r="2.5" fill="currentColor" />
+      <path d="M16 16l4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 export default function Layout({ role, userName, children }: LayoutProps) {
   const navigate = useNavigate()
   const location = useLocation()
+  const [open, setOpen] = useState(false)
   const links = navByRole[role]
   const breadcrumbs = getBreadcrumbs(location.pathname)
+  const RoleIcon = roleIcons[role]
+
+  // Close the drawer on navigation
+  useEffect(() => {
+    setOpen(false)
+  }, [location.pathname])
+
+  // Lock scroll + ESC while drawer is open
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  const signOut = () => {
+    auth.clear()
+    navigate('/login')
+  }
+
+  const sidebarContent = (onNavigate?: () => void) => (
+    <>
+      <div className="border-b border-border px-4 py-4">
+        <Link to="/" className="flex items-center gap-2.5" onClick={onNavigate}>
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-xs">
+            <LensLogo className="h-5 w-5" />
+          </span>
+          <span className="flex min-w-0 flex-col">
+            <span className="text-sm font-bold leading-tight tracking-tight text-foreground">CredLens</span>
+            <span className="truncate text-[10px] font-medium uppercase tracking-widest text-subtle-foreground">
+              {roleLabel[role]}
+            </span>
+          </span>
+        </Link>
+      </div>
+
+      <nav className="flex-1 space-y-1 overflow-y-auto p-3" aria-label="Main navigation">
+        {links.map((l) => (
+          <NavLink
+            key={l.to}
+            to={l.to}
+            end
+            onClick={onNavigate}
+            className={({ isActive }) =>
+              cn(
+                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+              )
+            }
+          >
+            <l.icon className="h-[18px] w-[18px] shrink-0" aria-hidden />
+            <span>{l.label}</span>
+          </NavLink>
+        ))}
+      </nav>
+
+      <div className="border-t border-border p-3">
+        <div className="flex items-center gap-3 rounded-lg px-2 py-1.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+            <RoleIcon className="h-4 w-4" aria-hidden />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-xs font-medium text-foreground">{userName}</div>
+            <div className="truncate text-[11px] text-subtle-foreground">{roleLabel[role]}</div>
+          </div>
+          <button
+            onClick={signOut}
+            aria-label="Sign out"
+            title="Sign out"
+            className="rounded-lg p-1.5 text-subtle-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </>
+  )
 
   return (
-    <>
-      <div className="app-bg" aria-hidden />
-      <div className="flex min-h-screen">
-        {/* Sidebar Navigation */}
-        <aside className="hidden xl:flex w-[260px] flex-col bg-white border-r border-outline-variant fixed top-0 left-0 h-screen z-40">
-          {/* Logo */}
-          <div className="px-4 py-4 border-b border-outline-variant">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center">
-                <svg viewBox="0 0 28 28" className="w-5 h-5" fill="none">
-                  <circle cx="14" cy="14" r="7" stroke="#60A5FA" strokeWidth="2.5" strokeDasharray="32 10" />
-                  <circle cx="14" cy="14" r="3" fill="#93C5FD" />
-                  <path d="M19 19L24 24" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-headline-sm text-primary font-bold tracking-tight">CredLens</span>
-                <span className="text-mono-caption text-on-surface-variant uppercase tracking-wider">{roleLabel[role]}</span>
-              </div>
-            </Link>
-          </div>
+    <div className="min-h-screen bg-background">
+      {/* Desktop sidebar */}
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-border bg-card lg:flex">
+        {sidebarContent()}
+      </aside>
 
-          {/* Navigation Links */}
-          <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-            {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-body-md transition-all ${
-                    isActive
-                      ? 'bg-primary-container text-on-primary-container font-semibold'
-                      : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low'
-                  }`
-                }
+      {/* Mobile drawer */}
+      {open && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="absolute inset-0 bg-black/50 animate-fade-in"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <div
+            className="absolute inset-y-0 left-0 flex w-[272px] flex-col border-r border-border bg-card animate-slide-in"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            <button
+              onClick={() => setOpen(false)}
+              aria-label="Close menu"
+              className="absolute right-3 top-3.5 z-10 rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            {sidebarContent(() => setOpen(false))}
+          </div>
+        </div>
+      )}
+
+      {/* Content column */}
+      <div className="flex min-h-screen flex-col lg:pl-[248px]">
+        <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
+          <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+            <div className="flex min-w-0 items-center gap-2">
+              <button
+                onClick={() => setOpen(true)}
+                aria-label="Open menu"
+                className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
               >
-                <span className="material-symbols-outlined text-[20px]">{l.icon}</span>
-                <span>{l.label}</span>
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* Sidebar Footer */}
-          <div className="px-3 py-3 border-t border-outline-variant">
-            <div className="flex items-center gap-3 px-3 py-2">
-              <div className="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center">
-                <span className="material-symbols-outlined text-[18px] text-on-primary-container">
-                  {roleIcons[role]}
-                </span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-body-sm text-on-surface font-medium truncate">{userName}</div>
-                <div className="text-mono-caption text-on-surface-variant">{roleLabel[role]}</div>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        {/* Main Content Area */}
-        <div className="flex-1 xl:ml-[260px] flex flex-col min-h-screen">
-          {/* Top Header */}
-          <header className="sticky top-0 z-30 bg-white border-b border-outline-variant">
-            <div className="px-margin py-space-sm flex items-center justify-between gap-space-md">
-              {/* Mobile Logo + Hamburger */}
-              <div className="xl:hidden flex items-center gap-3">
-                <Link to="/" className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center">
-                    <svg viewBox="0 0 28 28" className="w-4 h-4" fill="none">
-                      <circle cx="14" cy="14" r="7" stroke="#60A5FA" strokeWidth="2.5" strokeDasharray="32 10" />
-                      <circle cx="14" cy="14" r="3" fill="#93C5FD" />
-                    </svg>
-                  </div>
-                  <span className="text-headline-sm text-primary font-bold">CredLens</span>
-                </Link>
-              </div>
-
-              {/* Breadcrumbs */}
-              <div className="flex items-center gap-2 font-mono-caption text-mono-caption text-on-surface-variant">
+                <Menu className="h-5 w-5" />
+              </button>
+              <nav aria-label="Breadcrumb" className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
                 {breadcrumbs.map((crumb, i) => (
-                  <span key={crumb.path} className="flex items-center gap-2">
-                    {i > 0 && <span className="material-symbols-outlined text-[14px]">chevron_right</span>}
+                  <span key={crumb.path} className="flex items-center gap-1.5">
+                    {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-subtle-foreground" aria-hidden />}
                     <Link
                       to={crumb.path}
-                      className={`hover:text-primary transition-colors ${
-                        i === breadcrumbs.length - 1 ? 'text-primary font-medium' : ''
-                      }`}
+                      className={cn(
+                        'transition-colors hover:text-foreground',
+                        i === breadcrumbs.length - 1 && 'font-medium text-foreground',
+                      )}
                     >
                       {crumb.label}
                     </Link>
                   </span>
                 ))}
-              </div>
-
-              {/* Right Actions */}
-              <div className="flex items-center gap-space-md">
-                <ThemeToggle />
-                <div className="hidden sm:block text-right">
-                  <div className="text-body-sm text-on-surface font-medium">{userName}</div>
-                  <div className="text-mono-caption text-on-surface-variant">{roleLabel[role]}</div>
-                </div>
-                <button
-                  onClick={() => { auth.clear(); navigate('/login') }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-lg transition-colors text-body-sm"
-                >
-                  <span className="material-symbols-outlined text-[18px]">logout</span>
-                  <span className="hidden sm:inline">Sign out</span>
-                </button>
-              </div>
+              </nav>
             </div>
-          </header>
 
-          {/* Page Content */}
-          <main className="flex-1 px-margin py-space-lg max-w-[1640px] w-full mx-auto">
-            {children}
-          </main>
-
-          {/* Footer */}
-          <footer className="border-t border-outline-variant bg-surface-container-low py-space-md">
-            <div className="px-margin flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface-variant">
-              <div className="flex items-center gap-space-sm">
-                <span className="text-headline-sm text-primary">CredLens</span>
-                <span className="text-body-sm">© 2025 CredLens Enterprise Financial Technologies. All rights reserved.</span>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <div className="hidden text-right md:block">
+                <div className="text-xs font-medium leading-tight text-foreground">{userName}</div>
+                <div className="text-[11px] leading-tight text-subtle-foreground">{roleLabel[role]}</div>
               </div>
-              <div className="flex items-center gap-space-lg font-mono-label text-mono-label">
-                <span>SOC-2 Type II Certified</span>
-                <span>RBI Master Direction Compliant</span>
-              </div>
+              <button
+                onClick={signOut}
+                className="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                title="Sign out"
+              >
+                <LogOut className="h-4 w-4" aria-hidden />
+                <span className="hidden sm:inline">Sign out</span>
+              </button>
             </div>
-          </footer>
-        </div>
+          </div>
+        </header>
+
+        <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <div className="animate-fade-up">{children}</div>
+        </main>
+
+        <footer className="border-t border-border bg-card">
+          <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-3 px-4 py-4 sm:flex-row sm:px-6 lg:px-8">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="font-semibold text-foreground">CredLens</span>
+              <span>© 2026 CredLens Enterprise Financial Technologies. All rights reserved.</span>
+            </div>
+            <div className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-wider text-subtle-foreground">
+              <span>SOC-2 Type II</span>
+              <span>RBI Compliant</span>
+            </div>
+          </div>
+        </footer>
       </div>
-    </>
+    </div>
   )
 }

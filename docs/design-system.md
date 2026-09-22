@@ -1,221 +1,200 @@
 # CredLens Design System
 
-**Modern Institutional Minimalism with Precision Data Density**
+**Institutional Light + First-Class Dark Mode**
 
-This document defines the UI design system for CredLens — a clean, data-dense aesthetic inspired by Bloomberg Terminal and NCDEX dashboards. The design prioritizes readability, trust, and professional authority over decorative elements.
+This document defines the UI design system for CredLens — a clean, data-dense aesthetic inspired by Bloomberg Terminal and NCDEX dashboards. Every color is a semantic CSS variable, so the whole product works in both light and dark themes with one class toggle.
 
 ---
 
 ## Design Principles
 
 1. **Data Density** — maximize information per viewport without clutter
-2. **Institutional Trust** — conservative color palette, clean typography, solid backgrounds
+2. **Institutional Trust** — conservative navy palette, clean typography, solid surfaces
 3. **Precision** — monospaced fonts for numeric data, exact alignment, clear hierarchy
-4. **Accessibility** — WCAG AA contrast ratios, semantic HTML, keyboard navigation
+4. **Accessibility** — WCAG AA contrast, visible focus rings, semantic HTML, keyboard navigation
+5. **Theme Parity** — components never hard-code colors; they use semantic tokens so light and dark mode stay correct
+
+---
+
+## Theming Architecture
+
+| Piece | Where | What it does |
+|---|---|---|
+| Tokens | `frontend/src/index.css` (`:root` / `.dark`) | HSL triplets as CSS custom properties, e.g. `--primary: 229 74% 46%` |
+| Tailwind mapping | `frontend/tailwind.config.js` | Each token exposed as `hsl(var(--x) / <alpha-value>)`, so `bg-card`, `text-muted-foreground`, `border-border` and opacity modifiers (`bg-primary/10`) all work |
+| Dark toggle | `.dark` class on `<html>` (`src/theme.tsx`) | Preference persisted in `localStorage` under `credlens_theme` |
+| Anti-flash bootstrap | inline script in `index.html` | Applies the stored theme (or `prefers-color-scheme` on first visit) before first paint |
+
+**Rule:** components color themselves with semantic classes only (`bg-card`, `text-subtle-foreground`, `border-border`). Literal colors are allowed only for intentionally fixed surfaces (e.g. the login page's pinned dark brand panel `#101828`).
 
 ---
 
 ## Color Palette
 
-### Primary (Navy / Trust)
+### Core surfaces
 
-| Token | Hex | Usage |
-|---|---|---|
-| `primary` | `#00236f` | Headlines, active nav, links |
-| `primary-container` | `#d6e3ff` | Sidebar active state, icon backgrounds |
-| `on-primary` | `#ffffff` | Text on primary backgrounds |
-| `on-primary-container` | `#001a41` | Text on primary-container |
-
-### Secondary (Vivid Blue / Action)
-
-| Token | Hex | Usage |
-|---|---|---|
-| `secondary` | `#0051d5` | Buttons, accents, chart lines |
-| `secondary-container` | `#d8e2ff` | Secondary badges, warnings |
-| `on-secondary` | `#ffffff` | Text on secondary backgrounds |
-
-### Tertiary (Green / Success)
-
-| Token | Hex | Usage |
-|---|---|---|
-| `tertiary-container` | `#0f9d58` | Approved states, success messages |
-| `on-tertiary-container` | `#ffffff` | Text on success backgrounds |
-
-### Surface (Backgrounds)
-
-| Token | Hex | Usage |
-|---|---|---|
-| `background` | `#f8f9ff` | Page background |
-| `surface` | `#ffffff` | Card backgrounds |
-| `surface-container-lowest` | `#ffffff` | Elevated cards |
-| `surface-container-low` | `#f1f3f9` | Hover states, secondary surfaces |
-| `surface-container` | `#e8eaf3` | Inactive badges, chips |
+| Token | Light | Dark | Usage |
+|---|---|---|---|
+| `background` | `#f6f6f9` | `#090d15` | Page canvas |
+| `card` | `#ffffff` | `#0d121c` | Cards, sidebar, inputs |
+| `muted` | `#f0f0f4` | `#131925` | Table headers, subtle fills |
+| `accent` | `#ebebf0` | `#1a202e` | Hover fills |
+| `border` | `#e2e2e9` | `#1c2331` | Default borders / dividers |
+| `border-strong` | `#c9c9d4` | `#293142` | Emphasized borders |
 
 ### Text
 
-| Token | Hex | Usage |
-|---|---|---|
-| `on-surface` | `#1a1c1e` | Primary text |
-| `on-surface-variant` | `#44474e` | Secondary text, labels |
+| Token | Light | Dark | Usage |
+|---|---|---|---|
+| `foreground` | `#111827` | `#f3f4f7` | Primary text |
+| `muted-foreground` | `#5c6475` | `#9ea5b3` | Secondary text, labels |
+| `subtle-foreground` | `#788191` | `#7a8190` | Tertiary text, captions, mono labels |
+
+### Brand
+
+| Token | Light | Dark | Usage |
+|---|---|---|---|
+| `primary` | `#1e3ecc` | `#637cee` | Buttons, links, active nav, key values |
+| `primary-hover` | `#1933a9` | `#7e93f1` | Primary hover state |
+| `primary-soft` | `#eceffe` | `#1c2445` | Primary tinted backgrounds |
+| `primary-foreground` | `#ffffff` | `#0c111d` | Text on primary backgrounds |
+| `ring` | `#1e3ecc` | `#637cee` | Focus ring |
 
 ### Semantic
 
-| Token | Hex | Usage |
+| Token | Light | Dark | Usage |
+|---|---|---|---|
+| `success` | `#1c8252` | `#61d19d` | APPROVE, healthy states |
+| `warning` | `#b15e0b` | `#f6b451` | REVIEW, caution states |
+| `danger` | `#b81e1e` | `#f47c7c` | REJECT, errors, red flags |
+
+### Grade colors (300–900 score scale)
+
+| Grade | Score band | Light | Dark |
+|---|---|---|---|
+| A | 800+ | `#1c8252` | `#61d19d` |
+| B | 740–799 | `#1670ca` | `#5fa8f2` |
+| C | 680–739 | `#b15e0b` | `#f6b451` |
+| D | 620–679 | `#da5e0b` | `#f69351` |
+| E | 560–619 | `#b81e1e` | `#f47c7c` |
+| F | < 560 | `#a3293d` | `#f0758a` |
+
+### Chart palette
+
+| Token | Light | Dark |
 |---|---|---|
-| `error` | `#ba1a1a` | Rejected states, errors |
-| `error-container` | `#ffdad6` | Error backgrounds |
-| `outline-variant` | `#c7c7cc` | Borders, dividers |
+| `chart-1` | `#1e3ecc` | `#637cee` |
+| `chart-2` | `#20925d` | `#59cf98` |
+| `chart-3` | `#d8730e` | `#f5b047` |
+| `chart-4` | `#187adc` | `#5fa8f2` |
+| `chart-5` | `#d32222` | `#f37272` |
+| `chart-6` | `#6826d9` | `#a87ef1` |
+| `chart-7` | `#e9640c` | `#f6995a` |
+| `chart-8` | `#199eb3` | `#51d7ec` |
+
+Charts read these tokens live via `useChartColors()` (`components/charts.tsx`), which re-reads the CSS variables whenever the theme changes.
 
 ---
 
 ## Typography
 
-### Font Families
+### Font families
 
-| Family | Weight | Usage |
+| Family | Weights | Usage |
 |---|---|---|
 | **Inter** | 400, 500, 600, 700 | UI text, headlines, body |
-| **JetBrains Mono** | 400, 500 | Data values, labels, code, badges |
+| **JetBrains Mono** | 400, 500 | Data values, labels, badges, code |
 
-### Type Scale
+Loaded from Google Fonts in `index.html`.
 
-| Token | Size | Weight | Usage |
+### Type scale (from `tailwind.config.js`)
+
+| Token | Size / line-height | Weight | Usage |
 |---|---|---|---|
-| `headline-lg` | 28px / 1.75rem | 700 | Page titles |
-| `headline-sm` | 20px / 1.25rem | 700 | Card titles, sidebar logo |
-| `data-metric` | 32px / 2rem | 700 | KPI values, score displays |
-| `body-md` | 16px / 1rem | 400 | Body text, descriptions |
-| `body-sm` | 14px / 0.875rem | 400 | Secondary text, table cells |
-| `mono-caption` | 12px / 0.75rem | 400 | Timestamps, metadata, labels |
-| `mono-label` | 10px / 0.625rem | 500 | Section headers, uppercase labels |
+| `headline-xl` | 32px / 40px | 700 | Page hero titles |
+| `headline-lg` | 24px / 32px | 700 | Page titles |
+| `headline-md` | 20px / 28px | 600 | Card titles, section heads |
+| `headline-sm` | 16px / 24px | 600 | Small card titles |
+| `body-lg` | 16px / 24px | 400 | Lead paragraphs |
+| `body-md` | 14px / 22px | 400 | Body text, table cells |
+| `body-sm` | 12px / 18px | 400 | Secondary text |
+| `data-metric` | 28px / 32px | 700 | KPI values, score displays |
+| `mono-label` | 11px / 16px | 500 | Uppercase table/section labels (+0.05em tracking) |
+| `mono-caption` | 11px / 16px | 400 | Timestamps, metadata |
 
 ---
 
-## Layout
+## Layout & Navigation
 
-### Grid
-
-- **Max width:** 1640px (centered)
-- **Page padding:** 24px (`px-6`)
-- **Section spacing:** 24px (`space-y-6`)
-- **Card spacing:** 20px (`gap-5`)
-
-### Sidebar Navigation
-
-- **Width:** 260px (fixed)
-- **Background:** `#ffffff` (surface)
-- **Border:** 1px right border (`outline-variant`)
-- **Position:** fixed, left, full height
-- **Z-index:** 40
-- **Breakpoint:** hidden on mobile, visible on `xl:` (1280px+)
-
-### Top Header
-
-- **Height:** auto (padding-based)
-- **Background:** `#ffffff` (surface)
-- **Border:** 1px bottom border (`outline-variant`)
-- **Position:** sticky, top, z-index: 30
-- **Content:** breadcrumbs (left), theme toggle + user info + sign out (right)
+- **Sidebar:** fixed left, **248px** wide, `bg-card` + right border, visible at **≥1024px** (`lg:`)
+- **Mobile nav:** hamburger in the header opens a slide-over drawer with a dimmed backdrop (below `lg`)
+- **Header:** sticky top, 56px tall, `bg-background/85` + `backdrop-blur`, bottom border; breadcrumbs left, theme toggle + user + sign out right
+- **Content:** `max-w-[1440px]`, horizontal padding `16 / 24 / 32px` (`px-4 → sm:px-6 → lg:px-8`), footer inside the content column
+- **Login:** split screen — pinned dark navy brand panel (`#101828`, always dark in both themes) + sign-in form; the compact logo row appears above the form on mobile
+- **Shadows:** `shadow-xs → shadow-xl` scale in `tailwind.config.js` (soft, cool-tinted)
 
 ---
 
 ## Components
 
-### Card
+### Primitives — `components/UI.tsx`
 
-```css
-background: #ffffff (surface-container-lowest)
-border: 1px solid #e2e8f0
-border-radius: 12px
-shadow: 0 1px 3px rgba(0,0,0,0.1)
-```
+| Component | Notes |
+|---|---|
+| `Card` | Panel surface with optional title/subtitle/action |
+| `Button` | Variants: `primary`, `secondary`, `ghost`, `danger`, `success`, `warning`; sizes `sm`/`md`; `loading` state |
+| `Badge` | Pill badge; pair with `badgeTone()` from `utils/format.ts` |
+| `Alert` | Tones: `info`, `success`, `warning`, `error` |
+| `Stat` | KPI tile (label, value, hint, optional icon) |
+| `EmptyState`, `ErrorState`, `Spinner`, `Skeleton`, `TableWrap` | States + table shell |
+| `errorMessage()` | Normalizes API errors to a readable string |
 
-- Title in `headline-sm` / `on-surface` / font-weight 600
-- Subtitle in `body-sm` / `on-surface-variant`
-- Content padding: 20px (`p-5`)
+### Shell & feature components
 
-### Badge / Chip
+| File | Exports |
+|---|---|
+| `components/Layout.tsx` | Role-based sidebar/drawer + sticky header + breadcrumbs + footer |
+| `components/ScoreGauge.tsx` | `ScoreGauge` — SVG arc gauge for 300–900 with grade chip |
+| `components/ThemeToggle.tsx` | `ThemeToggle` — Sun/Moon light-dark switch |
+| `components/Toast.tsx` | `ToastProvider` + `useToast()` — top-right toast stack |
+| `components/ErrorBoundary.tsx` | `ErrorBoundary` — app-level React error fallback |
+| `components/charts.tsx` | `useChartColors`, `ChartCard`, `ChartTooltip`, `axisProps` — theme-aware Recharts helpers |
 
-```css
-padding: 4px 12px
-border-radius: 9999px (full)
-font-family: JetBrains Mono
-font-size: 12px
-font-weight: 500
-```
+### CSS component classes — `index.css` (`@layer components`)
 
-Semantic variants:
-- **Approved:** `bg-[#d4edda] text-[#155724]`
-- **Review:** `bg-[#fff3cd] text-[#856404]`
-- **Rejected:** `bg-[#f8d7da] text-[#721c24]`
-- **Default:** `bg-surface-container text-on-surface`
-
-### Stat Card
-
-```css
-background: #f1f3f9 (surface-container-low)
-border: 1px solid #e2e8f0
-border-radius: 12px
-padding: 16px
-```
-
-- Label: `mono-label` / uppercase / `on-surface-variant`
-- Value: `data-metric` / `primary` / font-weight 700
-- Icon: 28px circle, `primary-container` background
-
-### Button (Primary)
-
-```css
-background: #0051d5 (secondary)
-color: #ffffff
-padding: 10px 20px
-border-radius: 8px
-font-weight: 500
-```
-
-Hover: darken by 10%. Disabled: opacity 50%.
-
-### Table
-
-```css
-font-size: 14px
-header: mono-label / uppercase / on-surface-variant / border-bottom
-rows: border-bottom outline-variant/40
-hover: background surface-container-low
-```
+- **`.input` / `.select`** — 40px form controls; hover strengthens the border, focus shows a 3px ring at 16% `--ring` alpha; `.select` embeds its own chevron
+- **`.panel`** — `rounded-xl border bg-card shadow-xs`
+- **`.tbl`** — data tables: muted uppercase mono headers, bordered rows, hover fill, `.num` right-aligned tabular figures
+- **Global** — themed scrollbars, primary-tinted `::selection`, `:focus-visible` ring on every interactive element, `prefers-reduced-motion` disables animation
 
 ---
 
 ## Icons
 
-**Library:** Material Symbols Outlined (Google Fonts)
+**Library:** [Lucide](https://lucide.dev) via `lucide-react` (the Material Symbols font CDN was removed).
 
-```html
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+```tsx
+import { Landmark, ShieldCheck, ArrowRight } from 'lucide-react'
+
+<Landmark className="h-4 w-4" aria-hidden />
 ```
 
-Usage:
-```html
-<span class="material-symbols-outlined text-[20px]">dashboard</span>
-```
+Common by section:
+- **Navigation:** `LayoutDashboard`, `Search`, `Scale`, `Gauge`, `Upload`, `History`, `BarChart3`, `Monitor`, `ScrollText`
+- **Actions:** `LogOut`, `Sun`, `Moon`, `ArrowRight`, `ChevronRight`
+- **Data:** `IndianRupee`, `TrendingUp`, `BadgeCheck`, `Landmark`, `PieChart`
+- **Status:** `CheckCircle2`, `AlertTriangle`, `XCircle`, `Info`
 
-Common icons by section:
-- **Navigation:** `dashboard`, `search`, `gavel`, `speed`, `upload_file`, `history`, `analytics`, `monitoring`, `receipt_long`
-- **Actions:** `logout`, `light_mode`, `dark_mode`, `chevron_right`
-- **Data:** `currency_rupee`, `trending_up`, `verified`, `schedule`, `account_balance`, `error`, `payments`, `pie_chart`
-- **Status:** `check_circle`, `warning`, `feedback`
+Decorative icons are always `aria-hidden`.
 
 ---
 
-## Dark Mode
+## Accessibility
 
-The design system supports light and dark themes via CSS custom properties. Toggle is available in the top header.
-
-Dark mode overrides:
-- `background`: `#0f1118`
-- `surface`: `#1a1c1e`
-- `on-surface`: `#e3e3e3`
-- All color tokens shift to dark variants per MD3 spec
+- Semantic token pairs target AA contrast in both themes (e.g. `#111827` on `#f6f6f9`, `#f3f4f7` on `#090d15`)
+- Visible focus ring (`--ring`, 2px outline with offset) on all interactive elements
+- `prefers-reduced-motion: reduce` kills animations and transitions
+- Real `<table>`, `<label>`, `<button>` semantics; errors announced via `Alert`
 
 ---
 
@@ -223,20 +202,22 @@ Dark mode overrides:
 
 | File | Purpose |
 |---|---|
-| `tailwind.config.js` | All color tokens, font families, spacing, shadows |
-| `index.css` | CSS custom properties, utility classes, component styles |
-| `index.html` | Google Fonts (Inter, JetBrains Mono) + Material Symbols |
-| `components/Layout.tsx` | Sidebar + header implementation |
-| `components/UI.tsx` | Card, Badge, Stat, EmptyState, Spinner |
-| `components/ScoreGauge.tsx` | Circular score gauge |
-| `utils/format.ts` | Score/grade/outcome color maps |
+| `src/index.css` | All design tokens (`:root` / `.dark`), base styles, component classes |
+| `tailwind.config.js` | Token→utility mapping, type scale, spacing, shadows, keyframes |
+| `index.html` | Google Fonts (Inter, JetBrains Mono) + anti-flash theme bootstrap |
+| `src/theme.tsx` | Theme provider (`credlens_theme` in localStorage) |
+| `src/components/Layout.tsx` | Sidebar / drawer + header shell |
+| `src/components/UI.tsx` | Card, Button, Badge, Alert, Stat, states |
+| `src/components/ScoreGauge.tsx` | Score gauge |
+| `src/components/ThemeToggle.tsx` | Light/dark toggle |
+| `src/components/Toast.tsx` | Toast system |
+| `src/components/ErrorBoundary.tsx` | Error boundary |
+| `src/components/charts.tsx` | Theme-aware chart helpers |
+| `src/utils/format.ts` | INR/date formatting, score/grade/outcome color maps |
+| `src/utils/cn.ts` | `clsx` class-name helper |
 
 ---
 
 ## Design References
 
-The `designs/` folder contains 10 HTML design files generated from Google Stitch, one per page. Each folder contains:
-- `code.html` — self-contained HTML + CSS reference
-- `screen.png` — screenshot of the rendered design
-
-See `README.md` for the full list of design files mapped to pages.
+The `designs/` folder contains 11 Google Stitch design references (brand explorations and page comps), each holding reference assets such as a self-contained `code.html` and/or a `screen.png`. See `README.md` for the folder list.
