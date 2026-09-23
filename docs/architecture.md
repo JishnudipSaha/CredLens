@@ -44,6 +44,8 @@ This document mirrors the block diagram in `docs/block_diagram.png` in text form
 
 **Code:** `app/services/ingestion_service.py`, `app/api/ingestion.py`.
 
+> In this prototype all payloads are self-uploaded JSON or Faker-seeded. For real underwriting, each input must come from an authoritative external source (GSTN, Account Aggregator, credit bureau, MCA/Udyam, DigiLocker, utility/telco vendors, court records) — see [`external-data-sources.md`](external-data-sources.md) for the feature-by-feature mapping, access routes, and consent requirements.
+
 **Flow:**
 
 1. **Parse** - JSON payloads come in via REST (`POST /api/v1/ingest/{financial,business,alternative,government,manual}/{msme_id}`)

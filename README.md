@@ -188,6 +188,7 @@ CredLens/
 +- docs/
 |  +- architecture.md              # text version of the block diagram
 |  +- design-system.md             # UI design system specification
+|  +- external-data-sources.md     # where to get GSTN/AA/bureau/MCA/etc. data for real evaluation
 |  +- sample_credit_report.md      # example credit report walkthrough
 |  +- block_diagram.png
 +- backend/
@@ -268,4 +269,4 @@ The `designs/` folder contains 11 Google Stitch design references (brand explora
 - Multi-tenancy (single dealer org for demo)
 - Real cloud deployment (code is cloud-ready, not deployed)
 
-See [`docs/architecture.md`](docs/architecture.md) for a deeper writeup of the four layers and [`docs/sample_credit_report.md`](docs/sample_credit_report.md) for an example of what a real credit report looks like.
+See [`docs/architecture.md`](docs/architecture.md) for a deeper writeup of the four layers, [`docs/sample_credit_report.md`](docs/sample_credit_report.md) for an example of what a real credit report looks like, and [`docs/external-data-sources.md`](docs/external-data-sources.md) for where to obtain the authoritative external data (GSTN, Account Aggregator, credit bureaus, MCA, DigiLocker, etc.) that real evaluation requires.
