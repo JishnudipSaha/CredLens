@@ -12,7 +12,7 @@ This repository contains a runnable full-stack prototype that mirrors the archit
 
 CredLens uses an **Institutional Light** design system with a first-class **dark mode** — clean, data-dense interfaces inspired by Bloomberg Terminal and NCDEX dashboards. Every color is a semantic CSS variable, so both themes stay in sync automatically.
 
-| Token | Value |
+| Token / Feature | Details |
 |---|---|
 | Primary | `#1e3ecc` navy-indigo (light) / `#637cee` (dark) |
 | Background | `#f6f6f9` (light) / `#090d15` (dark) |
@@ -20,7 +20,10 @@ CredLens uses an **Institutional Light** design system with a first-class **dark
 | Semantic | success `#1c8252`, warning `#b15e0b`, danger `#b81e1e` (+ brighter dark variants) |
 | Typography | Inter (UI) + JetBrains Mono (data/labels) |
 | Icons | Lucide (`lucide-react`) |
-| Layout | Fixed 248px sidebar at ≥1024px (slide-over drawer below) + sticky blurred header |
+| Layout | Fixed 248px sidebar at ≥1024px (slide-over drawer below) + sticky glassmorphic header (`backdrop-blur-md`) |
+| Navigation | **Global Command Palette (`⌘K` / `Ctrl+K`)** with live MSME search, direct route jumping, theme & role switching |
+| Role Switcher | **1-Click Demo Switcher** directly in header (`Lender`, `MSME`, `Govt`, `Admin`) with live engine status |
+| Loading States | **Skeleton Shimmer Loaders** (`ReportSkeleton`, `TableSkeleton`, `CardSkeleton`, `StatSkeleton`) eliminating layout shift |
 | Theming | HSL CSS variables in `index.css`; `.dark` class persisted to `localStorage` (`credlens_theme`) with an anti-flash bootstrap in `index.html` |
 
 See [`docs/design-system.md`](docs/design-system.md) for the full specification.
@@ -115,14 +118,15 @@ Click any of the four demo account buttons on the login page to pre-fill the cre
 ## Demo flow (5 minutes)
 
 1. **Login as Lender** at `http://127.0.0.1:5173`
-2. **Click "MSME Search"** in the sidebar — 50 MSMEs are listed
-3. **Click "Run Assessment"** on any unscored row (e.g. "Anand, Mistry and Chawla It Pvt Ltd")
-4. **Inspect the credit report** — 300–900 score with grade A–F, red flags, recommended limit, and reason codes (exact figures vary with seed data and model version)
-5. **Click "Paid on time"** (or any other outcome) under "Feedback Loop" — your feedback is recorded
-6. **Sign out** (top right) and **sign in as Platform Admin**
-7. **Visit Model Monitor** — your feedback shows up in the "Feedback outcomes" donut
-8. **Click "Retrain model"** — retrains on your feedback labels when ≥30 labelled outcomes exist (falls back to synthetic data otherwise); the new model version loads immediately
-9. **Visit Audit Log** — every action is recorded with timestamp, actor, and endpoint
+2. **Press `⌘K` or `Ctrl+K`** to open the Command Palette — search any company (e.g. "Anand"), switch theme, or navigate
+3. **Click "MSME Search"** in the sidebar — 50 MSMEs are listed with real-time skeleton loading
+4. **Click "Run Assessment"** on any unscored row (e.g. "Anand, Mistry and Chawla It Pvt Ltd")
+5. **Inspect the credit report** — 300–900 score with grade A–F, 4-stat KPI grid (DSCR, Nayak MPBF limit, CIBIL CMR, Data Trust), 3-way cross-reconciliation, and sanction covenants
+6. **Click "Paid on time"** (or any other outcome) under "Feedback Loop" — your feedback is recorded
+7. **Switch to Admin in 1 Click** using the Quick Role Switcher pill in the top header (`Admin`) without needing to logout
+8. **Visit Model Monitor** — your feedback shows up in the "Feedback outcomes" donut
+9. **Click "Retrain model"** — retrains on your feedback labels when ≥30 labelled outcomes exist (falls back to synthetic data otherwise); the new model version loads immediately
+10. **Visit Audit Log** — every action is recorded with timestamp, actor, and endpoint
 
 ---
 
@@ -223,8 +227,9 @@ CredLens/
 |     +- utils/format.ts           # INR formatting, score/grade/outcome color maps
 |     +- utils/cn.ts               # clsx class-name helper
 |     +- components/
-|     |  +- Layout.tsx             # sidebar/drawer + sticky header with breadcrumbs
-|     |  +- UI.tsx                 # Card, Button, Badge, Alert, Stat, states, TableWrap
+|     |  +- Layout.tsx             # sidebar/drawer + sticky glassmorphic header + quick role switcher
+|     |  +- CommandPalette.tsx     # global Cmd+K search, MSME finder, route jumping & actions
+|     |  +- UI.tsx                 # Card, Button, Badge, Alert, Stat, skeletons (Report, Table, Card, Stat)
 |     |  +- ScoreGauge.tsx         # circular score gauge with grade badge
 |     |  +- ThemeToggle.tsx        # light/dark mode toggle
 |     |  +- Toast.tsx              # ToastProvider + useToast

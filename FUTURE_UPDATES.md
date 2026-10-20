@@ -24,6 +24,18 @@
 
 ---
 
+## 0b. Modern Institutional FinTech UI & Experience
+
+**Status:** `Shipped`
+
+### Deliverables Completed
+- **Global Command Palette (`Cmd+K` / `Ctrl+K`)**: Keyboard-driven modal (`CommandPalette.tsx`) offering fuzzy MSME search with turnover & grade badges, direct route jumping across all 4 roles, light/dark theme toggling, and fast role switching.
+- **1-Click Header Demo Role Switcher**: Interactive pills in the layout header allowing immediate role transitions between Lender, MSME, Government, and Admin without manual logout/login cycles.
+- **Reusable Skeleton Shimmer Loaders**: Institutional pulse loaders (`ReportSkeleton`, `TableSkeleton`, `CardSkeleton`, `StatSkeleton`) replacing blocking spinner wheels across all 9 views to eliminate layout shift.
+- **Glassmorphic Layering & Micro-interactions**: `backdrop-blur-md bg-card/85 border-border/80` surfaces, pulsating operational engine badge (`● Engine Active`), and responsive drawer ergonomics.
+
+---
+
 ## 1. Regional In-App Language Service
 
 **Status:** Planned

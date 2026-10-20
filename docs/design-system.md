@@ -126,12 +126,44 @@ Loaded from Google Fonts in `index.html`.
 
 ## Layout & Navigation
 
-- **Sidebar:** fixed left, **248px** wide, `bg-card` + right border, visible at **≥1024px** (`lg:`)
+- **Sidebar:** fixed left, **248px** wide, `bg-card/95` + right border + `backdrop-blur-md`, visible at **≥1024px** (`lg:`)
 - **Mobile nav:** hamburger in the header opens a slide-over drawer with a dimmed backdrop (below `lg`)
-- **Header:** sticky top, 56px tall, `bg-background/85` + `backdrop-blur`, bottom border; breadcrumbs left, theme toggle + user + sign out right
+- **Header:** sticky top, 56px tall, `bg-card/85` + `backdrop-blur-md`, bottom border:
+  - **Left:** breadcrumbs (or hamburger toggle on mobile)
+  - **Center:** Quick search button triggering the Command Palette (`⌘K` / `Ctrl+K`)
+  - **Right:** Quick Demo Role Switcher pills (`Lender`, `MSME`, `Govt`, `Admin`), `● Engine Active` operational indicator, theme toggle, and user profile / logout
+- **Command Palette (`Cmd+K` / `Ctrl+K`):** modal dialog with backdrop blur, searchable list across MSMEs (with grade badges and turnover), direct route navigation, theme switching, and role switching
 - **Content:** `max-w-[1440px]`, horizontal padding `16 / 24 / 32px` (`px-4 → sm:px-6 → lg:px-8`), footer inside the content column
 - **Login:** split screen — pinned dark navy brand panel (`#101828`, always dark in both themes) + sign-in form; the compact logo row appears above the form on mobile
 - **Shadows:** `shadow-xs → shadow-xl` scale in `tailwind.config.js` (soft, cool-tinted)
+
+---
+
+## Command Palette & Quick Role Switcher
+
+### Global Command Palette (`components/CommandPalette.tsx`)
+- **Invocation:** Global hotkey `⌘K` on macOS or `Ctrl+K` on Windows/Linux, or by clicking the search pill in the header.
+- **Capabilities:**
+  - **Live MSME Search:** Matches against legal name, sector, city, and state; displays turnover in INR and risk grade chips (`Grade A-F`).
+  - **Route Jumping:** Instant navigation across all sections (Lender Dashboard, Underwriting, Decision Queue, Borrower Health, Ingestion, Government Insights, Model Monitor, Audit Logs).
+  - **Actions:** Instant light/dark theme toggle and 1-click role switching.
+  - **Keyboard Navigation:** Full arrow key (`↑`/`↓`) selection, `Enter` to execute, and `Esc` to dismiss.
+
+### Header Quick Demo Role Switcher (`components/Layout.tsx`)
+- Embeds segmented role pills directly in the top bar: `[Lender] [MSME] [Govt] [Admin]`.
+- Clicking any inactive role executes zero-friction authentication via `api_login` and `auth.setToken`, refreshing context and redirecting to the target portal.
+- Displays an inline spinner during transition and disables clicks until state synchronization completes.
+
+---
+
+## Skeleton Shimmer Loaders
+
+To deliver an institutional feel and prevent cumulative layout shift (CLS), blocking spinner overlays have been replaced with dedicated pulse shimmer loaders:
+
+1. **`ReportSkeleton`** — Simulates the comprehensive credit memorandum: company header, 4-stat KPI grid, 300-900 circular score gauge card, Nayak MPBF working capital recommendation card, and 3-way cross-reconciliation card.
+2. **`TableSkeleton`** — Simulates tabular data views with customizable row/column counts across MSME Search, Decision Queue, and Audit Trail.
+3. **`CardSkeleton`** — Simulates standard cards with header placeholders and multi-line body shimmers.
+4. **`StatSkeleton`** — Simulates numeric KPI metric tiles with label, value, and icon boxes.
 
 ---
 
@@ -146,6 +178,10 @@ Loaded from Google Fonts in `index.html`.
 | `Badge` | Pill badge; pair with `badgeTone()` from `utils/format.ts` |
 | `Alert` | Tones: `info`, `success`, `warning`, `error` |
 | `Stat` | KPI tile (label, value, hint, optional icon) |
+| `StatSkeleton` | Metric card skeleton with icon and trend line placeholders |
+| `CardSkeleton` | Card surface skeleton with header and configurable body lines |
+| `TableSkeleton` | Shimmer table placeholder with configurable rows and columns |
+| `ReportSkeleton` | Full underwriting layout skeleton (header, 4-stat KPI grid, gauge, MPBF card, reconciliation) |
 | `EmptyState`, `ErrorState`, `Spinner`, `Skeleton`, `TableWrap` | States + table shell |
 | `errorMessage()` | Normalizes API errors to a readable string |
 
@@ -153,7 +189,8 @@ Loaded from Google Fonts in `index.html`.
 
 | File | Exports |
 |---|---|
-| `components/Layout.tsx` | Role-based sidebar/drawer + sticky header + breadcrumbs + footer |
+| `components/Layout.tsx` | Role-based sidebar/drawer + sticky glassmorphic header + breadcrumbs + quick role switcher + footer |
+| `components/CommandPalette.tsx` | Global `Cmd+K` / `Ctrl+K` search, MSME finder, route jumping, theme & role switching |
 | `components/ScoreGauge.tsx` | `ScoreGauge` — SVG arc gauge for 300–900 with grade chip |
 | `components/ThemeToggle.tsx` | `ThemeToggle` — Sun/Moon light-dark switch |
 | `components/Toast.tsx` | `ToastProvider` + `useToast()` — top-right toast stack |
@@ -206,8 +243,9 @@ Decorative icons are always `aria-hidden`.
 | `tailwind.config.js` | Token→utility mapping, type scale, spacing, shadows, keyframes |
 | `index.html` | Google Fonts (Inter, JetBrains Mono) + anti-flash theme bootstrap |
 | `src/theme.tsx` | Theme provider (`credlens_theme` in localStorage) |
-| `src/components/Layout.tsx` | Sidebar / drawer + header shell |
-| `src/components/UI.tsx` | Card, Button, Badge, Alert, Stat, states |
+| `src/components/Layout.tsx` | Sidebar / drawer + glassmorphic header shell + quick role switcher |
+| `src/components/CommandPalette.tsx` | Global Cmd+K command palette, MSME search & action modal |
+| `src/components/UI.tsx` | Card, Button, Badge, Alert, Stat, skeletons (Report, Table, Card, Stat), states |
 | `src/components/ScoreGauge.tsx` | Score gauge |
 | `src/components/ThemeToggle.tsx` | Light/dark toggle |
 | `src/components/Toast.tsx` | Toast system |

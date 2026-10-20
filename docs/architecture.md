@@ -240,6 +240,9 @@ Key principles:
 - **Inter** for UI text, **JetBrains Mono** for data values and labels
 - **Navy-indigo primary** (`#1e3ecc` light / `#637cee` dark) with semantic success/warning/danger and grade colors
 - **Lucide** icons (no icon-font CDN)
+- **Global Command Palette (`⌘K` / `Ctrl+K`)** for fuzzy search over MSMEs, route jumping, and instant role switching
+- **1-Click Demo Role Switcher** in header (`Lender`, `MSME`, `Govt`, `Admin`) with live engine status
+- **Zero-Layout-Shift Skeletons** (`ReportSkeleton`, `TableSkeleton`, `CardSkeleton`, `StatSkeleton`) replacing spinners
 
 ### Component Architecture
 
@@ -249,9 +252,10 @@ App.tsx                   (providers: auth, theme, toasts + ErrorBoundary)
   theme.tsx               (light/dark theme provider, localStorage)
   api/client.ts           (typed axios + JWT interceptor)
   components/
-    Layout.tsx            (sidebar/drawer + sticky header + breadcrumbs)
-    UI.tsx                (Card, Button, Badge, Alert, Stat, EmptyState,
-                           Spinner, Skeleton, ErrorState, TableWrap)
+    Layout.tsx            (sidebar/drawer + sticky glassmorphic header + quick role switcher)
+    CommandPalette.tsx    (global Cmd+K modal, MSME search, route navigation & actions)
+    UI.tsx                (Card, Button, Badge, Alert, Stat, skeletons [Report, Table, Card, Stat],
+                           EmptyState, Spinner, ErrorState, TableWrap)
     ScoreGauge.tsx        (300-900 SVG gauge with grade chip)
     ThemeToggle.tsx       (light/dark toggle)
     Toast.tsx             (ToastProvider + useToast)
