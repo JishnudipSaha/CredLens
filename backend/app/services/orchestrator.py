@@ -10,7 +10,13 @@ from app.models.policy import Policy
 from app.models.score_run import ScoreRun
 from app.services import feature_engine
 from app.services.ingestion_service import derive_financials
-from app.services.policy_engine import decide, evaluate_policy, recommend_limit
+from app.services.policy_engine import (
+    calculate_nayak_mpbf,
+    decide,
+    evaluate_policy,
+    generate_sanction_covenants,
+    recommend_limit,
+)
 from app.services.risk_scorer import score_msme
 
 
@@ -62,6 +68,7 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
         grade=score_run.risk_grade,
         features=features,
         policy=policy,
+        financials=financials,
     )
     limit = recommend_limit(
         avg_monthly_revenue_inr=financials.avg_monthly_revenue_inr if financials else 0.0,
@@ -77,6 +84,23 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
     )
     reason_codes = evaluation.reasons + evaluation.violations + evaluation.hard_reject_reasons
 
+    # Nayak Committee Working Capital MPBF & Institutional Covenants
+    mpbf_data = calculate_nayak_mpbf(
+        financials.avg_monthly_revenue_inr if financials else 0.0,
+        score_run.risk_grade,
+    )
+    covenants = generate_sanction_covenants(
+        outcome=outcome,
+        grade=score_run.risk_grade,
+        limit=limit,
+        mpbf_data=mpbf_data,
+    )
+    term_loan_limit = (
+        round(max(0.0, ((financials.avg_monthly_revenue_inr * 12 * (financials.ebitda_margin_pct / 100) * 0.75) / 1.25) * 2.5), 2)
+        if financials and financials.ebitda_margin_pct > 0
+        else 0.0
+    )
+
     decision = Decision(
         msme_id=msme.id,
         score_run_id=score_run.id,
@@ -85,6 +109,10 @@ def run_assessment(db: Session, msme: MSME, triggered_by_user_id: int | None = N
         recommended_limit_inr=limit,
         reason_codes=reason_codes,
         rationale=rationale,
+        covenants=covenants,
+        working_capital_mpbf_inr=mpbf_data.get("sanctioned_limit_inr", 0.0),
+        term_loan_limit_inr=term_loan_limit,
+        underwriting_summary=mpbf_data,
     )
     db.add(decision)
     db.flush()
@@ -115,6 +143,7 @@ def decide_existing_score_run(
         grade=score_run.risk_grade,
         features=features,
         policy=policy,
+        financials=financials,
     )
     limit = recommend_limit(
         avg_monthly_revenue_inr=financials.avg_monthly_revenue_inr if financials else 0.0,
@@ -128,6 +157,16 @@ def decide_existing_score_run(
         limit=limit,
         policy=policy,
     )
+    mpbf_data = calculate_nayak_mpbf(
+        financials.avg_monthly_revenue_inr if financials else 0.0,
+        score_run.risk_grade,
+    )
+    covenants = generate_sanction_covenants(
+        outcome=outcome,
+        grade=score_run.risk_grade,
+        limit=limit,
+        mpbf_data=mpbf_data,
+    )
     decision = Decision(
         msme_id=score_run.msme_id,
         score_run_id=score_run.id,
@@ -136,6 +175,10 @@ def decide_existing_score_run(
         recommended_limit_inr=limit,
         reason_codes=evaluation.reasons + evaluation.violations + evaluation.hard_reject_reasons,
         rationale=rationale,
+        covenants=covenants,
+        working_capital_mpbf_inr=mpbf_data.get("sanctioned_limit_inr", 0.0),
+        term_loan_limit_inr=0.0,
+        underwriting_summary=mpbf_data,
     )
     db.add(decision)
     db.flush()

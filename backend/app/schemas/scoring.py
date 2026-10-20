@@ -41,6 +41,10 @@ class DecisionOut(BaseModel):
     recommended_limit_inr: float
     reason_codes: list[str]
     rationale: str
+    covenants: list[str] = Field(default_factory=list)
+    working_capital_mpbf_inr: float = 0.0
+    term_loan_limit_inr: float = 0.0
+    underwriting_summary: dict = Field(default_factory=dict)
     credit_score: int | None = None  # joined from score run
     risk_grade: str | None = None  # joined from score run
     created_at: datetime

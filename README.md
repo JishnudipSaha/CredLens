@@ -42,9 +42,9 @@ Manual Upload     |    |     (Cloud)                      |  |
 
 | Layer | What it does | Backend code |
 |---|---|---|
-| **1. Data Ingestion** | parse -> clean -> validate -> dedup -> persist | `app/services/ingestion_service.py` + `app/api/ingestion.py` |
-| **2. AI & Analytics** | Feature engineering + hybrid rule + ML scoring | `app/services/feature_engine.py` + `app/services/risk_scorer.py` + `app/ml/train_synthetic.py` |
-| **3. Business Logic & Decision** | Policy evaluation, limit recommendation, decision | `app/services/policy_engine.py` + `app/services/orchestrator.py` |
+| **1. Data Ingestion & Provenance** | parse -> clean -> validate -> dedup -> provenance verification (AA, GSTN, MCA, Bureau) -> 3-way triangulation & financial ratios derivation (DSCR, ICR, Current Ratio) | `app/services/ingestion_service.py` + `app/api/ingestion.py` |
+| **2. AI & Analytics** | Feature engineering + 5-pillar credit scoring + hybrid rule penalties + ML scoring | `app/services/feature_engine.py` + `app/services/risk_scorer.py` + `app/ml/train_synthetic.py` |
+| **3. Business Logic & Decision** | Policy evaluation, Nayak Committee Working Capital (MPBF) limit recommendation, sanction covenants & CPs | `app/services/policy_engine.py` + `app/services/orchestrator.py` |
 | **4. Platform Infrastructure** | Auth, CORS, monitoring middleware, logging, audit | `app/core/*` + `app/main.py` |
 | **Feedback Loop** | Lenders report outcomes -> audit log -> model retraining | `app/services/feedback_service.py` + `app/api/feedback.py` + `app/api/admin.py` |
 
@@ -56,8 +56,8 @@ Manual Upload     |    |     (Cloud)                      |  |
 - **Frontend:** React 18, Vite, TypeScript, TailwindCSS, Recharts, Axios
 - **Design:** HSL CSS-variable design tokens, Inter + JetBrains Mono, Lucide icons, light + dark themes
 - **Auth:** JWT (4 roles: LENDER, MSME, GOVERNMENT, ADMIN)
-- **ML:** GradientBoosting classifier trained on 5,000 synthetic samples
-- **Data:** Faker-generated 50 MSMEs seeded on first run
+- **ML & Analytics:** GradientBoosting classifier on 5,000 synthetic samples + 5-Pillar Credit Sub-Scores + Nayak Committee MPBF
+- **Data:** Faker-generated 50 MSMEs with realistic multi-source banking, GST, MCA, and Bureau profiles seeded on first run
 
 ---
 
@@ -174,7 +174,7 @@ cd backend
 python -m pytest tests/ -v
 ```
 
-Covers: grade mapping, feature engine shape, financial ingestion -> financials derivation, policy approve / hard-reject / violation, policy-driven decision bands and grade thresholds, PD/score consistency, reason-code deduplication, feedback retrain on real labels, model hot-reload, full assessment pipeline, seed-data sanity. All 22 tests pass.
+Covers: grade mapping, feature engine shape, financial ingestion -> financials derivation, institutional ratios (DSCR, ICR, current ratio, GST vs. bank variance), Nayak Committee MPBF limits, 5-pillar credit scoring, sanction covenants, policy approve / hard-reject / violation, policy-driven decision bands and grade thresholds, PD/score consistency, reason-code deduplication, feedback retrain on real labels, model hot-reload, full assessment pipeline, seed-data sanity. All 27 tests pass.
 
 ---
 
@@ -207,7 +207,7 @@ CredLens/
 |  |  +- ml/
 |  |     +- train_synthetic.py     # GradientBoosting on 5,000 synthetic samples
 |  |     +- artifacts/risk_model.pkl
-|  +- tests/                       # 22 pytest tests
+|  +- tests/                       # 27 pytest tests (including test_institutional.py)
 +- frontend/
 |  +- package.json
 |  +- vite.config.ts

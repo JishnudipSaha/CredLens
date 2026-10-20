@@ -221,10 +221,13 @@ def _gen_msme_record(idx: int) -> dict:
             "digital_footprint": {"score": round(random.uniform(0.4, 0.8), 2)},
         },
         "raw_government": {
-            "mca_data": {"cin": f"U{''.join(random.choices('0123456789', k=20))}"},
-            "gstin_data": {"status": "Active"},
+            "mca_data": {"cin": f"U{''.join(random.choices('0123456789', k=20))}", "status": "Active", "charges_registered_count": random.randint(0, 2)},
+            "gstin_data": {"status": "Active", "taxpayer_type": "Regular"},
             "udyam_data": {"enterprise_type": random.choice(["Micro", "Small", "Medium"])},
             "cibil_score": random.randint(680, 820) if not risky else random.randint(520, 680),
+            "cibil_cmr_rank": random.choice([1, 2, 3, 4]) if not risky else random.choice([6, 7, 8, 9]),
+            "max_dpd_12m": 0 if not risky else random.choice([0, 30, 60, 90]),
+            "active_credit_facilities": random.randint(1, 4),
             "cibil_accounts": [
                 {"outstanding": round(avg_rev * random.uniform(0.05, 0.3), 2)}
                 for _ in range(3)
@@ -244,6 +247,16 @@ def _gen_msme_record(idx: int) -> dict:
             "telecom_footprint_score": round(random.uniform(0.5, 0.9), 2),
             "digital_footprint_score": round(random.uniform(0.4, 0.8), 2),
             "top_customer_concentration_pct": concentration,
+            "dscr": round(random.uniform(1.4, 2.8), 2) if not risky else round(random.uniform(0.7, 1.2), 2),
+            "interest_coverage_ratio": round(random.uniform(2.5, 6.0), 2) if not risky else round(random.uniform(0.8, 1.8), 2),
+            "current_ratio": round(random.uniform(1.25, 1.8), 2) if not risky else round(random.uniform(0.75, 1.1), 2),
+            "gst_vs_bank_turnover_variance_pct": round(random.uniform(-8.0, 5.0), 2) if not risky else round(random.uniform(-35.0, -15.0), 2),
+            "cibil_cmr_rank": random.choice([1, 2, 3, 4]) if not risky else random.choice([6, 7, 8, 9]),
+            "max_dpd_12m": 0 if not risky else random.choice([0, 30, 60, 90]),
+            "active_credit_facilities": random.randint(1, 4),
+            "cash_withdrawal_ratio": round(random.uniform(0.02, 0.08), 3) if not risky else round(random.uniform(0.15, 0.35), 3),
+            "data_trust_score": 95.0 if not risky else 65.0,
+            "verification_badges": ["AA_VERIFIED", "GSTN_VERIFIED", "MCA_VERIFIED", "BUREAU_VERIFIED"] if not risky else ["AA_VERIFIED", "MCA_VERIFIED"],
         },
     }
 

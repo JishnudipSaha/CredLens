@@ -64,6 +64,14 @@ export interface MSMEListItem {
   latest_decision: string | null
 }
 
+export interface CreditPillars {
+  financial_strength: number
+  banking_quality: number
+  tax_compliance: number
+  bureau_record: number
+  business_stability: number
+}
+
 export interface ScoreRun {
   id: number
   msme_id: number
@@ -72,7 +80,7 @@ export interface ScoreRun {
   risk_grade: string
   pd_default_12m: number
   red_flags: string[]
-  score_breakdown: Record<string, unknown>
+  score_breakdown: Record<string, any>
   created_at: string
 }
 
@@ -84,17 +92,48 @@ export interface Decision {
   recommended_limit_inr: number
   reason_codes: string[]
   rationale: string
+  covenants?: string[]
+  working_capital_mpbf_inr?: number
+  term_loan_limit_inr?: number
+  underwriting_summary?: Record<string, any>
   credit_score?: number | null
   risk_grade?: string | null
   created_at: string
 }
 
+export interface MSMEFinancialsData {
+  avg_monthly_revenue_inr: number
+  revenue_trend_pct: number
+  ebitda_margin_pct: number
+  gst_filings_expected: number
+  gst_filings_done: number
+  gst_compliance_ratio: number
+  avg_bank_balance_inr: number
+  bounced_cheques_12m: number
+  existing_loan_obligations_inr: number
+  utility_payment_consistency: number
+  telecom_footprint_score: number
+  digital_footprint_score: number
+  top_customer_concentration_pct: number
+  vintage_years: number
+  dscr?: number
+  interest_coverage_ratio?: number
+  current_ratio?: number
+  gst_vs_bank_turnover_variance_pct?: number
+  cibil_cmr_rank?: number
+  max_dpd_12m?: number
+  active_credit_facilities?: number
+  cash_withdrawal_ratio?: number
+  data_trust_score?: number
+  verification_badges?: string[]
+}
+
 export interface CreditReport {
-  msme: Record<string, unknown>
-  financials: Record<string, unknown> | null
+  msme: Record<string, any>
+  financials: MSMEFinancialsData | null
   score: ScoreRun | null
   decision: Decision | null
-  policy_used: Record<string, unknown> | null
+  policy_used: Record<string, any> | null
 }
 
 export interface ModelMonitorStats {

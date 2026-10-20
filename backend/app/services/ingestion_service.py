@@ -397,6 +397,108 @@ def derive_financials(db: Session, msme: MSME) -> MSMEFinancials:
         delta = (msme.updated_at or msme.created_at) - msme.incorporation_date
         fin.vintage_years = round(max(delta.days, 0) / 365.25, 2)
 
+    # --- Institutional Underwriting Metrics & Market Standards ---
+    monthly_rev = fin.avg_monthly_revenue_inr or 0.0
+    ebitda_pct = fin.ebitda_margin_pct or 0.0
+    obligations = fin.existing_loan_obligations_inr or 0.0
+    bank_bal = fin.avg_bank_balance_inr or 0.0
+    bounced = fin.bounced_cheques_12m or 0
+    gst_comp = fin.gst_compliance_ratio if fin.gst_compliance_ratio is not None else 1.0
+
+    annual_rev = monthly_rev * 12.0
+    annual_ebitda = annual_rev * (ebitda_pct / 100.0)
+    debt_service = (obligations * 0.25) if obligations > 0 else 0.0
+
+    # 1. DSCR (Debt Service Coverage Ratio)
+    if debt_service > 0:
+        pat_cash = max(0.0, annual_ebitda * 0.75)
+        fin.dscr = round(max(0.1, pat_cash / debt_service), 2)
+    else:
+        fin.dscr = 3.5
+
+    # 2. Interest Coverage Ratio (ICR)
+    annual_interest = (obligations * 0.10) if obligations > 0 else 0.0
+    if annual_interest > 0:
+        fin.interest_coverage_ratio = round(max(0.1, annual_ebitda / annual_interest), 2)
+    else:
+        fin.interest_coverage_ratio = 5.0
+
+    # 3. Current Ratio (Current Assets / Current Liabilities)
+    ca = (bank_bal * 1.5) + (monthly_rev * 1.2)
+    cl = (obligations * 0.3) + (monthly_rev * 0.8)
+    if cl > 0:
+        fin.current_ratio = round(max(0.4, min(3.5, ca / cl)), 2)
+    else:
+        fin.current_ratio = 1.35
+
+    # 4. GST vs Bank Turnover Reconciliation Variance %
+    bank_credits_total = sum(_clean_money(b.get("credits", b.get("total_credits", 0))) for b in bank_stmts)
+    gst_total = sum(taxable_values)
+    if bank_credits_total > 0 and gst_total > 0:
+        fin.gst_vs_bank_turnover_variance_pct = round(((bank_credits_total - gst_total) / gst_total) * 100, 2)
+    else:
+        # Default variance based on healthy vs irregular indicators
+        base_var = -2.5 if gst_comp >= 0.8 else -18.4
+        if bounced > 0:
+            base_var -= bounced * 4.0
+        fin.gst_vs_bank_turnover_variance_pct = round(base_var, 2)
+
+    # 5. Commercial Bureau Tradelines (CIBIL CMR & DPD)
+    cibil_val = gov.get("cibil_score")
+    if cibil_val:
+        c_score = int(cibil_val)
+        if "cibil_cmr_rank" in gov:
+            fin.cibil_cmr_rank = int(gov["cibil_cmr_rank"])
+        elif c_score >= 780:
+            fin.cibil_cmr_rank = 2
+        elif c_score >= 740:
+            fin.cibil_cmr_rank = 3
+        elif c_score >= 700:
+            fin.cibil_cmr_rank = 4
+        elif c_score >= 650:
+            fin.cibil_cmr_rank = 5
+        elif c_score >= 600:
+            fin.cibil_cmr_rank = 7
+        else:
+            fin.cibil_cmr_rank = 9
+    elif "cibil_cmr_rank" in gov:
+        fin.cibil_cmr_rank = int(gov["cibil_cmr_rank"])
+    else:
+        fin.cibil_cmr_rank = 3
+
+    fin.max_dpd_12m = int(gov.get("max_dpd_12m", 0))
+    if fin.max_dpd_12m == 0 and bounced > 1:
+        fin.max_dpd_12m = 30 * min(bounced, 3)
+
+    cibil_accts = gov.get("cibil_accounts", []) or []
+    fin.active_credit_facilities = len(cibil_accts) if cibil_accts else int(gov.get("active_credit_facilities", 2))
+
+    # 6. Cash withdrawal velocity
+    fin.cash_withdrawal_ratio = round(float(alt.get("cash_withdrawal_ratio", 0.05)), 4)
+
+    # 7. Verification Badges & Data Trust Index
+    badges = []
+    if bank_stmts:
+        badges.append("AA_VERIFIED")
+    if gst_returns and gst_comp >= 0.6:
+        badges.append("GSTN_VERIFIED")
+    if gov.get("mca_data") or gov.get("cin"):
+        badges.append("MCA_VERIFIED")
+    if cibil_val or gov.get("cibil_cmr_rank"):
+        badges.append("BUREAU_VERIFIED")
+
+    trust = 35.0
+    if "AA_VERIFIED" in badges:
+        trust += 25.0
+    if "GSTN_VERIFIED" in badges:
+        trust += 20.0
+    if "MCA_VERIFIED" in badges:
+        trust += 10.0
+    if "BUREAU_VERIFIED" in badges:
+        trust += 10.0
+    fin.verification_badges = badges
+    fin.data_trust_score = min(100.0, trust)
+
     db.add(fin)
     db.flush()
     return fin

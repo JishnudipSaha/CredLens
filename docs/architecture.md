@@ -38,13 +38,11 @@ This document mirrors the block diagram in `docs/block_diagram.png` in text form
                        Feedback Loop: Model Learning & Continuous Improvement  <----------+
 ```
 
-## Layer 1: Data Ingestion
+## Layer 1: Data Ingestion & Provenance
 
-**Goal:** accept messy external data, clean and validate it, persist it on the MSME record.
+**Goal:** accept data, clean and validate it, verify provenance rails (AA, GSTN, MCA, Bureau), derive institutional ratios, and persist it on the MSME record.
 
 **Code:** `app/services/ingestion_service.py`, `app/api/ingestion.py`.
-
-> In this prototype all payloads are self-uploaded JSON or Faker-seeded. For real underwriting, each input must come from an authoritative external source (GSTN, Account Aggregator, credit bureau, MCA/Udyam, DigiLocker, utility/telco vendors, court records) — see [`external-data-sources.md`](external-data-sources.md) for the feature-by-feature mapping, access routes, and consent requirements.
 
 **Flow:**
 
@@ -52,29 +50,17 @@ This document mirrors the block diagram in `docs/block_diagram.png` in text form
 2. **Clean** - strip currency symbols, coerce to numbers, normalise dates
 3. **Validate** - schema checks (required fields, numeric types) + format checks (GSTIN regex, PAN regex)
 4. **De-duplicate** - drop repeated records by a stable key (e.g. `month` for bank statements, `period` for GST returns, `invoice_number` for invoices)
-5. **Persist** - merge into the MSME's `raw_*` JSON column
-6. **Derive financials** - recompute the `MSMEFinancials` snapshot that feeds Layer 2
-
-**Example:**
-
-```
-POST /api/v1/ingest/financial/1
-{
-  "bank_statements": [
-    {"month": "2025-01", "closing_balance": 500000, "bounced_cheques": 0}
-  ],
-  "gst_returns": [
-    {"period": "2025-01", "taxable_value": 1000000, "tax_paid": 180000}
-  ]
-}
--> {"msme_id": 1, "data_type": "raw_financial", "accepted_records": 2, "rejected_records": 0}
-```
-
-After this, the MSME's `avg_monthly_revenue_inr`, `gst_compliance_ratio`, `avg_bank_balance_inr`, etc. are updated.
+5. **Provenance & Trust Index** - detects verified rails (Account Aggregator, active GSTN, MCA21 registration, Commercial CIBIL) and calculates a 0-100% **Data Trust Index** with verification badges (`AA_VERIFIED`, `GSTN_VERIFIED`, `MCA_VERIFIED`, `BUREAU_VERIFIED`)
+6. **3-Way Triangulation & Financials Derivation** - recomputes `MSMEFinancials`:
+   - **GST vs. Bank Turnover Reconciliation**: Measures `gst_vs_bank_turnover_variance_pct` to detect sales inflation or off-the-books transactions
+   - **DSCR (Debt Service Coverage Ratio)**: $(EBITDA \times 0.75) / \text{Annual Debt Service}$
+   - **Interest Coverage Ratio (ICR)**: $EBITDA / \text{Annual Interest}$
+   - **Current Ratio**: Current Assets / Current Liabilities
+   - **Commercial Bureau Tradelines**: Extracts CIBIL CMR rank (1-10) and max Days Past Due (DPD)
 
 ## Layer 2: AI & Analytics Engine
 
-**Goal:** turn the cleaned data into a credit score, risk grade, and explainable red flags.
+**Goal:** turn the cleaned data into an institutional credit score, risk grade, 5-pillar thematic sub-scores, and explainable red flags.
 
 **Code:** `app/services/feature_engine.py`, `app/services/risk_scorer.py`, `app/ml/train_synthetic.py`.
 
@@ -89,20 +75,31 @@ Build a 20-dimensional feature vector:
 - Engineered: `log_revenue`, `debt_to_revenue_ratio`, `liquidity_ratio`
 - One-hot: `sector_manufacturing`, `sector_retail`, `sector_services`, `sector_it`, `sector_other`
 
-**Step 2: Hybrid scoring** (`risk_scorer.py`)
+**Step 2: Hybrid scoring & 5-Pillar Sub-Scores** (`risk_scorer.py`)
 
 Two complementary layers:
 
-- **Rule layer (transparent):** tiered 0-100 penalty based on hand-crafted red flags. Material breaches are also pushed to `red_flags[]` for explainability; softer breaches carry a smaller penalty.
+- **Rule layer (transparent):** tiered 0-100 penalty based on hand-crafted red flags and institutional benchmarks:
   - GST compliance < 60% -> +35 (60-80% -> +15 "Inconsistent GST filings")
   - Bounced cheques >= 3 -> +30 (1-2 -> +10)
   - Revenue declined > 20% -> +20 (> 5% -> +8)
   - Customer concentration > 70% -> +15 (> 50% -> +6)
   - Debt-to-revenue > 50% -> +20 (> 30% -> +8)
   - Bank balance < 5% of annual revenue -> +15
+  - DSCR < 1.0x -> +20 (< 1.25x -> +8)
+  - CIBIL CMR Rank 8-10 -> +20 (CMR 6-7 -> +8)
+  - Delinquency in bureau tradelines (60+ DPD) -> +20 (30+ DPD -> +8)
+  - GST vs Bank turnover variance mismatch > 25% -> +12
   - Vintage < 1 year -> +8 (< 3 years -> +3)
   - Utility payment consistency < 80% -> +10
   - No revenue data -> +25
+
+- **5-Pillar Thematic Credit Sub-Scores (0-100 each):**
+  1. *Financial Solvency & Coverage* (DSCR, ICR, EBITDA, Current Ratio)
+  2. *Cash Flow & Banking Quality* (AMB, cheque bounces, cash withdrawal velocity)
+  3. *Tax & Statutory Discipline* (GST filing regularity, turnover reconciliation)
+  4. *Bureau & Tradeline Track Record* (CIBIL CMR Rank, DPD, active loan facilities)
+  5. *Business Stability & Vintage* (Vintage years, customer concentration, employee base)
 
 - **ML layer (data-driven):** GradientBoosting classifier trained on 5,000 synthetic samples. Produces `P(default in 12 months)` which is mapped to a 300-900 score: `ml_score = 900 - pd * 600`.
 
@@ -152,6 +149,8 @@ Two tiers of rules:
   - `HARD_REJECT_GST_BELOW_50` (GST compliance < 50%)
   - `HARD_REJECT_BOUNCED_OVER_5` (more than 5 bounced cheques)
   - `HARD_REJECT_NO_REVENUE` (zero revenue data)
+  - `HARD_REJECT_DSCR_CRITICAL` (DSCR < 0.8x with active debt obligations)
+  - `HARD_REJECT_BUREAU_DEFAULT` (CIBIL CMR-10 or 90+ Days Past Due)
 
 - **Soft violations** (vs. policy thresholds):
   - `BELOW_MIN_SCORE_THRESHOLD`
@@ -160,18 +159,29 @@ Two tiers of rules:
   - `VINTAGE_BELOW_POLICY`
   - `REVENUE_BELOW_POLICY`
   - `CONCENTRATION_OVER_POLICY`
+  - `DSCR_BELOW_BENCHMARK` (DSCR < 1.25x)
+  - `CIBIL_CMR_ELEVATED` (CMR >= 7)
 
-**Step 2: Limit recommendation** (`policy_engine.recommend_limit`)
+**Step 2: Limit recommendation & Nayak Committee MPBF Method** (`policy_engine.calculate_nayak_mpbf`)
 
+Follows standard Indian Banking norms (Nayak Committee formula):
 ```
-limit = min(annual_revenue * grade_multiplier, annual_revenue * 2)
+Annual Turnover = Avg Monthly Revenue * 12
+Total Working Capital Requirement = 25% * Annual Turnover
+Borrower Margin Contribution = 5% * Annual Turnover
+Maximum Permissible Bank Finance (MPBF) = 20% * Annual Turnover
+Sanctioned Limit = MPBF * Risk Grade Multiplier
 ```
+Multipliers on MPBF: Grade A: 100%, B: 85%, C: 65%, D: 40%, E: 20%, F: 0%.
 
-Default multipliers: A=0.50, B=0.35, C=0.20, D=0.10, E=0.05, F=0.00
+**Step 3: Decision & Sanction Covenants (CP)** (`policy_engine.decide`, `generate_sanction_covenants`)
 
-Editable by admin via `PUT /api/v1/admin/policies/{id}`.
-
-**Step 3: Decision** (`policy_engine.decide`)
+When an approval is granted, institutional pre-disbursement conditions are automatically generated:
+- **CP-1:** First exclusive hypothecation charge on all current assets, stock-in-trade, and book debts
+- **CP-2:** Formal ROC charge creation on Ministry of Corporate Affairs portal (**Form CHG-1**) within 30 days
+- **CP-3:** Unconditional joint and several personal guarantees from promoter directors
+- **CP-4:** Minimum 75% business collection turnover routed through lender operative bank account
+- **CP-5:** Quarterly submission of CA-certified stock and aged debtor audit statements
 
 Score bands come from the policy (`auto_approve_score` / `review_min_score`, defaulting to 700 / 600 when no policy is supplied):
 
@@ -188,7 +198,9 @@ Score bands come from the policy (`auto_approve_score` / `review_min_score`, def
 {
   "outcome": "APPROVE",
   "recommended_limit_inr": 21394272,
-  "reason_codes": ["MIN_SCORE_OK", "GST_COMPLIANCE_OK", "BOUNCED_CHEQUES_OK", ...],
+  "working_capital_mpbf_inr": 8560000,
+  "covenants": ["CP-1 (Primary Security): ...", "CP-2 (Statutory Charge): ...", ...],
+  "reason_codes": ["MIN_SCORE_OK", "GST_COMPLIANCE_OK", "DSCR_BENCHMARK_OK", "CIBIL_CMR_OK", ...],
   "rationale": "Auto-approved. Grade A, score 859, recommended limit INR 21,394,272."
 }
 ```

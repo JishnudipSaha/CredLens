@@ -79,6 +79,18 @@ class MSMEFinancials(Base):
     # Business vintage (years)
     vintage_years: Mapped[float] = mapped_column(Float, default=0.0)
 
+    # Institutional Financial Ratios & Market Standards
+    dscr: Mapped[float] = mapped_column(Float, default=1.5)                           # Debt Service Coverage Ratio (EBITDA / Debt Service)
+    interest_coverage_ratio: Mapped[float] = mapped_column(Float, default=3.0)        # ICR (EBITDA / Interest Expense)
+    current_ratio: Mapped[float] = mapped_column(Float, default=1.33)                 # Current Assets / Current Liabilities
+    gst_vs_bank_turnover_variance_pct: Mapped[float] = mapped_column(Float, default=0.0) # 3-way reconciliation discrepancy
+    cibil_cmr_rank: Mapped[int] = mapped_column(Integer, default=3)                   # Commercial Bureau Rank (1-10)
+    max_dpd_12m: Mapped[int] = mapped_column(Integer, default=0)                      # Days Past Due in last 12m
+    active_credit_facilities: Mapped[int] = mapped_column(Integer, default=2)        # Active loan tradelines
+    cash_withdrawal_ratio: Mapped[float] = mapped_column(Float, default=0.05)         # Cash Debits / Total Banking Inflows
+    data_trust_score: Mapped[float] = mapped_column(Float, default=85.0)              # Data Verification & Provenance Trust Index (0-100)
+    verification_badges: Mapped[list] = mapped_column(JSON, default=list)             # e.g. ["AA_VERIFIED", "GSTN_VERIFIED", ...]
+
     updated_at: Mapped[datetime] = mapped_column(
         DateTime, server_default=func.now(), onupdate=func.now()
     )

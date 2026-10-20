@@ -87,6 +87,16 @@ class MSMEFinancialsOut(BaseModel):
     digital_footprint_score: float
     top_customer_concentration_pct: float
     vintage_years: float
+    dscr: float = 1.5
+    interest_coverage_ratio: float = 3.0
+    current_ratio: float = 1.33
+    gst_vs_bank_turnover_variance_pct: float = 0.0
+    cibil_cmr_rank: int = 3
+    max_dpd_12m: int = 0
+    active_credit_facilities: int = 2
+    cash_withdrawal_ratio: float = 0.05
+    data_trust_score: float = 85.0
+    verification_badges: list[str] = Field(default_factory=list)
 
     class Config:
         from_attributes = True

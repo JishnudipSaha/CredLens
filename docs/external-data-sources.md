@@ -41,17 +41,18 @@ All 20 ML features and where their inputs must come from:
 | 18 | `sector_it` | Profile / **Udyam NIC classification** (optional verification) | Low-risk self-declaration | scored (self-declared) |
 | 19 | `sector_other` | Profile / **Udyam NIC classification** (optional verification) | Low-risk self-declaration | scored (self-declared) |
 
-**Beyond the ML vector**, these also feed rules/policy but need the same external sources:
+**Beyond the ML vector**, these also feed institutional rules/policy, 3-way triangulation, and decision covenants:
 
-| Input | Used by | External source |
-|---|---|---|
-| `gstin` registration status | (stored, not scored) | GSTN public search |
-| `mca_data` (CIN, status, directors) | (ingested, **unused**) | MCA21 / API Setu |
-| `udyam_data` | (ingested, **unused**) | Udyam registry |
-| `cibil_score` / `cibil_accounts` | (ingested, **deliberately unused** — `ingestion_service.py:367-375`) | Credit bureau |
-| `itr_filings` | (ingested, **unused**) | Income-tax CPC / DigiLocker |
-| Litigation / wilful default / director disqualification | (**absent from backend**; design mockups only) | Court records / MCA / bureau |
-| DSCR, debt-equity covenants | (**absent from backend**) | AA cash flow + bureau liabilities |
+| Input | Used by | External source | Current Implementation Status |
+|---|---|---|---|
+| `gstin` registration status | Entity verification badge | GSTN public search via GSP | **Active** (Generates `GSTN_VERIFIED` badge & feeds Trust Index) |
+| `mca_data` (CIN, status, charges) | Covenants & registration check | MCA21 / API Setu / Sandbox | **Active** (Generates `MCA_VERIFIED` badge & feeds Form CHG-1 covenants) |
+| `udyam_data` | MSME enterprise classification | Udyam registry | Ingested & tracked |
+| `cibil_score` / `cibil_accounts` | CIBIL CMR Rank (1-10) & DPD | Credit bureau (TransUnion / CRIF) | **Active** (Feeds CMR-1 to 10 rank, Max DPD, Bureau Pillar score, and policy hard-reject) |
+| `itr_filings` | Total income cross-verification | Income-tax CPC / DigiLocker | Ingested & stored |
+| DSCR & Interest Coverage | Solvency & debt service capacity | AA cash flow + Bureau liabilities | **Active** (Feeds DSCR, ICR, Financial Pillar, and `HARD_REJECT_DSCR_CRITICAL`) |
+| GST vs Bank Triangulation | 3-way reconciliation & fraud check | GSTN returns vs AA Bank Inflows | **Active** (Feeds `gst_vs_bank_turnover_variance_pct` and Tax Pillar) |
+| Litigation / wilful default | Bureau & eCourts legal check | eCourts / NJDG / RBI wilful defaulter | Evaluated in bureau tradelines |
 
 ---
 

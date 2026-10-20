@@ -132,6 +132,16 @@ def _financials_to_dict(m: MSME) -> dict | None:
         "digital_footprint_score": f.digital_footprint_score,
         "top_customer_concentration_pct": f.top_customer_concentration_pct,
         "vintage_years": f.vintage_years,
+        "dscr": getattr(f, "dscr", 1.5),
+        "interest_coverage_ratio": getattr(f, "interest_coverage_ratio", 3.0),
+        "current_ratio": getattr(f, "current_ratio", 1.33),
+        "gst_vs_bank_turnover_variance_pct": getattr(f, "gst_vs_bank_turnover_variance_pct", 0.0),
+        "cibil_cmr_rank": getattr(f, "cibil_cmr_rank", 3),
+        "max_dpd_12m": getattr(f, "max_dpd_12m", 0),
+        "active_credit_facilities": getattr(f, "active_credit_facilities", 2),
+        "cash_withdrawal_ratio": getattr(f, "cash_withdrawal_ratio", 0.05),
+        "data_trust_score": getattr(f, "data_trust_score", 85.0),
+        "verification_badges": getattr(f, "verification_badges", []) or [],
     }
 
 
@@ -144,5 +154,9 @@ def _decision_to_dict(d) -> dict:
         "recommended_limit_inr": d.recommended_limit_inr,
         "reason_codes": list(d.reason_codes or []),
         "rationale": d.rationale,
+        "covenants": list(getattr(d, "covenants", []) or []),
+        "working_capital_mpbf_inr": getattr(d, "working_capital_mpbf_inr", 0.0),
+        "term_loan_limit_inr": getattr(d, "term_loan_limit_inr", 0.0),
+        "underwriting_summary": getattr(d, "underwriting_summary", {}) or {},
         "created_at": d.created_at.isoformat() if d.created_at else None,
     }

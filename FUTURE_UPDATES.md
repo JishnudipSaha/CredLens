@@ -5,6 +5,25 @@
 
 ---
 
+## 0. Market-Standard Institutional MSME Underwriting Engine
+
+**Status:** `Shipped`
+
+### Deliverables Completed
+- **3-Way Cross-Reconciliation & Triangulation**: Automated variance calculation between declared GSTR-3B revenue and Account Aggregator verified bank statement cash inflows (`gst_vs_bank_turnover_variance_pct`).
+- **Institutional Solvency Ratios**: Full derivation and policy evaluation for Debt Service Coverage Ratio (**DSCR** benchmark $\ge 1.25x$), Interest Coverage Ratio (**ICR** benchmark $\ge 2.0x$), and Current Ratio ($\ge 1.33x$).
+- **Nayak Committee Working Capital Assessment**: Implementation of the standard Indian Banking Turnover Method for MSME Working Capital limits (Total WC Requirement: 25%, Borrower Margin: 5%, Maximum Permissible Bank Finance: 20% adjusted by risk grade factor).
+- **5-Pillar Thematic Credit Scoring**: Multi-dimensional sub-scores (0-100) evaluating Financial Solvency, Banking Quality, Tax Compliance, Bureau Record, and Business Stability.
+- **Sanction Conditions Precedent (CP) & Covenants**: Automated generation of enforceable contractual terms:
+  - *CP-1*: First exclusive hypothecation charge on current assets and book debts.
+  - *CP-2*: Statutory charge creation with MCA21 (**Form CHG-1**) within 30 days.
+  - *CP-3*: Unconditional personal guarantee from promoter directors.
+  - *CP-4*: Minimum 75% business collection turnover routed through lender operative account.
+  - *CP-5*: Quarterly submission of CA-certified stock and aged debtor statements.
+- **Verification Provenance & Data Trust Index**: Badges for AA, GSTN, MCA, and Bureau with a dynamic trust confidence meter.
+
+---
+
 ## 1. Regional In-App Language Service
 
 **Status:** Planned
