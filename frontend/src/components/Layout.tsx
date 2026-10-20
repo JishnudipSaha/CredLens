@@ -2,10 +2,12 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import {
   BarChart3, ChevronRight, Cpu, Gavel, Gauge, History, Landmark, LayoutDashboard,
-  LogOut, Menu, ScrollText, Search, Store, Upload, X, type LucideIcon,
+  LogOut, Menu, ScrollText, Search, Store, Upload, X, Loader2, type LucideIcon,
 } from 'lucide-react'
-import { auth, UserRole } from '../api/client'
+import { auth, api_login, UserRole } from '../api/client'
+import { useAuth } from '../context'
 import { ThemeToggle } from './ThemeToggle'
+import { CommandPalette } from './CommandPalette'
 import { cn } from '../utils/cn'
 
 interface LayoutProps {
@@ -19,6 +21,13 @@ const roleLabel: Record<UserRole, string> = {
   MSME: 'MSME Owner',
   GOVERNMENT: 'Government / Ecosystem',
   ADMIN: 'Platform Admin',
+}
+
+const DEMO_USERS: Record<UserRole, { email: string; pass: string; path: string; label: string; short: string }> = {
+  LENDER: { email: 'lender@credlens.in', pass: 'lender123', path: '/lender', label: 'Lender', short: 'Lender' },
+  MSME: { email: 'msme@credlens.in', pass: 'msme123', path: '/msme', label: 'MSME Borrower', short: 'MSME' },
+  GOVERNMENT: { email: 'govt@credlens.in', pass: 'govt123', path: '/government', label: 'Government', short: 'Govt' },
+  ADMIN: { email: 'admin@credlens.in', pass: 'admin123', path: '/admin', label: 'Platform Admin', short: 'Admin' },
 }
 
 interface NavItem {
@@ -90,10 +99,25 @@ function LensLogo({ className }: { className?: string }) {
 export default function Layout({ role, userName, children }: LayoutProps) {
   const navigate = useNavigate()
   const location = useLocation()
+  const { refresh } = useAuth()
   const [open, setOpen] = useState(false)
+  const [cmdOpen, setCmdOpen] = useState(false)
+  const [switchingRole, setSwitchingRole] = useState<UserRole | null>(null)
   const links = navByRole[role]
   const breadcrumbs = getBreadcrumbs(location.pathname)
   const RoleIcon = roleIcons[role]
+
+  // Global Cmd+K / Ctrl+K listener
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setCmdOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   // Close the drawer on navigation
   useEffect(() => {
@@ -119,9 +143,25 @@ export default function Layout({ role, userName, children }: LayoutProps) {
     navigate('/login')
   }
 
+  const switchRole = async (targetRole: UserRole) => {
+    if (targetRole === role || switchingRole) return
+    setSwitchingRole(targetRole)
+    const target = DEMO_USERS[targetRole]
+    try {
+      const res = await api_login(target.email, target.pass)
+      auth.setToken(res.access_token)
+      await refresh()
+      navigate(target.path)
+    } catch (err) {
+      console.error('Role switch failed', err)
+    } finally {
+      setSwitchingRole(null)
+    }
+  }
+
   const sidebarContent = (onNavigate?: () => void) => (
     <>
-      <div className="border-b border-border px-4 py-4">
+      <div className="border-b border-border/80 px-4 py-4">
         <Link to="/" className="flex items-center gap-2.5" onClick={onNavigate}>
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-xs">
             <LensLogo className="h-5 w-5" />
@@ -146,7 +186,7 @@ export default function Layout({ role, userName, children }: LayoutProps) {
               cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-primary/10 text-primary'
+                  ? 'bg-primary/10 text-primary font-semibold'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground',
               )
             }
@@ -157,7 +197,7 @@ export default function Layout({ role, userName, children }: LayoutProps) {
         ))}
       </nav>
 
-      <div className="border-t border-border p-3">
+      <div className="border-t border-border/80 p-3">
         <div className="flex items-center gap-3 rounded-lg px-2 py-1.5">
           <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
             <RoleIcon className="h-4 w-4" aria-hidden />
@@ -181,8 +221,10 @@ export default function Layout({ role, userName, children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-background">
+      <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} />
+
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-border bg-card lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-border/80 bg-card/95 backdrop-blur-md lg:flex">
         {sidebarContent()}
       </aside>
 
@@ -190,12 +232,12 @@ export default function Layout({ role, userName, children }: LayoutProps) {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/50 animate-fade-in"
+            className="absolute inset-0 bg-black/50 backdrop-blur-xs animate-fade-in"
             onClick={() => setOpen(false)}
             aria-hidden
           />
           <div
-            className="absolute inset-y-0 left-0 flex w-[272px] flex-col border-r border-border bg-card animate-slide-in"
+            className="absolute inset-y-0 left-0 flex w-[272px] flex-col border-r border-border bg-card/95 backdrop-blur-md animate-slide-in"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
@@ -214,9 +256,10 @@ export default function Layout({ role, userName, children }: LayoutProps) {
 
       {/* Content column */}
       <div className="flex min-h-screen flex-col lg:pl-[248px]">
-        <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
-          <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-            <div className="flex min-w-0 items-center gap-2">
+        <header className="sticky top-0 z-30 border-b border-border/80 bg-card/80 backdrop-blur-md">
+          <div className="flex h-14 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+            {/* Left: Mobile menu + Breadcrumb */}
+            <div className="flex min-w-0 items-center gap-3">
               <button
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"
@@ -242,12 +285,65 @@ export default function Layout({ role, userName, children }: LayoutProps) {
               </nav>
             </div>
 
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <div className="hidden text-right md:block">
-                <div className="text-xs font-medium leading-tight text-foreground">{userName}</div>
-                <div className="text-[11px] leading-tight text-subtle-foreground">{roleLabel[role]}</div>
+            {/* Center: Command Palette Trigger */}
+            <div className="flex items-center">
+              <button
+                type="button"
+                onClick={() => setCmdOpen(true)}
+                className="flex items-center gap-2 rounded-xl border border-border/80 bg-background/60 hover:bg-muted/80 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-all shadow-xs cursor-pointer"
+                title="Search MSMEs or commands (Cmd+K / Ctrl+K)"
+              >
+                <Search className="h-3.5 w-3.5 text-muted-foreground" />
+                <span className="hidden md:inline">Quick search or command...</span>
+                <span className="md:hidden">Search...</span>
+                <kbd className="hidden sm:inline-block rounded border border-border/70 bg-card px-1.5 py-0.5 font-mono text-[10px] text-subtle-foreground shadow-xs">
+                  {typeof navigator !== 'undefined' && navigator.platform.toUpperCase().includes('MAC') ? '⌘K' : 'Ctrl+K'}
+                </kbd>
+              </button>
+            </div>
+
+            {/* Right: Quick Role Switcher + Engine Indicator + Theme + User */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Quick Role Switcher Pills */}
+              <div className="hidden lg:flex items-center gap-1 rounded-xl border border-border/70 bg-background/50 p-1 shadow-xs">
+                {(['LENDER', 'MSME', 'GOVERNMENT', 'ADMIN'] as UserRole[]).map((r) => {
+                  const isCurrent = r === role
+                  const isSwitching = switchingRole === r
+                  return (
+                    <button
+                      key={r}
+                      type="button"
+                      disabled={isCurrent || switchingRole !== null}
+                      onClick={() => switchRole(r)}
+                      className={cn(
+                        'flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-all cursor-pointer',
+                        isCurrent
+                          ? 'bg-primary text-primary-foreground shadow-xs'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                        switchingRole && !isSwitching && 'opacity-50 pointer-events-none',
+                      )}
+                      title={`Switch to ${DEMO_USERS[r].label}`}
+                    >
+                      {isSwitching && <Loader2 className="h-3 w-3 animate-spin" />}
+                      <span>{DEMO_USERS[r].short}</span>
+                    </button>
+                  )
+                })}
               </div>
+
+              {/* Operational Indicator */}
+              <span className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-success/30 bg-success/10 px-2.5 py-1 text-[11px] font-medium text-success">
+                <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+                <span>Engine Active</span>
+              </span>
+
+              <ThemeToggle />
+
+              <div className="hidden text-right md:block">
+                <div className="text-xs font-medium leading-tight text-foreground truncate max-w-[130px]">{userName}</div>
+                <div className="text-[10px] leading-tight text-subtle-foreground">{roleLabel[role]}</div>
+              </div>
+
               <button
                 onClick={signOut}
                 className="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -264,7 +360,7 @@ export default function Layout({ role, userName, children }: LayoutProps) {
           <div className="animate-fade-up">{children}</div>
         </main>
 
-        <footer className="border-t border-border bg-card">
+        <footer className="border-t border-border/80 bg-card/80 backdrop-blur-md">
           <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-3 px-4 py-4 sm:flex-row sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <span className="font-semibold text-foreground">CredLens</span>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Play, Search } from 'lucide-react'
 import { api_list_msmes, api_run_assessment, type MSMEListItem } from '../../api/client'
-import { Badge, Button, Card, EmptyState, ErrorState, Spinner, buttonClasses, errorMessage } from '../../components/UI'
+import { Badge, Button, Card, EmptyState, ErrorState, Spinner, TableSkeleton, buttonClasses, errorMessage } from '../../components/UI'
 import { useToast } from '../../components/Toast'
 import { formatINR, gradeColor, outcomeColor, scoreColor } from '../../utils/format'
 
@@ -127,7 +127,7 @@ export default function MsmeSearch() {
       {error != null && <ErrorState error={error} onRetry={load} />}
 
       {loading ? (
-        <Spinner />
+        <TableSkeleton rows={8} cols={6} />
       ) : rows.length === 0 ? (
         <Card>
           <EmptyState

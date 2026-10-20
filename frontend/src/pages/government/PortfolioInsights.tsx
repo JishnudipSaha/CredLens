@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { Activity, Building2, Gauge, Wallet } from 'lucide-react'
 import { api_portfolio_insights, type PortfolioInsights } from '../../api/client'
-import { Card, ErrorState, Spinner, Stat } from '../../components/UI'
+import { Card, CardSkeleton, ErrorState, Skeleton, Stat, StatSkeleton } from '../../components/UI'
 import { ChartCard, ChartTooltip, axisProps, useChartColors } from '../../components/charts'
 import { formatINR } from '../../utils/format'
 
@@ -25,7 +25,26 @@ export default function PortfolioInsightsPage() {
     load()
   }, [load])
 
-  if (loading) return <Spinner />
+  if (loading) {
+    return (
+      <div className="space-y-6 animate-fade-in" aria-busy="true">
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-64" />
+          <Skeleton className="h-4 w-80" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <StatSkeleton />
+          <StatSkeleton />
+          <StatSkeleton />
+          <StatSkeleton />
+        </div>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <CardSkeleton lines={6} className="h-80" />
+          <CardSkeleton lines={6} className="h-80" />
+        </div>
+      </div>
+    )
+  }
   if (error) return <ErrorState error={error} onRetry={load} />
   if (!data) return <ErrorState error="No portfolio data available." onRetry={load} />
 

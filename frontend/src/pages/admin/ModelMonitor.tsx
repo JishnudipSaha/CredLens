@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Activity, ArrowRight, Gavel, Gauge, MessageSquare, RefreshCw } from 'lucide-react'
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { api_audit_log, api_model_monitor, api_retrain, type ModelMonitorStats } from '../../api/client'
-import { Alert, Badge, Button, Card, EmptyState, ErrorState, Spinner, Stat, buttonClasses, errorMessage } from '../../components/UI'
+import { Alert, Badge, Button, Card, CardSkeleton, EmptyState, ErrorState, Skeleton, Stat, StatSkeleton, buttonClasses, errorMessage } from '../../components/UI'
 import { ChartCard, ChartTooltip, axisProps, useChartColors } from '../../components/charts'
 import { useToast } from '../../components/Toast'
 import { formatDateTime } from '../../utils/format'
@@ -65,7 +65,30 @@ export default function ModelMonitor() {
     }
   }
 
-  if (loading) return <Spinner />
+  if (loading) {
+    return (
+      <div className="space-y-6 animate-fade-in" aria-busy="true">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-60" />
+            <Skeleton className="h-4 w-80" />
+          </div>
+          <Skeleton className="h-9 w-32 rounded-lg" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <StatSkeleton />
+          <StatSkeleton />
+          <StatSkeleton />
+          <StatSkeleton />
+        </div>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <CardSkeleton lines={6} className="h-80" />
+          <CardSkeleton lines={6} className="h-80" />
+        </div>
+        <CardSkeleton lines={4} />
+      </div>
+    )
+  }
   if (error) return <ErrorState error={error} onRetry={load} />
   if (!stats) return <ErrorState error="No model statistics available." onRetry={load} />
 

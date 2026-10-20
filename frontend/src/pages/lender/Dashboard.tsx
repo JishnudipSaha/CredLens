@@ -10,7 +10,7 @@ import {
   type MSMEListItem,
   type ModelMonitorStats,
 } from '../../api/client'
-import { Badge, Card, EmptyState, ErrorState, Spinner, Stat, buttonClasses } from '../../components/UI'
+import { Badge, Card, CardSkeleton, EmptyState, ErrorState, Skeleton, Spinner, Stat, StatSkeleton, buttonClasses } from '../../components/UI'
 import { ChartCard, ChartTooltip, axisProps, useChartColors } from '../../components/charts'
 import { formatDate, formatINR, gradeColor, outcomeColor } from '../../utils/format'
 
@@ -39,7 +39,27 @@ export default function LenderDashboard() {
     load()
   }, [load])
 
-  if (loading) return <Spinner />
+  if (loading) {
+    return (
+      <div className="space-y-6 animate-fade-in" aria-busy="true">
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-4 w-72" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <StatSkeleton />
+          <StatSkeleton />
+          <StatSkeleton />
+          <StatSkeleton />
+        </div>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <CardSkeleton lines={6} className="h-80" />
+          <CardSkeleton lines={6} className="h-80" />
+        </div>
+        <CardSkeleton lines={5} />
+      </div>
+    )
+  }
   if (error) return <ErrorState error={error} onRetry={load} />
 
   const recent = decisions.slice(0, 8)

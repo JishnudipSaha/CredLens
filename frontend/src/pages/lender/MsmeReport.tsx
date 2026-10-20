@@ -6,7 +6,7 @@ import {
   FileCheck, Scale, Building2, Percent, ShieldAlert, FileText, Check,
 } from 'lucide-react'
 import { api_get_credit_report, api_run_assessment, api_submit_feedback, type CreditReport } from '../../api/client'
-import { Alert, Badge, Button, Card, EmptyState, ErrorState, Spinner, Stat, errorMessage } from '../../components/UI'
+import { Alert, Badge, Button, Card, EmptyState, ErrorState, ReportSkeleton, Spinner, Stat, errorMessage } from '../../components/UI'
 import { ScoreGauge } from '../../components/ScoreGauge'
 import { useToast } from '../../components/Toast'
 import { dash, formatDate, formatDateTime, formatINR, formatNumber, formatPct, outcomeColor } from '../../utils/format'
@@ -59,7 +59,7 @@ export default function MsmeReport() {
     }
   }
 
-  if (loading) return <Spinner />
+  if (loading) return <ReportSkeleton />
   if (loadError) return <ErrorState error={loadError} onRetry={load} />
   if (!report) {
     return (

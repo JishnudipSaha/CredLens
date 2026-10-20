@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Gavel } from 'lucide-react'
 import { api_list_decisions, api_list_msmes, type Decision, type MSMEListItem } from '../../api/client'
-import { Badge, Card, EmptyState, ErrorState, Spinner } from '../../components/UI'
+import { Badge, Card, EmptyState, ErrorState, TableSkeleton } from '../../components/UI'
 import { formatDate, formatINR, gradeColor, outcomeColor } from '../../utils/format'
 
 export default function Decisions() {
@@ -53,7 +53,7 @@ export default function Decisions() {
       {error != null && <ErrorState error={error} onRetry={load} />}
 
       {loading ? (
-        <Spinner />
+        <TableSkeleton rows={8} cols={6} />
       ) : decisions.length === 0 ? (
         <Card>
           <EmptyState

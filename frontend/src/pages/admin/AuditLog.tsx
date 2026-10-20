@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ScrollText } from 'lucide-react'
 import { api_audit_log } from '../../api/client'
-import { Badge, Card, EmptyState, ErrorState, Spinner } from '../../components/UI'
+import { Badge, Card, EmptyState, ErrorState, TableSkeleton } from '../../components/UI'
 import { formatDateTime } from '../../utils/format'
 
 interface AuditRow {
@@ -64,7 +64,7 @@ export default function AuditLog() {
       {error != null && <ErrorState error={error} onRetry={load} />}
 
       {loading ? (
-        <Spinner />
+        <TableSkeleton rows={8} cols={5} />
       ) : filtered.length === 0 ? (
         <Card>
           <EmptyState

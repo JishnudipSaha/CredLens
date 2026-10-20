@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { BadgeCheck, CalendarDays, IndianRupee, Lightbulb, TrendingUp, Upload } from 'lucide-react'
 import { useAuth } from '../../context'
 import { api_get_credit_report, type CreditReport } from '../../api/client'
-import { Alert, Badge, Button, Card, EmptyState, ErrorState, Spinner, Stat } from '../../components/UI'
+import { Alert, Badge, Button, Card, EmptyState, ErrorState, ReportSkeleton, Stat } from '../../components/UI'
 import { ScoreGauge } from '../../components/ScoreGauge'
 import { formatDate, formatINR, formatNumber, formatPct, outcomeColor } from '../../utils/format'
 
@@ -32,7 +32,7 @@ export default function MsmeDashboard() {
     load()
   }, [load])
 
-  if (loading) return <Spinner />
+  if (loading) return <ReportSkeleton />
   if (error) return <ErrorState error={error} onRetry={load} />
   if (!report) return <EmptyState title="No MSME found" message="Your account has no linked business profile." />
 

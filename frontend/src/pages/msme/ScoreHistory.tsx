@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import { History } from 'lucide-react'
 import { api, api_list_msmes, type ScoreRun } from '../../api/client'
-import { Card, EmptyState, ErrorState, Spinner } from '../../components/UI'
+import { Card, CardSkeleton, EmptyState, ErrorState, Skeleton, TableSkeleton } from '../../components/UI'
 import { ChartCard, ChartTooltip, axisProps, useChartColors } from '../../components/charts'
 import { useAuth } from '../../context'
 import { formatDateTime, formatPct, gradeColor, scoreColor } from '../../utils/format'
@@ -32,7 +32,18 @@ export default function ScoreHistory() {
     load()
   }, [load])
 
-  if (loading) return <Spinner />
+  if (loading) {
+    return (
+      <div className="space-y-6 animate-fade-in" aria-busy="true">
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-4 w-72" />
+        </div>
+        <CardSkeleton lines={6} className="h-80" />
+        <TableSkeleton rows={5} cols={5} />
+      </div>
+    )
+  }
   if (error) return <ErrorState error={error} onRetry={load} />
 
   if (runs.length === 0) {
