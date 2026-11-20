@@ -4,11 +4,14 @@ Spawns the FastAPI backend on :8000 and the Vite frontend on :5173.
 """
 from __future__ import annotations
 
+import logging
 import os
 import subprocess
 import sys
 import time
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent
 BACKEND = ROOT / "backend"
@@ -72,8 +75,8 @@ def main() -> int:
             if proc.poll() is None:
                 try:
                     proc.terminate()
-                except Exception:
-                    pass
+                except OSError as exc:
+                    logger.warning("Failed to terminate %s process (PID %s): %s", name, proc.pid, exc)
                 try:
                     proc.wait(timeout=5)
                 except subprocess.TimeoutExpired:
