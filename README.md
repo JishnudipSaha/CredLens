@@ -100,6 +100,18 @@ python run.py
 
 This starts the backend and frontend together, with logs to `backend.log` and `frontend.log`. Press Ctrl+C to stop both.
 
+### 4. Standalone Vercel Demo (Zero-Backend)
+
+For 1-click hosting on Vercel with zero server or database setup:
+
+```bash
+cd demo
+npm install
+npm run dev # opens on http://127.0.0.1:5174
+```
+
+To deploy to Vercel, simply import the repo and set Root Directory to `demo`. See [`demo/README.md`](demo/README.md).
+
 ---
 
 ## Demo accounts
@@ -241,6 +253,13 @@ CredLens/
 |        +- msme/                  # Dashboard, UploadData, ScoreHistory
 |        +- government/            # PortfolioInsights
 |        +- admin/                 # ModelMonitor, AuditLog
++- demo/                           # Standalone Vercel Demo (Zero-Backend, in-browser engine)
+|  +- vercel.json                  # Vercel SPA routing
+|  +- package.json                 # standalone Vite project
+|  +- README.md                    # 1-click Vercel deployment guide
+|  +- src/
+|     +- mock/                     # 50 MSMEs seed data + TypeScript underwriting engine
+|     +- api/client.ts             # zero-latency in-browser mock API client
 +- designs/                        # Stitch design references (HTML + screenshots)
 ```
 

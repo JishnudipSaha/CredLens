@@ -1,22 +1,56 @@
 # Deploying CredLens
 
-You have four deployment options, ordered from quickest to most production-grade. Pick the one that matches your budget, scale, and operational appetite.
+You have multiple deployment options, ordered from quickest to most production-grade. Pick the one that matches your budget, scale, and operational appetite.
 
 
-| Option               | Frontend                 | Backend                  | DB                         | Time to live | Cost             |
-| -------------------- | ------------------------ | ------------------------ | -------------------------- | ------------ | ---------------- |
-| 1. Vercel + Render   | Vercel free              | Render starter           | Render Postgres (free 90d) | 15 min       | $0 (then ~$7/mo) |
-| 2. Single VM         | nginx                    | uvicorn + systemd        | SQLite or Postgres         | 45 min       | $5-10/mo         |
-| 3. Docker on a VM    | nginx (container)        | FastAPI (container)      | Postgres (container)       | 30 min       | $5-10/mo         |
-| 4. AWS / GCP managed | S3+CloudFront or Amplify | ECS Fargate or Cloud Run | RDS Postgres               | 2-3 hrs      | $30+/mo          |
+| Option                          | Frontend                 | Backend                  | DB                         | Time to live | Cost             |
+| ------------------------------- | ------------------------ | ------------------------ | -------------------------- | ------------ | ---------------- |
+| **0. Standalone Vercel Demo**   | Vercel free (`demo/`)    | Client-side Engine       | In-Browser / LocalStorage  | 1 min        | $0 forever       |
+| 1. Vercel + Render              | Vercel free (`frontend/`)| Render starter           | Render Postgres (free 90d) | 15 min       | $0 (then ~$7/mo) |
+| 2. Single VM                    | nginx                    | uvicorn + systemd        | SQLite or Postgres         | 45 min       | $5-10/mo         |
+| 3. Docker on a VM               | nginx (container)        | FastAPI (container)      | Postgres (container)       | 30 min       | $5-10/mo         |
+| 4. AWS / GCP managed            | S3+CloudFront or Amplify | ECS Fargate or Cloud Run | RDS Postgres               | 2-3 hrs      | $30+/mo          |
 
 
-The codebase ships with config for all four:
+The codebase ships with config for all options:
 
-- `vercel.json` (Vercel routing)
+- `demo/vercel.json` (Standalone Vercel Demo routing)
+- `vercel.json` (Full-stack Vercel routing)
 - `render.yaml` (Render Blueprint)
 - `Dockerfile` x2 + `docker-compose.yml` (Docker route)
 - The backend reads `CREDLENS_DATABASE_URL`, `CREDLENS_SECRET_KEY`, and `CREDLENS_CORS_ORIGINS` env vars for any provider.
+
+---
+
+## Option 0: Standalone Vercel Demo (Fastest & Zero Infrastructure)
+
+This deploys an independent, 100% self-contained demo edition directly to Vercel in 60 seconds with **zero backend server**, **zero cold starts**, and **zero external database setup**.
+
+It includes the complete institutional UI, Command Palette (`⌘K`), 1-Click Role Switcher, Skeletons, and an in-browser underwriting engine pre-seeded with 50 MSMEs.
+
+### 0.1 Deploy via Vercel Dashboard
+
+1. Push your repository to GitHub.
+2. In the [Vercel Dashboard](https://vercel.com/dashboard), click **"Add New..."** → **"Project"**.
+3. Import your `CredLens` repo.
+4. In the configuration screen:
+   - **Framework Preset:** `Vite`
+   - **Root Directory:** Click `Edit` and select `demo`
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+   - **Environment Variables:** *(None required — leave empty)*
+5. Click **"Deploy"**.
+6. Done! Your live demo will be up at `https://your-project.vercel.app` in ~30 seconds.
+
+### 0.2 Deploy via Vercel CLI
+
+```bash
+cd demo
+npm install
+vercel
+```
+
+Follow the prompts (Root: `./`, Framework: `Vite`). It deploys instantly.
 
 ---
 
